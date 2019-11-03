@@ -7,14 +7,24 @@
 //
 
 import SwiftUI
+#if !targetEnvironment(simulator)
+import RenderKit
 import PixelKit
+#endif
 
 struct ContentView: View {
+    @EnvironmentObject var sora: Sora
     var body: some View {
         VStack {
             GeometryReader { geo in
                 ZStack() {
-                    LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: .bottom, endPoint: .top)
+                    Group {
+                        #if targetEnvironment(simulator)
+                        LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
+                        #else
+                        RawNODEUI(node: self.sora.finalPix)
+                        #endif
+                    }
                         .mask(ZStack {
                             Rectangle()
                                 .frame(height: geo.size.width / 2)
@@ -27,7 +37,7 @@ struct ContentView: View {
                         Rectangle()
                             .foregroundColor(.black)
                         #else
-                        CameraPIXUI()
+                        RawNODEUI(node: self.sora.cameraPix)
                         #endif
                     }
                         .mask(Circle())
@@ -35,7 +45,11 @@ struct ContentView: View {
                 }
             }
             .aspectRatio(1.0 / 1.5, contentMode: .fit)
-            Picker(selection: .constant(0), label: EmptyView()) {
+            Picker(selection: Binding<Int>(get: {
+                self.sora.direction == .horizontal ? 0 : 1
+            }, set: { index in
+                self.sora.direction = index == 0 ? .horizontal : .vertical
+            }), label: EmptyView()) {
                 Text("Horizontal").tag(0)
                 Text("Vertical").tag(1)
             }
@@ -52,5 +66,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(Sora())
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		7482B26C236F22430086C661 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7482B26B236F22430086C661 /* Assets.xcassets */; };
 		7482B26F236F22430086C661 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7482B26E236F22430086C661 /* Preview Assets.xcassets */; };
 		7482B272236F22430086C661 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7482B270236F22430086C661 /* LaunchScreen.storyboard */; };
+		7482B27A236F282C0086C661 /* Sora.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B279236F282C0086C661 /* Sora.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		7482B26E236F22430086C661 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7482B271236F22430086C661 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7482B273236F22430086C661 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7482B279236F282C0086C661 /* Sora.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sora.swift; sourceTree = "<group>"; };
 		A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
 		EA36FBAC61A4D0914018E192 /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -74,6 +76,7 @@
 				7482B265236F22410086C661 /* AppDelegate.swift */,
 				7482B267236F22410086C661 /* SceneDelegate.swift */,
 				7482B269236F22410086C661 /* ContentView.swift */,
+				7482B279236F282C0086C661 /* Sora.swift */,
 				7482B26B236F22430086C661 /* Assets.xcassets */,
 				7482B270236F22430086C661 /* LaunchScreen.storyboard */,
 				7482B273236F22430086C661 /* Info.plist */,
@@ -96,7 +99,6 @@
 				48418DC605E724739CFE525C /* Pods-Sora.debug.xcconfig */,
 				A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -217,6 +219,7 @@
 			files = (
 				7482B266236F22410086C661 /* AppDelegate.swift in Sources */,
 				7482B268236F22410086C661 /* SceneDelegate.swift in Sources */,
+				7482B27A236F282C0086C661 /* Sora.swift in Sources */,
 				7482B26A236F22410086C661 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
