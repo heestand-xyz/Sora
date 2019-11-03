@@ -13,7 +13,7 @@ import PixelKit
 #endif
 
 struct ContentView: View {
-    @ObservedObject var sora: Sora
+    @ObservedObject var sora: Main
     var body: some View {
         ZStack {
             Group {
@@ -39,16 +39,40 @@ struct ContentView: View {
                 }
                     .pickerStyle(SegmentedPickerStyle())
                 Spacer()
-                Group {
-                    #if targetEnvironment(simulator)
-                    GradientTemplateView(sora: self.sora)
-                    #else
-                    RawNODEUI(node: self.sora.capturePix)
-                    #endif
+                HStack(spacing: 50) {
+                    Button(action: {
+                        self.sora.state = .preview
+                    }) {
+                        Group {
+                            GradientTemplateView(sora: self.sora)
+                        }
+                        .mask(Circle())
+                            .frame(width: 40, height: 40)
+                    }
+                    Button(action: {
+                        self.sora.capture()
+                    }) {
+                        Group {
+                            #if targetEnvironment(simulator)
+                            GradientTemplateView(sora: self.sora)
+                            #else
+                            RawNODEUI(node: self.sora.capturePix)
+                            #endif
+                        }
+                        .mask(Circle())
+                            .frame(width: 60, height: 60)
+                            .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.primary))
+                    }
+                    Button(action: {
+                        
+                    }) {
+                        Group {
+                            Color.primary
+                        }
+                        .mask(Circle())
+                            .frame(width: 40, height: 40)
+                    }
                 }
-                .mask(Circle())
-                    .frame(width: 60, height: 60)
-                    .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.white))
                 Spacer()
             }
                 .padding(30)
@@ -57,7 +81,7 @@ struct ContentView: View {
 }
 
 struct CameraTemplateView: View {
-    @ObservedObject var sora: Sora
+    @ObservedObject var sora: Main
     var body: some View {
         Rectangle()
             .foregroundColor(.black)
@@ -65,7 +89,7 @@ struct CameraTemplateView: View {
 }
 
 struct GradientTemplateView: View {
-    @ObservedObject var sora: Sora
+    @ObservedObject var sora: Main
     var body: some View {
         LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
     }
@@ -73,6 +97,14 @@ struct GradientTemplateView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(sora: Sora())
+        Group {
+            ContentView(sora: Main())
+            ZStack {
+                Color.black
+                    .edgesIgnoringSafeArea(.all)
+                ContentView(sora: Main())
+                    .colorScheme(.dark)
+            }
+        }
     }
 }

@@ -12,7 +12,13 @@ import RenderKit
 import PixelKit
 #endif
 
-class Sora: ObservableObject {
+class Main: ObservableObject {
+    
+    enum State {
+        case live
+        case preview
+    }
+    @Published var state: State = .live
     
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
@@ -111,5 +117,18 @@ class Sora: ObservableObject {
         #endif
         
     }
+    
+    func capture() {
+        #if !targetEnvironment(simulator)
+        guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
+        guard let gradientImage = finalPix.renderedImage else { captureFailed(); return }
+        #endif
+        state = .preview
+        #if !targetEnvironment(simulator)
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        #endif
+    }
+    
+    func captureFailed() {}
     
 }

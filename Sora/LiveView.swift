@@ -13,7 +13,7 @@ import PixelKit
 #endif
 
 struct LiveView: View {
-    @ObservedObject var sora: Sora
+    @ObservedObject var sora: Main
     var body: some View {
         GeometryReader { geo in
             ZStack() {
@@ -48,6 +48,6 @@ struct LiveView: View {
 
 struct LiveView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveView(sora: Sora())
+        LiveView(sora: Main())
     }
 }
