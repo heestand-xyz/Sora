@@ -45,17 +45,19 @@ class Sora: ObservableObject {
         
         #if !targetEnvironment(simulator)
         cameraPix = CameraPIX()
+        cameraPix.view.placement = .aspectFill
         
-        resolutionPix = ResolutionPIX(at: ._256)
+        resolutionPix = ResolutionPIX(at: .square(255))
         resolutionPix.input = cameraPix
-        
+        resolutionPix.placement = .aspectFill
+
         blurPix = BlurPIX()
         blurPix.input = resolutionPix
         blurPix.radius = 0.5
-        
-        gradientPix = GradientPIX(at: ._256)
+
+        gradientPix = GradientPIX(at: .square(255))
         gradientPix.direction = .vertical
-        
+
         lookupPix = LookupPIX()
         lookupPix.axis = .y
         lookupPix.inputA = gradientPix
