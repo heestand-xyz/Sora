@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  Sora
 //
 //  Created by Hexagons on 2019-11-03.
@@ -12,7 +12,7 @@ import RenderKit
 import PixelKit
 #endif
 
-struct ContentView: View {
+struct MainView: View {
     @ObservedObject var sora: Main
     var body: some View {
         ZStack {
@@ -41,12 +41,10 @@ struct ContentView: View {
                 Spacer()
                 HStack(spacing: 50) {
                     Button(action: {
-                        self.sora.state = .preview
+                        self.sora.state = .display
                     }) {
-                        Group {
-                            GradientTemplateView(sora: self.sora)
-                        }
-                        .mask(Circle())
+                        GradientTemplateView(sora: self.sora)
+                            .mask(Circle())
                             .frame(width: 40, height: 40)
                     }
                     Button(action: {
@@ -66,10 +64,8 @@ struct ContentView: View {
                     Button(action: {
                         
                     }) {
-                        Group {
-                            Color.primary
-                        }
-                        .mask(Circle())
+                        Color.primary
+                            .mask(Circle())
                             .frame(width: 40, height: 40)
                     }
                 }
@@ -80,31 +76,8 @@ struct ContentView: View {
     }
 }
 
-struct CameraTemplateView: View {
-    @ObservedObject var sora: Main
-    var body: some View {
-        Rectangle()
-            .foregroundColor(.black)
-    }
-}
-
-struct GradientTemplateView: View {
-    @ObservedObject var sora: Main
-    var body: some View {
-        LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ContentView(sora: Main())
-            ZStack {
-                Color.black
-                    .edgesIgnoringSafeArea(.all)
-                ContentView(sora: Main())
-                    .colorScheme(.dark)
-            }
-        }
+        MainView(sora: Main())
     }
 }

@@ -15,10 +15,10 @@ import PixelKit
 class Main: ObservableObject {
     
     enum State {
-        case live
-        case preview
+        case main
+        case display
     }
-    @Published var state: State = .live
+    @Published var state: State = .main
     
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
@@ -123,7 +123,7 @@ class Main: ObservableObject {
         guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
         guard let gradientImage = finalPix.renderedImage else { captureFailed(); return }
         #endif
-        state = .preview
+        state = .display
         #if !targetEnvironment(simulator)
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         #endif

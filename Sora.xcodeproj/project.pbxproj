@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1ED9900090A501A8C611E328 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1CD343E1A435E54C63BDA6 /* Pods_Sora.framework */; };
+		74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A349236F6E2A000F4314 /* DisplayView.swift */; };
+		74C8A34C236F6ED2000F4314 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A34B236F6ED2000F4314 /* MainView.swift */; };
 		74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */; };
 		74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */; };
 		74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBE236F3F3F004BD10E /* ContentView.swift */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		59707DDA7B058778E662C967 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
+		74C8A349236F6E2A000F4314 /* DisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
+		74C8A34B236F6ED2000F4314 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		74ED8EB7236F3F3F004BD10E /* Sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +50,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74C8A34D236F7017000F4314 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				74ED8EBE236F3F3F004BD10E /* ContentView.swift */,
+				74C8A34E236F7027000F4314 /* Main */,
+				74C8A34F236F702F000F4314 /* Display */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		74C8A34E236F7027000F4314 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				74C8A34B236F6ED2000F4314 /* MainView.swift */,
+				74ED8ECF236F3FAD004BD10E /* LiveView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		74C8A34F236F702F000F4314 /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				74C8A349236F6E2A000F4314 /* DisplayView.swift */,
+			);
+			path = Display;
+			sourceTree = "<group>";
+		};
 		74ED8EAE236F3F3F004BD10E = {
 			isa = PBXGroup;
 			children = (
@@ -69,8 +100,7 @@
 			children = (
 				74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */,
 				74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */,
-				74ED8EBE236F3F3F004BD10E /* ContentView.swift */,
-				74ED8ECF236F3FAD004BD10E /* LiveView.swift */,
+				74C8A34D236F7017000F4314 /* Views */,
 				74ED8ECE236F3FAC004BD10E /* Sora.swift */,
 				74ED8EC0236F3F42004BD10E /* Assets.xcassets */,
 				74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */,
@@ -221,10 +251,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */,
+				74C8A34C236F6ED2000F4314 /* MainView.swift in Sources */,
 				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
 				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,
 				74ED8ED0236F3FAD004BD10E /* Sora.swift in Sources */,
 				74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */,
+				74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
