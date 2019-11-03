@@ -30,6 +30,8 @@ class Sora: ObservableObject {
     enum Direction {
         case horizontal
         case vertical
+        case angle
+        case radial
     }
     @Published var direction: Direction = .vertical {
         didSet {
@@ -39,10 +41,22 @@ class Sora: ObservableObject {
                 gradientPix.direction = .horizontal
                 lookupPix.axis = .x
                 gradientPix.offset = 0.0
+                gradientPix.extendRamp = .hold
             case .vertical:
                 gradientPix.direction = .vertical
                 lookupPix.axis = .y
                 gradientPix.offset = 1.0
+                gradientPix.extendRamp = .mirror
+            case .angle:
+                gradientPix.direction = .angle
+                lookupPix.axis = .y
+                gradientPix.offset = 0.75
+                gradientPix.extendRamp = .loop
+            case .radial:
+                gradientPix.direction = .radial
+                lookupPix.axis = .y
+                gradientPix.offset = 1.0
+                gradientPix.extendRamp = .mirror
             }
             #endif
         }

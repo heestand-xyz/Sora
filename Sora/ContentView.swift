@@ -28,12 +28,14 @@ struct ContentView: View {
             VStack {
                 LiveView(sora: self.sora)
                 Picker(selection: Binding<Int>(get: {
-                    self.sora.direction == .horizontal ? 0 : 1
+                    self.sora.direction == .horizontal ? 0 : self.sora.direction == .vertical ? 1 : self.sora.direction == .angle ? 2 : 3
                 }, set: { index in
-                    self.sora.direction = index == 0 ? .horizontal : .vertical
+                    self.sora.direction = index == 0 ? .horizontal : index == 1 ? .vertical : index == 2 ? .angle : .radial
                 }), label: EmptyView()) {
-                    Text("Horizontal").tag(0)
-                    Text("Vertical").tag(1)
+                    Text("H").tag(0)
+                    Text("V").tag(1)
+                    Text("A").tag(2)
+                    Text("R").tag(3)
                 }
                     .pickerStyle(SegmentedPickerStyle())
                 Spacer()
@@ -44,8 +46,9 @@ struct ContentView: View {
                     RawNODEUI(node: self.sora.capturePix)
                     #endif
                 }
-                    .mask(Circle())
-                    .frame(width: 80, height: 80)
+                .mask(Circle())
+                    .frame(width: 60, height: 60)
+                    .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.white))
                 Spacer()
             }
                 .padding(30)

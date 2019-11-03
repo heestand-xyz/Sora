@@ -6,6 +6,9 @@ target 'Sora' do
   use_frameworks!
 
   # Pods for Sora
+  #pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
+  #pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
+  #pod 'PixelKit', :path => '~/Documents/Code/Frameworks/Production/PixelKit'
   pod 'PixelKit'
 
 end
