@@ -13,12 +13,12 @@ import PixelKit
 #endif
 
 struct ContentView: View {
-    @EnvironmentObject var sora: Sora
+    @ObservedObject var sora: Sora
     var body: some View {
         ZStack {
             Group {
                 #if targetEnvironment(simulator)
-                LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
+                GradientTemplateView(sora: self.sora)
                 #else
                 RawNODEUI(node: self.sora.backgroundPix)
                 #endif
@@ -26,35 +26,7 @@ struct ContentView: View {
                 .opacity(0.25)
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                GeometryReader { geo in
-                    ZStack() {
-                        Group {
-                            #if targetEnvironment(simulator)
-                            LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
-                            #else
-                            RawNODEUI(node: self.sora.finalPix)
-                            #endif
-                        }
-                            .mask(ZStack {
-                                Rectangle()
-                                    .frame(height: geo.size.width / 2)
-                                    .offset(y: -geo.size.width / 4)
-                                Circle()
-                            })
-                            .offset(y: geo.size.width / 4)
-                        Group {
-                            #if targetEnvironment(simulator)
-                            Rectangle()
-                                .foregroundColor(.black)
-                            #else
-                            RawNODEUI(node: self.sora.cameraPix)
-                            #endif
-                        }
-                            .mask(Circle())
-                            .offset(y: -geo.size.width / 4)
-                    }
-                }
-                .aspectRatio(1.0 / 1.5, contentMode: .fit)
+                LiveView(sora: self.sora)
                 Picker(selection: Binding<Int>(get: {
                     self.sora.direction == .horizontal ? 0 : 1
                 }, set: { index in
@@ -63,18 +35,14 @@ struct ContentView: View {
                     Text("Horizontal").tag(0)
                     Text("Vertical").tag(1)
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(SegmentedPickerStyle())
                 Spacer()
-                ZStack {
-                    Group {
-                        #if targetEnvironment(simulator)
-                        LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
-                        #else
-                        RawNODEUI(node: self.sora.capturePix)
-                        #endif
-                    }
-//                    Color.primary
-//                        .opacity(0.5)
+                Group {
+                    #if targetEnvironment(simulator)
+                    GradientTemplateView(sora: self.sora)
+                    #else
+                    RawNODEUI(node: self.sora.capturePix)
+                    #endif
                 }
                     .mask(Circle())
                     .frame(width: 80, height: 80)
@@ -85,9 +53,23 @@ struct ContentView: View {
     }
 }
 
+struct CameraTemplateView: View {
+    @ObservedObject var sora: Sora
+    var body: some View {
+        Rectangle()
+            .foregroundColor(.black)
+    }
+}
+
+struct GradientTemplateView: View {
+    @ObservedObject var sora: Sora
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(Sora())
+        ContentView(sora: Sora())
     }
 }

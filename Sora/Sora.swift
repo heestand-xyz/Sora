@@ -51,6 +51,7 @@ class Sora: ObservableObject {
     init() {
         
         #if !targetEnvironment(simulator)
+        
         cameraPix = CameraPIX()
         cameraPix.view.placement = .aspectFill
         cameraPix.view.checker = false
