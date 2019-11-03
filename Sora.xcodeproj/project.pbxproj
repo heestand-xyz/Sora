@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05A55DB6FC64F1BC0AA6F020 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA36FBAC61A4D0914018E192 /* Pods_Sora.framework */; };
 		7482B266236F22410086C661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B265236F22410086C661 /* AppDelegate.swift */; };
 		7482B268236F22410086C661 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B267236F22410086C661 /* SceneDelegate.swift */; };
 		7482B26A236F22410086C661 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B269236F22410086C661 /* ContentView.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		48418DC605E724739CFE525C /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
 		7482B262236F22410086C661 /* Sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7482B265236F22410086C661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7482B267236F22410086C661 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		7482B26E236F22430086C661 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7482B271236F22430086C661 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7482B273236F22430086C661 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
+		EA36FBAC61A4D0914018E192 /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05A55DB6FC64F1BC0AA6F020 /* Pods_Sora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31646DC138878589607B54ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA36FBAC61A4D0914018E192 /* Pods_Sora.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7482B259236F22410086C661 = {
 			isa = PBXGroup;
 			children = (
 				7482B264236F22410086C661 /* Sora */,
 				7482B263236F22410086C661 /* Products */,
+				BFC7823421B5FA90D91F6FD3 /* Pods */,
+				31646DC138878589607B54ED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +90,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		BFC7823421B5FA90D91F6FD3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				48418DC605E724739CFE525C /* Pods-Sora.debug.xcconfig */,
+				A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +107,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7482B276236F22430086C661 /* Build configuration list for PBXNativeTarget "Sora" */;
 			buildPhases = (
+				8475E706EBECA3A0F5EB6B8D /* [CP] Check Pods Manifest.lock */,
 				7482B25E236F22410086C661 /* Sources */,
 				7482B25F236F22410086C661 /* Frameworks */,
 				7482B260236F22410086C661 /* Resources */,
+				5DC95D4F9F3BD11B49D60801 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -140,6 +167,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5DC95D4F9F3BD11B49D60801 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8475E706EBECA3A0F5EB6B8D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sora-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7482B25E236F22410086C661 /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		7482B277236F22430086C661 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48418DC605E724739CFE525C /* Pods-Sora.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +372,7 @@
 		};
 		7482B278236F22430086C661 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
