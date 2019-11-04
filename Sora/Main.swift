@@ -17,6 +17,7 @@ class Main: ObservableObject {
     
     let kRes: Int = 255
     let kSteps: [Int] = [3, 5, 10]
+    let kAnimationSeconds: CGFloat = 0.5
     
     enum State {
         case capture
@@ -69,7 +70,10 @@ class Main: ObservableObject {
     }
     
     @Published var photos: [Photo] = []
+    
     @Published var displayPhoto: Photo?
+    @Published var displayFrame: CGRect?
+    @Published var displayFraction: CGFloat = 0.0
     
     init() {
         
@@ -77,17 +81,6 @@ class Main: ObservableObject {
         
         let photoImage = UIImage(named: "photo")!
         let gradientImage = UIImage(named: "gradient")!
-        
-        let photo = Photo(id: UUID(),
-                          photoImage: photoImage,
-                          gradientImage: gradientImage,
-                          date: Date(),
-                          direction: .vertical,
-                          gradients: [gradient(at: 5,
-                                               from: Color(red: 1.0, green: 0.5, blue: 0.0),
-                                               to: Color(red: 0.0, green: 0.5, blue: 1.0),
-                                               in: .vertical)])
-        photos.append(photo)
         
         for _ in 0..<33 {
             let hue = CGFloat.random(in: 0.0...1.0)
@@ -105,6 +98,16 @@ class Main: ObservableObject {
             photos.append(photo)
         }
         
+        let photo = Photo(id: UUID(),
+                          photoImage: photoImage,
+                          gradientImage: gradientImage,
+                          date: Date(),
+                          direction: .vertical,
+                          gradients: [gradient(at: 5,
+                                               from: Color(red: 1.0, green: 0.5, blue: 0.0),
+                                               to: Color(red: 0.0, green: 0.5, blue: 1.0),
+                                               in: .vertical)])
+        photos.append(photo)
         
         #else
         
@@ -192,7 +195,7 @@ class Main: ObservableObject {
         let gradients: [Gradient] = kSteps.map { count -> Gradient in
             gradient(at: count, from: pixels, in: direction)
         }
-        return Photo(photoImage: photoImage, gradientImage: gradientImage, date: Date(), direction: direction, gradients: gradients)
+        return Photo(id: UUID(), photoImage: photoImage, gradientImage: gradientImage, date: Date(), direction: direction, gradients: gradients)
     }
     #endif
     
@@ -228,5 +231,69 @@ class Main: ObservableObject {
         return Gradient(direction: direction, colorSteps: colorSteps)
     }
     #endif
+    
+    func display(photo: Photo, from frame: CGRect) {
+        displayFrame = frame
+        displayPhoto = photo
+        animate(for: kAnimationSeconds, ease: .easeOut, animate: { fraction in
+            self.displayFraction = fraction
+        }) {}
+    }
+    
+    func hidePhoto() {
+        animate(for: kAnimationSeconds, ease: .easeOut, animate: { fraction in
+            self.displayFraction = 1.0 - fraction
+        }) {
+            self.displayPhoto = nil
+            self.displayFrame = nil
+        }
+    }
+    
+    func reDisplayPhoto() {
+        let currentFraction = displayFraction
+        animate(for: kAnimationSeconds - currentFraction, ease: .easeOut, animate: { fraction in
+            self.displayFraction = currentFraction * (1.0 - fraction) + fraction
+        }) {}
+    }
+    
+    func reHidePhoto() {
+        let currentFraction = displayFraction
+        animate(for: kAnimationSeconds * currentFraction, ease: .easeOut, animate: { fraction in
+            self.displayFraction = currentFraction * (1.0 - fraction)
+        }) {
+            self.displayPhoto = nil
+            self.displayFrame = nil
+        }
+    }
+    
+    enum Ease {
+        case easeIn
+        case easeOut
+        case easeInOut
+    }
+    
+    func animate(for seconds: CGFloat, ease: Ease? = nil, animate: @escaping (CGFloat) -> (), done: @escaping () -> ()) {
+        var index = 0
+        let count = Int(seconds / 0.01)
+        RunLoop.current.add(Timer(timeInterval: 0.01, repeats: true, block: { timer in
+            index += 1
+            var fraction = CGFloat(index) / CGFloat(count)
+            if let ease = ease {
+                switch ease {
+                case .easeIn:
+                    fraction = sin(fraction * .pi / 2 - .pi / 2) + 1.0
+                case .easeOut:
+                    fraction = sin(fraction * .pi / 2)
+                case .easeInOut:
+                    fraction = sin(fraction * .pi - .pi / 2) / 2 + 0.5
+                }
+            }
+            animate(fraction)
+            if index == count {
+                timer.invalidate()
+                done()
+            }
+        }), forMode: .common)
+    }
     
 }

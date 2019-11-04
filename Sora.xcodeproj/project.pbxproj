@@ -79,8 +79,8 @@
 				74D0B7D4237045240026CDE9 /* GradientView.swift */,
 				74C8A3542370112C000F4314 /* TemplateViews.swift */,
 				74C8A34E236F7027000F4314 /* Capture */,
-				74C8A34F236F702F000F4314 /* Display */,
 				74C2C1A723707A7A00D976DE /* Grid */,
+				74C8A34F236F702F000F4314 /* Display */,
 			);
 			path = Views;
 			sourceTree = "<group>";

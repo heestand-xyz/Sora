@@ -41,13 +41,16 @@ struct CaptureView: View {
                 Spacer()
                 HStack(spacing: 50) {
                     if !main.photos.isEmpty {
-                        Button(action: {
-                            self.main.displayPhoto = self.main.photos.last!
-                        }) {
-                            GradientView(gradient: self.main.photos.last!.gradients.first!)
-                                .mask(Circle())
-                                .frame(width: 40, height: 40)
+                        GeometryReader { geo in
+                            Button(action: {
+                                self.main.display(photo: self.main.photos.last!, from: geo.frame(in: .global))
+                            }) {
+                                GradientView(gradient: self.main.photos.last!.gradients.first!)
+                                    .mask(Circle())
+                                    .opacity(self.main.displayPhoto == nil ? 1.0 : 0.0)
+                            }
                         }
+                            .frame(width: 40, height: 40)
                     } else {
                         EmptyView()
                             .frame(width: 40, height: 40)

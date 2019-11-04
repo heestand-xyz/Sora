@@ -11,10 +11,20 @@ import SwiftUI
 struct PhotoView: View {
     let photo: Main.Photo
     var body: some View {
-        Image(uiImage: photo.photoImage)
-            .resizable()
-            .aspectRatio(1.0, contentMode: .fit)
-            .cornerRadius(.displayPhotoCornerRadius)
+        GeometryReader { geo in
+            GeometryReader { _ in
+                Image(uiImage: self.photo.photoImage)
+                    .resizable()
+                    .scaledToFill()
+            }
+                .mask(ZStack(alignment: .bottom) {
+                    RoundedRectangle(cornerRadius: .displayPhotoCornerRadius)
+                    Rectangle()
+                        .frame(height: .displayPhotoCornerRadius)
+                }
+            )
+        }
+        .aspectRatio(.displayPhotoAspectRatio, contentMode: .fit)
     }
 }
 

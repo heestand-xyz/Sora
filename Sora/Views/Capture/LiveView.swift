@@ -20,6 +20,7 @@ struct LiveView: View {
                 Group {
                     #if targetEnvironment(simulator)
                     GradientTemplateView(main: self.main)
+                        .aspectRatio(1.0, contentMode: .fit)
                     #else
                     RawNODEUI(node: self.main.finalPix)
                     #endif

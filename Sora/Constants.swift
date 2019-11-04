@@ -11,5 +11,6 @@ import CoreGraphics
 extension CGFloat {
     
     static let displayPhotoCornerRadius: CGFloat = 50
-    
+    static let displayPhotoAspectRatio: CGFloat = 1.25
+
 }

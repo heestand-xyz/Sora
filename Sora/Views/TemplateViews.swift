@@ -27,6 +27,6 @@ struct PhotoTemplateView: View {
 struct GradientTemplateView: View {
     @ObservedObject var main: Main
     var body: some View {
-        GradientView(gradient: main.photos.first!.gradients.first!)
+        GradientView(gradient: main.photos.last!.gradients.first!)
     }
 }

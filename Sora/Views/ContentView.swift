@@ -17,9 +17,7 @@ struct ContentView: View {
             } else if main.state == .grid {
                 GridView(main: main)
             }
-            if main.displayPhoto != nil {
-                DisplayView(main: main, photo: main.displayPhoto!)
-            }
+            DisplayView(main: main)
         }
     }
 }

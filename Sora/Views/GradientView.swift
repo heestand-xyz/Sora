@@ -41,7 +41,7 @@ struct GradientView: View {
 struct GradientView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        let gradient = main.photos.first!.gradients.first!
+        let gradient = main.photos.last!.gradients.first!
         return GradientView(gradient: gradient)
     }
 }
