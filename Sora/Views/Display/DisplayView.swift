@@ -23,7 +23,7 @@ struct DisplayView: View {
                             ZStack(alignment: .topLeading) {
                                 Rectangle()
                                     .opacity(0.0)
-                                GradientTemplateView(main: self.main)
+                                GradientView(gradient: self.main.displayPhoto!.gradients.first!)
                                     .mask(Circle())
                                     .offset(x: self.lerp(from: self.main.displayFrame!.minX - geo.frame(in: .global).minX, to: 0.0),
                                             y: self.lerp(from: self.main.displayFrame!.minY - geo.frame(in: .global).minY, to: 0.0))

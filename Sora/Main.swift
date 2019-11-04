@@ -77,39 +77,7 @@ class Main: ObservableObject {
     
     init() {
         
-        #if targetEnvironment(simulator)
-        
-        let photoImage = UIImage(named: "photo")!
-        let gradientImage = UIImage(named: "gradient")!
-        
-        for _ in 0..<33 {
-            let hue = CGFloat.random(in: 0.0...1.0)
-            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
-            let direction = Direction.allCases[.random(in: 0..<4)]
-            let photo = Photo(id: UUID(),
-                              photoImage: photoImage,
-                              gradientImage: gradientImage,
-                              date: Date(),
-                              direction: .vertical,
-                              gradients: [gradient(at: 5,
-                                                   from: Color(hue: hue),
-                                                   to: Color(hue: invHue),
-                                                   in: direction)])
-            photos.append(photo)
-        }
-        
-        let photo = Photo(id: UUID(),
-                          photoImage: photoImage,
-                          gradientImage: gradientImage,
-                          date: Date(),
-                          direction: .vertical,
-                          gradients: [gradient(at: 5,
-                                               from: Color(red: 1.0, green: 0.5, blue: 0.0),
-                                               to: Color(red: 0.0, green: 0.5, blue: 1.0),
-                                               in: .vertical)])
-        photos.append(photo)
-        
-        #else
+        #if !targetEnvironment(simulator)
         
         cameraPix = CameraPIX()
         cameraPix.view.placement = .aspectFill
@@ -160,6 +128,36 @@ class Main: ObservableObject {
         capturePix.view.checker = false
         
         #endif
+        
+        let photoImage = UIImage(named: "photo")!
+        let gradientImage = UIImage(named: "gradient")!
+        
+        for _ in 0..<33 {
+            let hue = CGFloat.random(in: 0.0...1.0)
+            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
+            let direction = Direction.allCases[.random(in: 0..<4)]
+            let photo = Photo(id: UUID(),
+                              photoImage: photoImage,
+                              gradientImage: gradientImage,
+                              date: Date(),
+                              direction: .vertical,
+                              gradients: [gradient(at: 5,
+                                                   from: Color(hue: hue),
+                                                   to: Color(hue: invHue),
+                                                   in: direction)])
+            photos.append(photo)
+        }
+        
+        let photo = Photo(id: UUID(),
+                          photoImage: photoImage,
+                          gradientImage: gradientImage,
+                          date: Date(),
+                          direction: .vertical,
+                          gradients: [gradient(at: 5,
+                                               from: Color(red: 1.0, green: 0.5, blue: 0.0),
+                                               to: Color(red: 0.0, green: 0.5, blue: 1.0),
+                                               in: .vertical)])
+        photos.append(photo)
         
     }
     
@@ -217,7 +215,6 @@ class Main: ObservableObject {
     }
     #endif
     
-    #if targetEnvironment(simulator)
     func gradient(at count: Int, from fromColor: Color, to toColor: Color, in direction: Direction) -> Gradient {
         var colorSteps: [ColorStep] = []
         for i in 0..<count {
@@ -230,7 +227,6 @@ class Main: ObservableObject {
         }
         return Gradient(direction: direction, colorSteps: colorSteps)
     }
-    #endif
     
     func display(photo: Photo, from frame: CGRect) {
         displayFrame = frame

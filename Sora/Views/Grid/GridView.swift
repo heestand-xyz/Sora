@@ -11,9 +11,6 @@ import SwiftUI
 struct GridView: View {
     let kColCount = 4
     @ObservedObject var main: Main
-    @State var heroFrame: CGRect?
-    @State var heroIndex: Int?
-    @State var frames: [CGRect] = []
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 20) {
@@ -21,20 +18,16 @@ struct GridView: View {
                     HStack(spacing: 20) {
                         ForEach(0..<self.kColCount) { j in
                             if self.index(row: i, col: j) != nil {
-                                Button(action: {
-                                    self.heroIndex = self.index(row: i, col: j)!
-                                }) {
-                                    GeometryReader { geo in
-                                        ZStack {
-                                            GradientView(gradient: self.main.photos[self.index(row: i, col: j)!].gradients.first!)
-                                                .mask(Circle())
-                                                .onAppear {
-                                                    self.frames.append(geo.frame(in: .global))
-                                            }
-                                        }
+                                GeometryReader { geo in
+                                    Button(action: {
+                                        self.main.display(photo: self.photo(row: i, col: j)!, from: geo.frame(in: .global))
+                                    }) {
+                                        GradientView(gradient: self.photo(row: i, col: j)!.gradients.first!)
+                                            .mask(Circle())
+                                            .opacity(self.main.displayPhoto == self.photo(row: i, col: j)! ? 0.0 : 1.0)
                                     }
-                                        .frame(width: 80, height: 80)
                                 }
+                                    .frame(width: 75, height: 75)
                             }
                         }
                     }
@@ -49,6 +42,10 @@ struct GridView: View {
         let index = rowIndex * kColCount + colIndex
         guard index < main.photos.count else { return nil }
         return index
+    }
+    func photo(row rowIndex: Int, col colIndex: Int) -> Main.Photo? {
+        guard let i = index(row: rowIndex, col: colIndex) else { return nil }
+        return main.photos[i]
     }
 }
 
