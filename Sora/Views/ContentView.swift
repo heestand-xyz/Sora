@@ -15,24 +15,9 @@ struct ContentView: View {
             if sora.state == .main {
                 MainView(sora: sora)
             } else if sora.state == .display {
-                DisplayView(sora: sora)
+//                DisplayView(sora: sora)
             }
         }
-    }
-}
-
-struct CameraTemplateView: View {
-    @ObservedObject var sora: Main
-    var body: some View {
-        Rectangle()
-            .foregroundColor(.black)
-    }
-}
-
-struct GradientTemplateView: View {
-    @ObservedObject var sora: Main
-    var body: some View {
-        LinearGradient(gradient: Gradient(colors: [.orange, .blue]), startPoint: self.sora.direction == .horizontal ? .leading : .bottom, endPoint: self.sora.direction == .horizontal ? .trailing : .top)
     }
 }
 

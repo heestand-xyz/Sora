@@ -11,9 +11,16 @@ import SwiftUI
 struct DisplayView: View {
     @ObservedObject var sora: Main
     var body: some View {
-        GradientTemplateView(sora: self.sora)
-            .mask(Circle())
-            .padding(30)
+        ZStack {
+            VStack {
+                GradientTemplateView(sora: self.sora)
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .mask(Circle())
+                    .padding(30)
+                Spacer()
+            }
+            
+        }
     }
 }
 

@@ -20,6 +20,7 @@ struct LiveView: View {
                 Group {
                     #if targetEnvironment(simulator)
                     GradientTemplateView(sora: self.sora)
+                        .aspectRatio(1.0, contentMode: .fit)
                     #else
                     RawNODEUI(node: self.sora.finalPix)
                     #endif
@@ -33,7 +34,7 @@ struct LiveView: View {
                     .offset(y: geo.size.width / 4)
                 Group {
                     #if targetEnvironment(simulator)
-                    CameraTemplateView(sora: self.sora)
+                    CameraTemplateView()
                     #else
                     RawNODEUI(node: self.sora.cameraPix)
                     #endif

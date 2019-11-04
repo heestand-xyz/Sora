@@ -6,13 +6,15 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-import Foundation
+import UIKit
 #if !targetEnvironment(simulator)
 import RenderKit
 import PixelKit
 #endif
 
 class Main: ObservableObject {
+    
+    let kRes: Int = 255
     
     enum State {
         case main
@@ -28,18 +30,14 @@ class Main: ObservableObject {
     let blurPix: BlurPIX
     let gradientPix: GradientPIX
     let lookupPix: LookupPIX
+    let resolutionVerticalPix: ResolutionPIX
+    let resolutionHorizontalPix: ResolutionPIX
     let finalPix: PIX & NODEOut
     let backgroundPix: PIX
     let capturePix: PIX
     #endif
     
-    enum Direction {
-        case horizontal
-        case vertical
-        case angle
-        case radial
-    }
-    @Published var direction: Direction = .vertical {
+    @Published var direction: SoraGradient.Direction = .vertical {
         didSet {
             #if !targetEnvironment(simulator)
             switch direction {
@@ -68,15 +66,19 @@ class Main: ObservableObject {
         }
     }
     
+    @Published var photos: [SoraPhoto] = []
+    
     init() {
         
-        #if !targetEnvironment(simulator)
+        #if targetEnvironment(simulator)
+//        photos.append()
+        #else
         
         cameraPix = CameraPIX()
         cameraPix.view.placement = .aspectFill
         cameraPix.view.checker = false
         
-        resolutionPix = ResolutionPIX(at: .square(255))
+        resolutionPix = ResolutionPIX(at: .square(kRes))
         resolutionPix.input = cameraPix
         resolutionPix.placement = .aspectFill
         
@@ -94,7 +96,7 @@ class Main: ObservableObject {
         blurPix.input = crossPix
         blurPix.radius = 1.0
 
-        gradientPix = GradientPIX(at: .square(255))
+        gradientPix = GradientPIX(at: .square(kRes))
         gradientPix.direction = .vertical
         gradientPix.offset = 1.0
         gradientPix.extendRamp = .mirror
@@ -103,6 +105,12 @@ class Main: ObservableObject {
         lookupPix.axis = .y
         lookupPix.inputA = gradientPix
         lookupPix.inputB = blurPix
+        
+        resolutionVerticalPix = ResolutionPIX(at: .custom(w: 1, h: kRes))
+        resolutionVerticalPix.input = blurPix
+        
+        resolutionHorizontalPix = ResolutionPIX(at: .custom(w: kRes, h: 1))
+        resolutionHorizontalPix.input = blurPix
         
         finalPix = lookupPix
         finalPix.view.checker = false
@@ -122,13 +130,38 @@ class Main: ObservableObject {
         #if !targetEnvironment(simulator)
         guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
         guard let gradientImage = finalPix.renderedImage else { captureFailed(); return }
+        var pixels: PIX.PixelPack!
+        if direction == .horizontal {
+            pixels = resolutionHorizontalPix.renderedPixels
+        } else {
+            pixels = resolutionVerticalPix.renderedPixels
+        }
+        guard pixels != nil else { captureFailed(); return }
         #endif
+        
+        let photo = generatePhoto(photoImage: cameraImage, gradientImage: gradientImage, pixels: pixels, in: direction)
+        
         state = .display
+        
         #if !targetEnvironment(simulator)
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         #endif
     }
     
     func captureFailed() {}
+    
+    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, pixels: PIX.PixelPack, in direction: SoraGradient.Direction) -> SoraPhoto {
+        let stepsArr: [Int] = [3, 5, 10]
+        var gradients: [SoraGradient] = []
+//        for steps in stepsArr {
+//            for step in steps {
+//
+//            }
+//            let fraction = CGFloat(step)
+////            kRes
+//            let gradient =
+//        }
+        return SoraPhoto(photoImage: photoImage, gradientImage: gradientImage, gradients: gradients)
+    }
     
 }

@@ -43,7 +43,7 @@ struct MainView: View {
                     Button(action: {
                         self.sora.state = .display
                     }) {
-                        GradientTemplateView(sora: self.sora)
+                        PhotoTemplateView()
                             .mask(Circle())
                             .frame(width: 40, height: 40)
                     }
