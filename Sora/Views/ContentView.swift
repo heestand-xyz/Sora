@@ -15,7 +15,7 @@ struct ContentView: View {
             if sora.state == .main {
                 MainView(sora: sora)
             } else if sora.state == .display {
-//                DisplayView(sora: sora)
+                DisplayView(sora: sora)
             }
         }
     }

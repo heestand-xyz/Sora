@@ -15,6 +15,7 @@ import PixelKit
 class Main: ObservableObject {
     
     let kRes: Int = 255
+    let kSteps: [Int] = [3, 5, 10]
     
     enum State {
         case main
@@ -37,7 +38,7 @@ class Main: ObservableObject {
     let capturePix: PIX
     #endif
     
-    @Published var direction: SoraGradient.Direction = .vertical {
+    @Published var direction: SoraDirection = .vertical {
         didSet {
             #if !targetEnvironment(simulator)
             switch direction {
@@ -70,7 +71,18 @@ class Main: ObservableObject {
     
     init() {
         
-        #if !targetEnvironment(simulator)
+        #if targetEnvironment(simulator)
+        
+        let photo = SoraPhoto(photoImage: UIImage(named: "photo")!,
+                              gradientImage: UIImage(named: "gradient")!,
+                              date: Date(),
+                              direction: .vertical,
+                              gradients: [gradient(at: 5,
+                                                   from: SoraColor(red: 1.0, green: 0.5, blue: 0.0),
+                                                   to: SoraColor(red: 0.0, green: 0.5, blue: 1.0))])
+        photos.append(photo)
+        
+        #else
         
         cameraPix = CameraPIX()
         cameraPix.view.placement = .aspectFill
@@ -137,8 +149,10 @@ class Main: ObservableObject {
         guard pixels != nil else { captureFailed(); return }
         #endif
         
+        #if !targetEnvironment(simulator)
         let photo = generatePhoto(photoImage: cameraImage, gradientImage: gradientImage, from: pixels, in: direction)
         photos.append(photo)
+        #endif
         
         state = .display
         
@@ -149,14 +163,17 @@ class Main: ObservableObject {
     
     func captureFailed() {}
     
-    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, from pixels: PIX.PixelPack, in direction: SoraGradient.Direction) -> SoraPhoto {
-        let gradients: [SoraGradient] = [3, 5, 10].map { count -> SoraGradient in
+    #if !targetEnvironment(simulator)
+    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, from pixels: PIX.PixelPack, in direction: SoraDirection) -> SoraPhoto {
+        let gradients: [SoraGradient] = kSteps.map { count -> SoraGradient in
             gradient(at: count, from: pixels, in: direction)
         }
-        return SoraPhoto(photoImage: photoImage, gradientImage: gradientImage, gradients: gradients)
+        return SoraPhoto(photoImage: photoImage, gradientImage: gradientImage, date: Date(), direction: direction, gradients: gradients)
     }
+    #endif
     
-    func gradient(at count: Int, from pixels: PIX.PixelPack, in direction: SoraGradient.Direction) -> SoraGradient {
+    #if !targetEnvironment(simulator)
+    func gradient(at count: Int, from pixels: PIX.PixelPack, in direction: SoraDirection) -> SoraGradient {
         var colorSteps: [SoraColorStep] = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
@@ -169,7 +186,23 @@ class Main: ObservableObject {
             let colorStep = SoraColorStep(color: color, step: fraction)
             colorSteps.append(colorStep)
         }
-        return SoraGradient(direction: direction, colorSteps: colorSteps)
+        return SoraGradient(colorSteps: colorSteps)
     }
+    #endif
+    
+    #if targetEnvironment(simulator)
+    func gradient(at count: Int, from fromColor: SoraColor, to toColor: SoraColor) -> SoraGradient {
+        var colorSteps: [SoraColorStep] = []
+        for i in 0..<count {
+            let fraction = CGFloat(i) / CGFloat(count - 1)
+            let color = SoraColor(red: fromColor.red * (1.0 - fraction) + toColor.red * fraction,
+                                  green: fromColor.green * (1.0 - fraction) + toColor.green * fraction,
+                                  blue: fromColor.blue * (1.0 - fraction) + toColor.blue * fraction)
+            let colorStep = SoraColorStep(color: color, step: fraction)
+            colorSteps.append(colorStep)
+        }
+        return SoraGradient(colorSteps: colorSteps)
+    }
+    #endif
     
 }

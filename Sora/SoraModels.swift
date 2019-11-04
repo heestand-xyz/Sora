@@ -10,10 +10,21 @@ import SwiftUI
 import UIKit
 import LiveValues
 
+enum SoraDirection {
+    case horizontal
+    case vertical
+    case angle
+    case radial
+}
+
 struct SoraPhoto {
     
     let photoImage: UIImage
     let gradientImage: UIImage
+    
+    let date: Date
+    
+    let direction: SoraDirection
     
     let gradients: [SoraGradient]
     
@@ -21,20 +32,16 @@ struct SoraPhoto {
 
 struct SoraGradient {
     
-    enum Direction {
-        case horizontal
-        case vertical
-        case angle
-        case radial
-    }
-    let direction: Direction
+//    let direction: SoraDirection
     
     let colorSteps: [SoraColorStep]
     
 }
 
-struct SoraColorStep {
+struct SoraColorStep: Identifiable {
     
+    var id: CGFloat { step }
+
     let color: SoraColor
     
     let step: CGFloat
@@ -56,7 +63,13 @@ struct SoraColor {
     }
     
     var hex: String {
-        LiveColor(uiColor).hex
+        LiveColor(uiColor).hex.uppercased()
+    }
+    
+    init(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        self.red = red
+        self.green = green
+        self.blue = blue
     }
     
     init(_ liveColor: LiveColor) {
