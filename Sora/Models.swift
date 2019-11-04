@@ -12,14 +12,16 @@ import LiveValues
 
 extension Main {
 
-    enum Direction {
+    enum Direction: CaseIterable {
         case horizontal
         case vertical
         case angle
         case radial
     }
 
-    struct Photo {
+    struct Photo: Identifiable, Equatable {
+        
+        let id: UUID
         
         let photoImage: UIImage
         let gradientImage: UIImage
@@ -29,6 +31,10 @@ extension Main {
         let direction: Direction
         
         let gradients: [Gradient]
+        
+        static func == (lhs: Photo, rhs: Photo) -> Bool {
+            lhs.id == rhs.id
+        }
         
     }
 
@@ -72,6 +78,13 @@ extension Main {
             self.red = red
             self.green = green
             self.blue = blue
+        }
+        
+        init(hue: CGFloat) {
+            let liveColor = LiveColor(h: LiveFloat(hue))
+            red = liveColor.r.cg
+            green = liveColor.g.cg
+            blue = liveColor.b.cg
         }
         
         init(_ liveColor: LiveColor) {

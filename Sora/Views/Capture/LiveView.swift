@@ -13,16 +13,15 @@ import PixelKit
 #endif
 
 struct LiveView: View {
-    @ObservedObject var sora: Main
+    @ObservedObject var main: Main
     var body: some View {
         GeometryReader { geo in
             ZStack() {
                 Group {
                     #if targetEnvironment(simulator)
-                    GradientTemplateView(sora: self.sora)
-                        .aspectRatio(1.0, contentMode: .fit)
+                    GradientTemplateView(main: self.main)
                     #else
-                    RawNODEUI(node: self.sora.finalPix)
+                    RawNODEUI(node: self.main.finalPix)
                     #endif
                 }
                     .mask(ZStack {
@@ -36,7 +35,7 @@ struct LiveView: View {
                     #if targetEnvironment(simulator)
                     CameraTemplateView()
                     #else
-                    RawNODEUI(node: self.sora.cameraPix)
+                    RawNODEUI(node: self.main.cameraPix)
                     #endif
                 }
                     .mask(Circle())
@@ -49,6 +48,6 @@ struct LiveView: View {
 
 struct LiveView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveView(sora: Main())
+        LiveView(main: Main())
     }
 }

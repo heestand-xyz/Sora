@@ -25,8 +25,8 @@ struct PhotoTemplateView: View {
 }
 
 struct GradientTemplateView: View {
-    @ObservedObject var sora: Main
+    @ObservedObject var main: Main
     var body: some View {
-        GradientView(gradient: sora.photos.first!.gradients.first!)
+        GradientView(gradient: main.photos.first!.gradients.first!)
     }
 }

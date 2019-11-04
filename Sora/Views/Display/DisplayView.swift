@@ -9,16 +9,17 @@
 import SwiftUI
 
 struct DisplayView: View {
-    @ObservedObject var sora: Main
+    @ObservedObject var main: Main
+    let photo: Main.Photo
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack {
                 VStack {
-                    GradientTemplateView(sora: self.sora)
+                    GradientTemplateView(main: self.main)
                         .aspectRatio(1.0, contentMode: .fit)
                         .mask(Circle())
                     HStack {
-                        ForEach(sora.photos.first!.gradients.first!.colorSteps) { colorStep in
+                        ForEach(photo.gradients.first!.colorSteps) { colorStep in
                             VStack {
                                 Circle()
                                     .foregroundColor(colorStep.color.color)
@@ -32,7 +33,7 @@ struct DisplayView: View {
                     .padding(30)
                 Spacer()
             }
-            PhotoView(photo: sora.photos.first!)
+            PhotoView(photo: main.photos.first!)
                 .offset(y: .displayPhotoCornerRadius)
         }
             .edgesIgnoringSafeArea(.bottom)
@@ -41,6 +42,7 @@ struct DisplayView: View {
 
 struct DisplayView_Previews: PreviewProvider {
     static var previews: some View {
-        DisplayView(sora: Main())
+        let main = Main()
+        return DisplayView(main: main, photo: main.photos.first!)
     }
 }

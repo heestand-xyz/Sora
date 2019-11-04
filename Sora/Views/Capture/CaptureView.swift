@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  CaptureView.swift
 //  Sora
 //
 //  Created by Hexagons on 2019-11-03.
@@ -12,25 +12,25 @@ import RenderKit
 import PixelKit
 #endif
 
-struct MainView: View {
-    @ObservedObject var sora: Main
+struct CaptureView: View {
+    @ObservedObject var main: Main
     var body: some View {
         ZStack {
             Group {
                 #if targetEnvironment(simulator)
-                GradientTemplateView(sora: self.sora)
+                GradientTemplateView(main: self.main)
                 #else
-                RawNODEUI(node: self.sora.backgroundPix)
+                RawNODEUI(node: self.main.backgroundPix)
                 #endif
             }
                 .opacity(0.25)
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                LiveView(sora: self.sora)
+                LiveView(main: self.main)
                 Picker(selection: Binding<Int>(get: {
-                    self.sora.direction == .horizontal ? 0 : self.sora.direction == .vertical ? 1 : self.sora.direction == .angle ? 2 : 3
+                    self.main.direction == .horizontal ? 0 : self.main.direction == .vertical ? 1 : self.main.direction == .angle ? 2 : 3
                 }, set: { index in
-                    self.sora.direction = index == 0 ? .horizontal : index == 1 ? .vertical : index == 2 ? .angle : .radial
+                    self.main.direction = index == 0 ? .horizontal : index == 1 ? .vertical : index == 2 ? .angle : .radial
                 }), label: EmptyView()) {
                     Text("H").tag(0)
                     Text("V").tag(1)
@@ -40,27 +40,26 @@ struct MainView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 Spacer()
                 HStack(spacing: 50) {
-                    if !sora.photos.isEmpty {
+                    if !main.photos.isEmpty {
                         Button(action: {
-                            self.sora.state = .display
+                            self.main.displayPhoto = self.main.photos.last!
                         }) {
-                            GradientView(gradient: self.sora.photos.last!.gradients.first!)
+                            GradientView(gradient: self.main.photos.last!.gradients.first!)
                                 .mask(Circle())
                                 .frame(width: 40, height: 40)
                         }
                     } else {
-                        Rectangle()
-                            .foregroundColor(.clear)
+                        EmptyView()
                             .frame(width: 40, height: 40)
                     }
                     Button(action: {
-                        self.sora.capture()
+                        self.main.capture()
                     }) {
                         Group {
                             #if targetEnvironment(simulator)
-                            GradientTemplateView(sora: self.sora)
+                            GradientTemplateView(main: self.main)
                             #else
-                            RawNODEUI(node: self.sora.capturePix)
+                            RawNODEUI(node: self.main.capturePix)
                             #endif
                         }
                         .mask(Circle())
@@ -68,7 +67,7 @@ struct MainView: View {
                             .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.primary))
                     }
                     Button(action: {
-                        
+                        self.main.state = .grid
                     }) {
                         Color.primary
                             .mask(Circle())
@@ -82,8 +81,8 @@ struct MainView: View {
     }
 }
 
-struct MainView_Previews: PreviewProvider {
+struct CaptureView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(sora: Main())
+        CaptureView(main: Main())
     }
 }

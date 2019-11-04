@@ -9,13 +9,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var sora: Main
+    @ObservedObject var main: Main
     var body: some View {
-        Group {
-            if sora.state == .main {
-                MainView(sora: sora)
-            } else if sora.state == .display {
-                DisplayView(sora: sora)
+        ZStack {
+            if main.state == .capture {
+                CaptureView(main: main)
+            } else if main.state == .grid {
+                GridView(main: main)
+            }
+            if main.displayPhoto != nil {
+                DisplayView(main: main, photo: main.displayPhoto!)
             }
         }
     }
@@ -24,11 +27,11 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView(sora: Main())
+            ContentView(main: Main())
             ZStack {
                 Color.black
                     .edgesIgnoringSafeArea(.all)
-                ContentView(sora: Main())
+                ContentView(main: Main())
                     .colorScheme(.dark)
             }
         }

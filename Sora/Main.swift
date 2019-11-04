@@ -8,6 +8,7 @@
 
 import UIKit
 #if !targetEnvironment(simulator)
+import LiveValues
 import RenderKit
 import PixelKit
 #endif
@@ -18,10 +19,10 @@ class Main: ObservableObject {
     let kSteps: [Int] = [3, 5, 10]
     
     enum State {
-        case main
-        case display
+        case capture
+        case grid
     }
-    @Published var state: State = .main
+    @Published var state: State = .capture
     
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
@@ -68,22 +69,42 @@ class Main: ObservableObject {
     }
     
     @Published var photos: [Photo] = []
-    
-    @Published var previewDisplay: Bool = false
+    @Published var displayPhoto: Photo?
     
     init() {
         
         #if targetEnvironment(simulator)
         
-        let photo = Photo(photoImage: UIImage(named: "photo")!,
-                              gradientImage: UIImage(named: "gradient")!,
+        let photoImage = UIImage(named: "photo")!
+        let gradientImage = UIImage(named: "gradient")!
+        
+        let photo = Photo(id: UUID(),
+                          photoImage: photoImage,
+                          gradientImage: gradientImage,
+                          date: Date(),
+                          direction: .vertical,
+                          gradients: [gradient(at: 5,
+                                               from: Color(red: 1.0, green: 0.5, blue: 0.0),
+                                               to: Color(red: 0.0, green: 0.5, blue: 1.0),
+                                               in: .vertical)])
+        photos.append(photo)
+        
+        for _ in 0..<33 {
+            let hue = CGFloat.random(in: 0.0...1.0)
+            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
+            let direction = Direction.allCases[.random(in: 0..<4)]
+            let photo = Photo(id: UUID(),
+                              photoImage: photoImage,
+                              gradientImage: gradientImage,
                               date: Date(),
                               direction: .vertical,
                               gradients: [gradient(at: 5,
-                                                   from: Color(red: 1.0, green: 0.5, blue: 0.0),
-                                                   to: Color(red: 0.0, green: 0.5, blue: 1.0),
-                                                   in: .vertical)])
-        photos.append(photo)
+                                                   from: Color(hue: hue),
+                                                   to: Color(hue: invHue),
+                                                   in: direction)])
+            photos.append(photo)
+        }
+        
         
         #else
         
@@ -140,6 +161,7 @@ class Main: ObservableObject {
     }
     
     func capture() {
+        
         #if !targetEnvironment(simulator)
         guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
         guard let gradientImage = finalPix.renderedImage else { captureFailed(); return }
@@ -157,11 +179,10 @@ class Main: ObservableObject {
         photos.append(photo)
         #endif
         
-        state = .display
-        
         #if !targetEnvironment(simulator)
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         #endif
+        
     }
     
     func captureFailed() {}
