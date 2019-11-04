@@ -52,7 +52,8 @@ struct CaptureView: View {
                         }
                             .frame(width: 40, height: 40)
                     } else {
-                        EmptyView()
+                        Rectangle()
+                            .opacity(0.0)
                             .frame(width: 40, height: 40)
                     }
                     Button(action: {
