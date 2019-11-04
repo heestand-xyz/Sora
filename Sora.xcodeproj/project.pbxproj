@@ -14,14 +14,15 @@
 		74C8A35123700C76000F4314 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35023700C76000F4314 /* PageView.swift */; };
 		74C8A35323701055000F4314 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35223701055000F4314 /* PhotoView.swift */; };
 		74C8A3552370112D000F4314 /* TemplateViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A3542370112C000F4314 /* TemplateViews.swift */; };
-		74C8A35823701448000F4314 /* SoraModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35723701448000F4314 /* SoraModels.swift */; };
+		74C8A35823701448000F4314 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35723701448000F4314 /* Models.swift */; };
+		74D0B7D5237045240026CDE9 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D0B7D4237045240026CDE9 /* GradientView.swift */; };
 		74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */; };
 		74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */; };
 		74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBE236F3F3F004BD10E /* ContentView.swift */; };
 		74ED8EC1236F3F42004BD10E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC0236F3F42004BD10E /* Assets.xcassets */; };
 		74ED8EC4236F3F42004BD10E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */; };
 		74ED8EC7236F3F42004BD10E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */; };
-		74ED8ED0236F3FAD004BD10E /* Sora.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Sora.swift */; };
+		74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Main.swift */; };
 		74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECF236F3FAD004BD10E /* LiveView.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +34,8 @@
 		74C8A35023700C76000F4314 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		74C8A35223701055000F4314 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		74C8A3542370112C000F4314 /* TemplateViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViews.swift; sourceTree = "<group>"; };
-		74C8A35723701448000F4314 /* SoraModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoraModels.swift; sourceTree = "<group>"; };
+		74C8A35723701448000F4314 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		74D0B7D4237045240026CDE9 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		74ED8EB7236F3F3F004BD10E /* Sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +44,7 @@
 		74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		74ED8EC6236F3F42004BD10E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74ED8EC8236F3F42004BD10E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74ED8ECE236F3FAC004BD10E /* Sora.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sora.swift; sourceTree = "<group>"; };
+		74ED8ECE236F3FAC004BD10E /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		74ED8ECF236F3FAD004BD10E /* LiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
 		AC1CD343E1A435E54C63BDA6 /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D162AABECBCC92AF160E3FC3 /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				74ED8EBE236F3F3F004BD10E /* ContentView.swift */,
+				74D0B7D4237045240026CDE9 /* GradientView.swift */,
 				74C8A3542370112C000F4314 /* TemplateViews.swift */,
 				74C8A34E236F7027000F4314 /* Main */,
 				74C8A34F236F702F000F4314 /* Display */,
@@ -114,9 +117,9 @@
 				74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */,
 				74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */,
 				74C8A34D236F7017000F4314 /* Views */,
-				74ED8ECE236F3FAC004BD10E /* Sora.swift */,
+				74ED8ECE236F3FAC004BD10E /* Main.swift */,
 				7429783223703B570094A16B /* Constants.swift */,
-				74C8A35723701448000F4314 /* SoraModels.swift */,
+				74C8A35723701448000F4314 /* Models.swift */,
 				74ED8EC0236F3F42004BD10E /* Assets.xcassets */,
 				74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */,
 				74ED8EC8236F3F42004BD10E /* Info.plist */,
@@ -272,9 +275,10 @@
 				74C8A35323701055000F4314 /* PhotoView.swift in Sources */,
 				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
 				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,
-				74ED8ED0236F3FAD004BD10E /* Sora.swift in Sources */,
-				74C8A35823701448000F4314 /* SoraModels.swift in Sources */,
+				74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */,
+				74C8A35823701448000F4314 /* Models.swift in Sources */,
 				74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */,
+				74D0B7D5237045240026CDE9 /* GradientView.swift in Sources */,
 				74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */,
 				7429783323703B570094A16B /* Constants.swift in Sources */,
 			);

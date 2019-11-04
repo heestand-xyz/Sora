@@ -40,11 +40,17 @@ struct MainView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 Spacer()
                 HStack(spacing: 50) {
-                    Button(action: {
-                        self.sora.state = .display
-                    }) {
-                        PhotoTemplateView()
-                            .mask(Circle())
+                    if !sora.photos.isEmpty {
+                        Button(action: {
+                            self.sora.state = .display
+                        }) {
+                            GradientView(gradient: self.sora.photos.last!.gradients.first!)
+                                .mask(Circle())
+                                .frame(width: 40, height: 40)
+                        }
+                    } else {
+                        Rectangle()
+                            .foregroundColor(.clear)
                             .frame(width: 40, height: 40)
                     }
                     Button(action: {

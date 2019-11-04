@@ -1,5 +1,5 @@
 //
-//  Sora.swift
+//  Main.swift
 //  Sora
 //
 //  Created by Hexagons on 2019-11-03.
@@ -38,7 +38,7 @@ class Main: ObservableObject {
     let capturePix: PIX
     #endif
     
-    @Published var direction: SoraDirection = .vertical {
+    @Published var direction: Direction = .vertical {
         didSet {
             #if !targetEnvironment(simulator)
             switch direction {
@@ -67,19 +67,22 @@ class Main: ObservableObject {
         }
     }
     
-    @Published var photos: [SoraPhoto] = []
+    @Published var photos: [Photo] = []
+    
+    @Published var previewDisplay: Bool = false
     
     init() {
         
         #if targetEnvironment(simulator)
         
-        let photo = SoraPhoto(photoImage: UIImage(named: "photo")!,
+        let photo = Photo(photoImage: UIImage(named: "photo")!,
                               gradientImage: UIImage(named: "gradient")!,
                               date: Date(),
                               direction: .vertical,
                               gradients: [gradient(at: 5,
-                                                   from: SoraColor(red: 1.0, green: 0.5, blue: 0.0),
-                                                   to: SoraColor(red: 0.0, green: 0.5, blue: 1.0))])
+                                                   from: Color(red: 1.0, green: 0.5, blue: 0.0),
+                                                   to: Color(red: 0.0, green: 0.5, blue: 1.0),
+                                                   in: .vertical)])
         photos.append(photo)
         
         #else
@@ -164,44 +167,44 @@ class Main: ObservableObject {
     func captureFailed() {}
     
     #if !targetEnvironment(simulator)
-    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, from pixels: PIX.PixelPack, in direction: SoraDirection) -> SoraPhoto {
-        let gradients: [SoraGradient] = kSteps.map { count -> SoraGradient in
+    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, from pixels: PIX.PixelPack, in direction: Direction) -> Photo {
+        let gradients: [Gradient] = kSteps.map { count -> Gradient in
             gradient(at: count, from: pixels, in: direction)
         }
-        return SoraPhoto(photoImage: photoImage, gradientImage: gradientImage, date: Date(), direction: direction, gradients: gradients)
+        return Photo(photoImage: photoImage, gradientImage: gradientImage, date: Date(), direction: direction, gradients: gradients)
     }
     #endif
     
     #if !targetEnvironment(simulator)
-    func gradient(at count: Int, from pixels: PIX.PixelPack, in direction: SoraDirection) -> SoraGradient {
-        var colorSteps: [SoraColorStep] = []
+    func gradient(at count: Int, from pixels: PIX.PixelPack, in direction: Direction) -> Gradient {
+        var colorSteps: [ColorStep] = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
-            let color: SoraColor
+            let color: Color
             if direction == .horizontal {
-                color = SoraColor(pixels.pixel(uv: CGVector(dx: fraction, dy: 0.0)).color)
+                color = Color(pixels.pixel(uv: CGVector(dx: fraction, dy: 0.0)).color)
             } else {
-                color = SoraColor(pixels.pixel(uv: CGVector(dx: 0.0, dy: 1.0 - fraction)).color)
+                color = Color(pixels.pixel(uv: CGVector(dx: 0.0, dy: 1.0 - fraction)).color)
             }
-            let colorStep = SoraColorStep(color: color, step: fraction)
+            let colorStep = ColorStep(color: color, step: fraction)
             colorSteps.append(colorStep)
         }
-        return SoraGradient(colorSteps: colorSteps)
+        return Gradient(direction: direction, colorSteps: colorSteps)
     }
     #endif
     
     #if targetEnvironment(simulator)
-    func gradient(at count: Int, from fromColor: SoraColor, to toColor: SoraColor) -> SoraGradient {
-        var colorSteps: [SoraColorStep] = []
+    func gradient(at count: Int, from fromColor: Color, to toColor: Color, in direction: Direction) -> Gradient {
+        var colorSteps: [ColorStep] = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
-            let color = SoraColor(red: fromColor.red * (1.0 - fraction) + toColor.red * fraction,
+            let color = Color(red: fromColor.red * (1.0 - fraction) + toColor.red * fraction,
                                   green: fromColor.green * (1.0 - fraction) + toColor.green * fraction,
                                   blue: fromColor.blue * (1.0 - fraction) + toColor.blue * fraction)
-            let colorStep = SoraColorStep(color: color, step: fraction)
+            let colorStep = ColorStep(color: color, step: fraction)
             colorSteps.append(colorStep)
         }
-        return SoraGradient(colorSteps: colorSteps)
+        return Gradient(direction: direction, colorSteps: colorSteps)
     }
     #endif
     

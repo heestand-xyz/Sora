@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PhotoView: View {
-    let photo: SoraPhoto
+    let photo: Main.Photo
     var body: some View {
         Image(uiImage: photo.photoImage)
             .resizable()
