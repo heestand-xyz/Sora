@@ -43,24 +43,24 @@ class Main: ObservableObject {
             switch direction {
             case .horizontal:
                 gradientPix.direction = .horizontal
-                lookupPix.axis = .x
                 gradientPix.offset = 0.0
                 gradientPix.extendRamp = .hold
+                lookupPix.axis = .x
             case .vertical:
                 gradientPix.direction = .vertical
-                lookupPix.axis = .y
-                gradientPix.offset = 1.0
                 gradientPix.extendRamp = .mirror
+                gradientPix.offset = 1.0
+                lookupPix.axis = .y
             case .angle:
                 gradientPix.direction = .angle
-                lookupPix.axis = .y
                 gradientPix.offset = 0.75
                 gradientPix.extendRamp = .loop
+                lookupPix.axis = .y
             case .radial:
                 gradientPix.direction = .radial
-                lookupPix.axis = .y
                 gradientPix.offset = 1.0
                 gradientPix.extendRamp = .mirror
+                lookupPix.axis = .y
             }
             #endif
         }
@@ -70,9 +70,7 @@ class Main: ObservableObject {
     
     init() {
         
-        #if targetEnvironment(simulator)
-//        photos.append()
-        #else
+        #if !targetEnvironment(simulator)
         
         cameraPix = CameraPIX()
         cameraPix.view.placement = .aspectFill
@@ -139,7 +137,8 @@ class Main: ObservableObject {
         guard pixels != nil else { captureFailed(); return }
         #endif
         
-        let photo = generatePhoto(photoImage: cameraImage, gradientImage: gradientImage, pixels: pixels, in: direction)
+        let photo = generatePhoto(photoImage: cameraImage, gradientImage: gradientImage, from: pixels, in: direction)
+        photos.append(photo)
         
         state = .display
         
@@ -150,18 +149,27 @@ class Main: ObservableObject {
     
     func captureFailed() {}
     
-    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, pixels: PIX.PixelPack, in direction: SoraGradient.Direction) -> SoraPhoto {
-        let stepsArr: [Int] = [3, 5, 10]
-        var gradients: [SoraGradient] = []
-//        for steps in stepsArr {
-//            for step in steps {
-//
-//            }
-//            let fraction = CGFloat(step)
-////            kRes
-//            let gradient =
-//        }
+    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, from pixels: PIX.PixelPack, in direction: SoraGradient.Direction) -> SoraPhoto {
+        let gradients: [SoraGradient] = [3, 5, 10].map { count -> SoraGradient in
+            gradient(at: count, from: pixels, in: direction)
+        }
         return SoraPhoto(photoImage: photoImage, gradientImage: gradientImage, gradients: gradients)
+    }
+    
+    func gradient(at count: Int, from pixels: PIX.PixelPack, in direction: SoraGradient.Direction) -> SoraGradient {
+        var colorSteps: [SoraColorStep] = []
+        for i in 0..<count {
+            let fraction = CGFloat(i) / CGFloat(count - 1)
+            let color: SoraColor
+            if direction == .horizontal {
+                color = SoraColor(pixels.pixel(uv: CGVector(dx: fraction, dy: 0.0)).color)
+            } else {
+                color = SoraColor(pixels.pixel(uv: CGVector(dx: 0.0, dy: 1.0 - fraction)).color)
+            }
+            let colorStep = SoraColorStep(color: color, step: fraction)
+            colorSteps.append(colorStep)
+        }
+        return SoraGradient(direction: direction, colorSteps: colorSteps)
     }
     
 }
