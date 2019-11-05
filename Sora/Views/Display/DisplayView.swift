@@ -19,6 +19,14 @@ struct DisplayView: View {
                     .opacity(Double(self.main.displayFraction))
                 VStack {
                     VStack(spacing: 25) {
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                self.main.shareSketch()
+                            }) {
+                                Image(systemName: "square.and.arrow.up")
+                            }
+                        }
                         GeometryReader { geo in
                             ZStack(alignment: .topLeading) {
                                 Rectangle()

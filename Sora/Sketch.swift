@@ -58,7 +58,7 @@ class Sketch {
         let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let soraUrl = docUrl.appendingPathComponent("Sora")
         let photoUrl = soraUrl.appendingPathComponent(photo.id.uuidString)
-        let sketchUrl = soraUrl.appendingPathComponent(name)
+        let sketchUrl = photoUrl.appendingPathComponent(name)
         try FileManager.default.createDirectory(at: sketchUrl, withIntermediateDirectories: true, attributes: nil)
         let sketchPagesUrl = sketchUrl.appendingPathComponent("pages")
         try FileManager.default.createDirectory(at: sketchPagesUrl, withIntermediateDirectories: false, attributes: nil)
@@ -88,8 +88,11 @@ class Sketch {
         if let previewData = photo.gradientImage.pngData() {
             try previewData.write(to: previewUrl)
         }
-
-        let sketchFilePath = try Zip.quickZipFiles([filePath], fileName: "\(name).sketch")
+        
+        let zipFilePath = try Zip.quickZipFiles([documentUrl, userUrl, metaUrl, sketchPagesUrl, sketchPreviewsUrl], fileName: name)
+        let sketchFilePath = photoUrl.appendingPathComponent("\(name).sketch")
+        
+        try FileManager.default.moveItem(atPath: zipFilePath.path, toPath: sketchFilePath.path)
         
         return sketchFilePath
         
@@ -103,10 +106,10 @@ class Sketch {
         pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientType>>>", with: "\(gradientType)")
         
         let gradientFrom = CGPoint(x: 0.5, y: gradient.direction == .radial ? 0.5 : 0.0)
-        pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientFrom>>>", with: "{\(gradientFrom.x), \(gradientFrom.y)}")
+        pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientFrom>>>", with: "\"{\(gradientFrom.x), \(gradientFrom.y)}\"")
         
         let gradientTo = CGPoint(x: 0.5, y: 1.0)
-        pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientTo>>>", with: "{\(gradientTo.x), \(gradientTo.y)}")
+        pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientTo>>>", with: "\"{\(gradientTo.x), \(gradientTo.y)}\"")
         
         var gradientStops: [String] = []
         for colorStep in gradient.colorSteps {
