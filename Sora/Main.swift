@@ -25,6 +25,8 @@ class Main: ObservableObject {
     }
     @Published var state: State = .capture
     
+    let sketch: Sketch
+    
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
     let resolutionPix: ResolutionPIX
@@ -75,7 +77,12 @@ class Main: ObservableObject {
     @Published var displayFrame: CGRect?
     @Published var displayFraction: CGFloat = 0.0
     
+    @Published var showShare: Bool = false
+    @Published var shareItems: [Any] = []
+    
     init() {
+        
+        sketch = Sketch()
         
         #if !targetEnvironment(simulator)
         
@@ -291,5 +298,22 @@ class Main: ObservableObject {
             }
         }), forMode: .common)
     }
+    
+    func share(_ item: Any) {
+        shareItems = [item]
+        showShare = true
+    }
+    
+    func shareSketch() {
+        guard let photo = displayPhoto else { return }
+        do {
+            let file = try sketch.generate(from: photo, with: photo.gradients.first!)
+            share(file)
+        } catch {
+            shareSketchFailed()
+        }
+    }
+    
+    func shareSketchFailed() {}
     
 }

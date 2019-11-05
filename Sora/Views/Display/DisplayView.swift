@@ -72,6 +72,9 @@ struct DisplayView: View {
             }
         }
             .edgesIgnoringSafeArea(.bottom)
+            .sheet(isPresented: self.$main.showShare) {
+                ShareView(items: self.$main.shareItems)
+        }
     }
     func lerp(from fromValue: CGFloat, to toValue: CGFloat) -> CGFloat {
         fromValue * (1.0 - main.displayFraction) + toValue * main.displayFraction

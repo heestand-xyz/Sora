@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1ED9900090A501A8C611E328 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1CD343E1A435E54C63BDA6 /* Pods_Sora.framework */; };
+		7418C5EA2371F87500261816 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareView.swift */; };
 		7429783323703B570094A16B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429783223703B570094A16B /* Constants.swift */; };
 		74C2C1A923707A8B00D976DE /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2C1A823707A8B00D976DE /* GridView.swift */; };
 		74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A349236F6E2A000F4314 /* DisplayView.swift */; };
@@ -17,6 +18,11 @@
 		74C8A3552370112D000F4314 /* TemplateViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A3542370112C000F4314 /* TemplateViews.swift */; };
 		74C8A35823701448000F4314 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35723701448000F4314 /* Models.swift */; };
 		74D0B7D5237045240026CDE9 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D0B7D4237045240026CDE9 /* GradientView.swift */; };
+		74DD430F2371D69D0010F122 /* document.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430B2371D69D0010F122 /* document.json */; };
+		74DD43102371D69D0010F122 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430C2371D69D0010F122 /* user.json */; };
+		74DD43112371D69D0010F122 /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430D2371D69D0010F122 /* page.json */; };
+		74DD43122371D69D0010F122 /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430E2371D69D0010F122 /* meta.json */; };
+		74DD43142371D7310010F122 /* Sketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DD43132371D7310010F122 /* Sketch.swift */; };
 		74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */; };
 		74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */; };
 		74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBE236F3F3F004BD10E /* ContentView.swift */; };
@@ -29,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		59707DDA7B058778E662C967 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
+		7418C5E92371F87500261816 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		74C2C1A823707A8B00D976DE /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		74C8A349236F6E2A000F4314 /* DisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
@@ -38,6 +45,11 @@
 		74C8A3542370112C000F4314 /* TemplateViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViews.swift; sourceTree = "<group>"; };
 		74C8A35723701448000F4314 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		74D0B7D4237045240026CDE9 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		74DD430B2371D69D0010F122 /* document.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = document.json; sourceTree = "<group>"; };
+		74DD430C2371D69D0010F122 /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		74DD430D2371D69D0010F122 /* page.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page.json; sourceTree = "<group>"; };
+		74DD430E2371D69D0010F122 /* meta.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = meta.json; sourceTree = "<group>"; };
+		74DD43132371D7310010F122 /* Sketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sketch.swift; sourceTree = "<group>"; };
 		74ED8EB7236F3F3F004BD10E /* Sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +76,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7418C5E82371F85F00261816 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				74C8A3542370112C000F4314 /* TemplateViews.swift */,
+				74D0B7D4237045240026CDE9 /* GradientView.swift */,
+				7418C5E92371F87500261816 /* ShareView.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		74C2C1A723707A7A00D976DE /* Grid */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,11 +98,10 @@
 			isa = PBXGroup;
 			children = (
 				74ED8EBE236F3F3F004BD10E /* ContentView.swift */,
-				74D0B7D4237045240026CDE9 /* GradientView.swift */,
-				74C8A3542370112C000F4314 /* TemplateViews.swift */,
 				74C8A34E236F7027000F4314 /* Capture */,
 				74C2C1A723707A7A00D976DE /* Grid */,
 				74C8A34F236F702F000F4314 /* Display */,
+				7418C5E82371F85F00261816 /* Other */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,6 +123,17 @@
 				74C8A35223701055000F4314 /* PhotoView.swift */,
 			);
 			path = Display;
+			sourceTree = "<group>";
+		};
+		74DD430A2371D69D0010F122 /* Sketch */ = {
+			isa = PBXGroup;
+			children = (
+				74DD430B2371D69D0010F122 /* document.json */,
+				74DD430C2371D69D0010F122 /* user.json */,
+				74DD430D2371D69D0010F122 /* page.json */,
+				74DD430E2371D69D0010F122 /* meta.json */,
+			);
+			path = Sketch;
 			sourceTree = "<group>";
 		};
 		74ED8EAE236F3F3F004BD10E = {
@@ -131,9 +163,11 @@
 				74ED8ECE236F3FAC004BD10E /* Main.swift */,
 				7429783223703B570094A16B /* Constants.swift */,
 				74C8A35723701448000F4314 /* Models.swift */,
+				74DD43132371D7310010F122 /* Sketch.swift */,
 				74ED8EC0236F3F42004BD10E /* Assets.xcassets */,
 				74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */,
 				74ED8EC8236F3F42004BD10E /* Info.plist */,
+				74DD430A2371D69D0010F122 /* Sketch */,
 				74ED8EC2236F3F42004BD10E /* Preview Content */,
 			);
 			path = Sora;
@@ -224,9 +258,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74DD430F2371D69D0010F122 /* document.json in Resources */,
 				74ED8EC7236F3F42004BD10E /* LaunchScreen.storyboard in Resources */,
+				74DD43122371D69D0010F122 /* meta.json in Resources */,
+				74DD43112371D69D0010F122 /* page.json in Resources */,
 				74ED8EC4236F3F42004BD10E /* Preview Assets.xcassets in Resources */,
 				74ED8EC1236F3F42004BD10E /* Assets.xcassets in Resources */,
+				74DD43102371D69D0010F122 /* user.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,10 +325,12 @@
 				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
 				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,
 				74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */,
+				7418C5EA2371F87500261816 /* ShareView.swift in Sources */,
 				74C8A35823701448000F4314 /* Models.swift in Sources */,
 				74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */,
 				74C2C1A923707A8B00D976DE /* GridView.swift in Sources */,
 				74D0B7D5237045240026CDE9 /* GradientView.swift in Sources */,
+				74DD43142371D7310010F122 /* Sketch.swift in Sources */,
 				74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */,
 				7429783323703B570094A16B /* Constants.swift in Sources */,
 			);
@@ -434,6 +474,7 @@
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sora/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -455,6 +496,7 @@
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sora/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

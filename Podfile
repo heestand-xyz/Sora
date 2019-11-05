@@ -5,6 +5,8 @@ target 'Sora' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  pod 'Zip'
+
   # Pods for Sora
   #pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
   #pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
