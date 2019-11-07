@@ -75,10 +75,10 @@ class Sketch {
         let documentData = documentJson.data(using: .utf8)!
         try documentData.write(to: documentUrl)
         
-        let userData = documentJson.data(using: .utf8)!
+        let userData = userJson.data(using: .utf8)!
         try userData.write(to: userUrl)
         
-        let metaData = documentJson.data(using: .utf8)!
+        let metaData = metaJson.data(using: .utf8)!
         try metaData.write(to: metaUrl)
         
         let pageCustomJson = makeCustomPageJson(from: gradient)
@@ -105,12 +105,35 @@ class Sketch {
         let gradientType: Int = gradient.direction == .angle ? 2 : gradient.direction == .radial ? 1 : 0
         pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientType>>>", with: "\(gradientType)")
         
-        let gradientFrom = CGPoint(x: 0.5, y: gradient.direction == .radial ? 0.5 : 0.0)
+        let gradientFrom: CGPoint
+        switch gradient.direction {
+        case .horizontal:
+            gradientFrom = CGPoint(x: 0.0, y: 0.5)
+        case .vertical:
+            gradientFrom = CGPoint(x: 0.5, y: 1.0)
+        case .angle:
+            gradientFrom = CGPoint(x: 0.5, y: 0.5)
+        case .radial:
+            gradientFrom = CGPoint(x: 0.5, y: 0.5)
+        }
         pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientFrom>>>", with: "\"{\(gradientFrom.x), \(gradientFrom.y)}\"")
         
-        let gradientTo = CGPoint(x: 0.5, y: 1.0)
+        let gradientTo: CGPoint
+        switch gradient.direction {
+        case .horizontal:
+            gradientTo = CGPoint(x: 1.0, y: 0.5)
+        case .vertical:
+            gradientTo = CGPoint(x: 0.5, y: 0.0)
+        case .angle:
+            gradientTo = CGPoint(x: 0.5, y: 1.0)
+        case .radial:
+            gradientTo = CGPoint(x: 0.5, y: 1.0)
+        }
         pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientTo>>>", with: "\"{\(gradientTo.x), \(gradientTo.y)}\"")
         
+        let rotation: CGFloat = gradient.direction == .angle ? 90.0 : 0.0
+        pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<rotation>>>", with: "\(rotation)")
+
         var gradientStops: [String] = []
         for colorStep in gradient.colorSteps {
             var gradientStop = kColorStop

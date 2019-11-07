@@ -93,7 +93,7 @@
       "nameIsFixed": true,
       "resizingConstraint": 63,
       "resizingType": 0,
-      "rotation": 0,
+      "rotation": <<<rotation>>>,
       "shouldBreakMaskChain": false,
       "exportOptions": {
         "_class": "exportOptions",
