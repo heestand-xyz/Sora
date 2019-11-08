@@ -10,6 +10,8 @@ import SwiftUI
 
 struct DisplayView: View {
     @ObservedObject var main: Main
+    @State var dragging: Bool = false
+    @State var dragPosCache: [CGFloat] = []
     var body: some View {
         ZStack(alignment: .bottom) {
             if main.displayPhoto != nil {
@@ -64,15 +66,43 @@ struct DisplayView: View {
                         .offset(y: geo.size.height * (1.0 - self.main.displayFraction))
                         .gesture(DragGesture()
                             .onChanged({ value in
-                                let fraction = min(max(value.translation.height / geo.size.height, 0.0), 1.0)
-                                self.main.displayFraction = 1.0 - fraction
+                                if !self.dragging {
+                                    self.main.reDragPhoto()
+                                }
+                                let pos = value.translation.height
+                                let fraction = 1.0 - min(max(pos / geo.size.height, 0.0), 1.0)
+                                print("fraction", fraction)
+                                self.main.displayFraction = fraction
+                                self.dragging = true
+                                if self.dragPosCache.count >= 10 {
+                                    self.dragPosCache.remove(at: 0)
+                                }
+                                self.dragPosCache.append(pos)
                             })
                             .onEnded({ _ in
-                                if self.main.displayFraction > 0.5 {
-                                    self.main.reDisplayPhoto()
-                                } else {
-                                    self.main.reHidePhoto()
+                                var velocity: CGFloat?
+                                if self.dragPosCache.count >= 10 {
+                                    let fromPos = self.dragPosCache.first!
+                                    let toPos = self.dragPosCache.last!
+                                    print("fromPos", fromPos, "toPos", toPos)
+                                    velocity = toPos - fromPos
                                 }
+                                print("velocity", velocity)
+                                if velocity != nil && velocity! > 5.0 {
+                                    if velocity! < 0.0 {
+                                        self.main.reDisplayPhoto()
+                                    } else {
+                                        self.main.reHidePhoto()
+                                    }
+                                } else {
+                                    if self.main.displayFraction > 0.5 {
+                                        self.main.reDisplayPhoto()
+                                    } else {
+                                        self.main.reHidePhoto()
+                                    }
+                                }
+                                self.dragging = false
+                                self.dragPosCache = []
                             })
                     )
                 }

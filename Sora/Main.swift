@@ -17,13 +17,17 @@ class Main: ObservableObject {
     
     let kRes: Int = 255
     let kSteps: [Int] = [3, 5, 10]
-    let kAnimationSeconds: CGFloat = 0.5
+    let kAnimationSeconds: CGFloat = 0.25
     
     enum State {
         case capture
         case grid
     }
-    @Published var state: State = .capture
+    @Published var state: State = .capture {
+        didSet {
+            bypass = state != .capture
+        }
+    }
     
     let sketch: Sketch
     
@@ -41,6 +45,25 @@ class Main: ObservableObject {
     let backgroundPix: PIX
     let capturePix: PIX
     #endif
+    
+    var bypass: Bool = false {
+        didSet {
+            #if !targetEnvironment(simulator)
+            cameraPix.bypass = bypass
+            resolutionPix.bypass = bypass
+            feedbackPix.bypass = bypass
+            crossPix.bypass = bypass
+            blurPix.bypass = bypass
+            gradientPix.bypass = bypass
+            lookupPix.bypass = bypass
+            resolutionVerticalPix.bypass = bypass
+            resolutionHorizontalPix.bypass = bypass
+            finalPix.bypass = bypass
+            backgroundPix.bypass = bypass
+            capturePix.bypass = bypass
+            #endif
+        }
+    }
     
     @Published var direction: Direction = .vertical {
         didSet {
@@ -252,15 +275,23 @@ class Main: ObservableObject {
         }
     }
     
+    func reDragPhoto() {
+        if let timer = animationTimer {
+            timer.invalidate()
+        }
+    }
+    
     func reDisplayPhoto() {
         let currentFraction = displayFraction
-        animate(for: kAnimationSeconds - currentFraction, ease: .easeOut, animate: { fraction in
+        guard currentFraction != 1.0 else { return }
+        animate(for: kAnimationSeconds - currentFraction * kAnimationSeconds, ease: .easeOut, animate: { fraction in
             self.displayFraction = currentFraction * (1.0 - fraction) + fraction
         }) {}
     }
     
     func reHidePhoto() {
         let currentFraction = displayFraction
+        guard currentFraction != 0.0 else { return }
         animate(for: kAnimationSeconds * currentFraction, ease: .easeOut, animate: { fraction in
             self.displayFraction = currentFraction * (1.0 - fraction)
         }) {
@@ -269,6 +300,8 @@ class Main: ObservableObject {
         }
     }
     
+    var animationTimer: Timer?
+    
     enum Ease {
         case easeIn
         case easeOut
@@ -276,9 +309,12 @@ class Main: ObservableObject {
     }
     
     func animate(for seconds: CGFloat, ease: Ease? = nil, animate: @escaping (CGFloat) -> (), done: @escaping () -> ()) {
+        if let timer = animationTimer {
+            timer.invalidate()
+        }
         var index = 0
         let count = Int(seconds / 0.01)
-        RunLoop.current.add(Timer(timeInterval: 0.01, repeats: true, block: { timer in
+        animationTimer = Timer(timeInterval: 0.01, repeats: true, block: { timer in
             index += 1
             var fraction = CGFloat(index) / CGFloat(count)
             if let ease = ease {
@@ -292,11 +328,13 @@ class Main: ObservableObject {
                 }
             }
             animate(fraction)
-            if index == count {
+            if index >= count {
                 timer.invalidate()
+                self.animationTimer = nil
                 done()
             }
-        }), forMode: .common)
+        })
+        RunLoop.current.add(animationTimer!, forMode: .common)
     }
     
     func share(_ item: Any) {
