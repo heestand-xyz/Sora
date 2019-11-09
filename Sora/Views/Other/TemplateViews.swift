@@ -27,6 +27,10 @@ struct PhotoTemplateView: View {
 struct GradientTemplateView: View {
     @ObservedObject var main: Main
     var body: some View {
-        GradientView(gradient: main.photos.last!.gradient)
+        let gradient = main.makeGradient(at: main.kSteps,
+                                         from: Main.Color(red: 1.0, green: 0.5, blue: 0.0),
+                                         to: Main.Color(red: 0.0, green: 0.5, blue: 1.0),
+                                         in: main.direction)
+        return GradientView(gradient: gradient)
     }
 }
