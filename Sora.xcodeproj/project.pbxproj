@@ -7,97 +7,193 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05A55DB6FC64F1BC0AA6F020 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA36FBAC61A4D0914018E192 /* Pods_Sora.framework */; };
-		7482B266236F22410086C661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B265236F22410086C661 /* AppDelegate.swift */; };
-		7482B268236F22410086C661 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B267236F22410086C661 /* SceneDelegate.swift */; };
-		7482B26A236F22410086C661 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B269236F22410086C661 /* ContentView.swift */; };
-		7482B26C236F22430086C661 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7482B26B236F22430086C661 /* Assets.xcassets */; };
-		7482B26F236F22430086C661 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7482B26E236F22430086C661 /* Preview Assets.xcassets */; };
-		7482B272236F22430086C661 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7482B270236F22430086C661 /* LaunchScreen.storyboard */; };
-		7482B27A236F282C0086C661 /* Sora.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482B279236F282C0086C661 /* Sora.swift */; };
+		7418C5EA2371F87500261816 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareView.swift */; };
+		7429783323703B570094A16B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429783223703B570094A16B /* Constants.swift */; };
+		74C2C1A923707A8B00D976DE /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2C1A823707A8B00D976DE /* GridView.swift */; };
+		74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A349236F6E2A000F4314 /* DisplayView.swift */; };
+		74C8A34C236F6ED2000F4314 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A34B236F6ED2000F4314 /* CaptureView.swift */; };
+		74C8A35123700C76000F4314 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35023700C76000F4314 /* PageView.swift */; };
+		74C8A35323701055000F4314 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35223701055000F4314 /* PhotoView.swift */; };
+		74C8A3552370112D000F4314 /* TemplateViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A3542370112C000F4314 /* TemplateViews.swift */; };
+		74C8A35823701448000F4314 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35723701448000F4314 /* Models.swift */; };
+		74D0B7D5237045240026CDE9 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D0B7D4237045240026CDE9 /* GradientView.swift */; };
+		74DD430F2371D69D0010F122 /* document.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430B2371D69D0010F122 /* document.json */; };
+		74DD43102371D69D0010F122 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430C2371D69D0010F122 /* user.json */; };
+		74DD43112371D69D0010F122 /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430D2371D69D0010F122 /* page.json */; };
+		74DD43122371D69D0010F122 /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430E2371D69D0010F122 /* meta.json */; };
+		74DD43142371D7310010F122 /* Sketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DD43132371D7310010F122 /* Sketch.swift */; };
+		74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */; };
+		74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */; };
+		74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBE236F3F3F004BD10E /* ContentView.swift */; };
+		74ED8EC1236F3F42004BD10E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC0236F3F42004BD10E /* Assets.xcassets */; };
+		74ED8EC4236F3F42004BD10E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */; };
+		74ED8EC7236F3F42004BD10E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */; };
+		74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Main.swift */; };
+		74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECF236F3FAD004BD10E /* LiveView.swift */; };
+		9F2C0FD6347FC526BF8929D1 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 939BB248E3FC0EC693A3907C /* Pods_Sora.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		48418DC605E724739CFE525C /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
-		7482B262236F22410086C661 /* Sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7482B265236F22410086C661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7482B267236F22410086C661 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7482B269236F22410086C661 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		7482B26B236F22430086C661 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7482B26E236F22430086C661 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		7482B271236F22430086C661 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7482B273236F22430086C661 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7482B279236F282C0086C661 /* Sora.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sora.swift; sourceTree = "<group>"; };
-		A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
-		EA36FBAC61A4D0914018E192 /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7418C5E92371F87500261816 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		74C2C1A823707A8B00D976DE /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		74C8A349236F6E2A000F4314 /* DisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
+		74C8A34B236F6ED2000F4314 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		74C8A35023700C76000F4314 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		74C8A35223701055000F4314 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		74C8A3542370112C000F4314 /* TemplateViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViews.swift; sourceTree = "<group>"; };
+		74C8A35723701448000F4314 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		74D0B7D4237045240026CDE9 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		74DD430B2371D69D0010F122 /* document.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = document.json; sourceTree = "<group>"; };
+		74DD430C2371D69D0010F122 /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		74DD430D2371D69D0010F122 /* page.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page.json; sourceTree = "<group>"; };
+		74DD430E2371D69D0010F122 /* meta.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = meta.json; sourceTree = "<group>"; };
+		74DD43132371D7310010F122 /* Sketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sketch.swift; sourceTree = "<group>"; };
+		74ED8EB7236F3F3F004BD10E /* Sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		74ED8EBE236F3F3F004BD10E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		74ED8EC0236F3F42004BD10E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		74ED8EC6236F3F42004BD10E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		74ED8EC8236F3F42004BD10E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74ED8ECE236F3FAC004BD10E /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		74ED8ECF236F3FAD004BD10E /* LiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
+		8169209899364CE45D74BA76 /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
+		939BB248E3FC0EC693A3907C /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93EC57C3A6A04AAC6A5D0993 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7482B25F236F22410086C661 /* Frameworks */ = {
+		74ED8EB4236F3F3F004BD10E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05A55DB6FC64F1BC0AA6F020 /* Pods_Sora.framework in Frameworks */,
+				9F2C0FD6347FC526BF8929D1 /* Pods_Sora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		31646DC138878589607B54ED /* Frameworks */ = {
+		19550AB742B70723D9BE4AC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA36FBAC61A4D0914018E192 /* Pods_Sora.framework */,
+				939BB248E3FC0EC693A3907C /* Pods_Sora.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7482B259236F22410086C661 = {
+		7418C5E82371F85F00261816 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				7482B264236F22410086C661 /* Sora */,
-				7482B263236F22410086C661 /* Products */,
-				BFC7823421B5FA90D91F6FD3 /* Pods */,
-				31646DC138878589607B54ED /* Frameworks */,
+				74C8A3542370112C000F4314 /* TemplateViews.swift */,
+				74D0B7D4237045240026CDE9 /* GradientView.swift */,
+				7418C5E92371F87500261816 /* ShareView.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		74C2C1A723707A7A00D976DE /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				74C2C1A823707A8B00D976DE /* GridView.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
+		74C8A34D236F7017000F4314 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				74ED8EBE236F3F3F004BD10E /* ContentView.swift */,
+				74C8A34E236F7027000F4314 /* Capture */,
+				74C2C1A723707A7A00D976DE /* Grid */,
+				74C8A34F236F702F000F4314 /* Display */,
+				7418C5E82371F85F00261816 /* Other */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		74C8A34E236F7027000F4314 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				74C8A34B236F6ED2000F4314 /* CaptureView.swift */,
+				74ED8ECF236F3FAD004BD10E /* LiveView.swift */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		74C8A34F236F702F000F4314 /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				74C8A349236F6E2A000F4314 /* DisplayView.swift */,
+				74C8A35023700C76000F4314 /* PageView.swift */,
+				74C8A35223701055000F4314 /* PhotoView.swift */,
+			);
+			path = Display;
+			sourceTree = "<group>";
+		};
+		74DD430A2371D69D0010F122 /* Sketch */ = {
+			isa = PBXGroup;
+			children = (
+				74DD430B2371D69D0010F122 /* document.json */,
+				74DD430C2371D69D0010F122 /* user.json */,
+				74DD430D2371D69D0010F122 /* page.json */,
+				74DD430E2371D69D0010F122 /* meta.json */,
+			);
+			path = Sketch;
+			sourceTree = "<group>";
+		};
+		74ED8EAE236F3F3F004BD10E = {
+			isa = PBXGroup;
+			children = (
+				74ED8EB9236F3F3F004BD10E /* Sora */,
+				74ED8EB8236F3F3F004BD10E /* Products */,
+				ED4070C8AB2D4CAA2961D39B /* Pods */,
+				19550AB742B70723D9BE4AC3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		7482B263236F22410086C661 /* Products */ = {
+		74ED8EB8236F3F3F004BD10E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7482B262236F22410086C661 /* Sora.app */,
+				74ED8EB7236F3F3F004BD10E /* Sora.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7482B264236F22410086C661 /* Sora */ = {
+		74ED8EB9236F3F3F004BD10E /* Sora */ = {
 			isa = PBXGroup;
 			children = (
-				7482B265236F22410086C661 /* AppDelegate.swift */,
-				7482B267236F22410086C661 /* SceneDelegate.swift */,
-				7482B269236F22410086C661 /* ContentView.swift */,
-				7482B279236F282C0086C661 /* Sora.swift */,
-				7482B26B236F22430086C661 /* Assets.xcassets */,
-				7482B270236F22430086C661 /* LaunchScreen.storyboard */,
-				7482B273236F22430086C661 /* Info.plist */,
-				7482B26D236F22430086C661 /* Preview Content */,
+				74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */,
+				74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */,
+				74C8A34D236F7017000F4314 /* Views */,
+				74ED8ECE236F3FAC004BD10E /* Main.swift */,
+				7429783223703B570094A16B /* Constants.swift */,
+				74C8A35723701448000F4314 /* Models.swift */,
+				74DD43132371D7310010F122 /* Sketch.swift */,
+				74ED8EC0236F3F42004BD10E /* Assets.xcassets */,
+				74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */,
+				74ED8EC8236F3F42004BD10E /* Info.plist */,
+				74DD430A2371D69D0010F122 /* Sketch */,
+				74ED8EC2236F3F42004BD10E /* Preview Content */,
 			);
 			path = Sora;
 			sourceTree = "<group>";
 		};
-		7482B26D236F22430086C661 /* Preview Content */ = {
+		74ED8EC2236F3F42004BD10E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				7482B26E236F22430086C661 /* Preview Assets.xcassets */,
+				74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		BFC7823421B5FA90D91F6FD3 /* Pods */ = {
+		ED4070C8AB2D4CAA2961D39B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				48418DC605E724739CFE525C /* Pods-Sora.debug.xcconfig */,
-				A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */,
+				8169209899364CE45D74BA76 /* Pods-Sora.debug.xcconfig */,
+				93EC57C3A6A04AAC6A5D0993 /* Pods-Sora.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -105,15 +201,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7482B261236F22410086C661 /* Sora */ = {
+		74ED8EB6236F3F3F004BD10E /* Sora */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7482B276236F22430086C661 /* Build configuration list for PBXNativeTarget "Sora" */;
+			buildConfigurationList = 74ED8ECB236F3F42004BD10E /* Build configuration list for PBXNativeTarget "Sora" */;
 			buildPhases = (
-				8475E706EBECA3A0F5EB6B8D /* [CP] Check Pods Manifest.lock */,
-				7482B25E236F22410086C661 /* Sources */,
-				7482B25F236F22410086C661 /* Frameworks */,
-				7482B260236F22410086C661 /* Resources */,
-				5DC95D4F9F3BD11B49D60801 /* [CP] Embed Pods Frameworks */,
+				A3E32FA2ED4C41FDA6ECC5FD /* [CP] Check Pods Manifest.lock */,
+				74ED8EB3236F3F3F004BD10E /* Sources */,
+				74ED8EB4236F3F3F004BD10E /* Frameworks */,
+				74ED8EB5236F3F3F004BD10E /* Resources */,
+				7CB7B85B1B8B319E0B3A1F9B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -121,25 +217,25 @@
 			);
 			name = Sora;
 			productName = Sora;
-			productReference = 7482B262236F22410086C661 /* Sora.app */;
+			productReference = 74ED8EB7236F3F3F004BD10E /* Sora.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7482B25A236F22410086C661 /* Project object */ = {
+		74ED8EAF236F3F3F004BD10E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = Hexagons;
 				TargetAttributes = {
-					7482B261236F22410086C661 = {
+					74ED8EB6236F3F3F004BD10E = {
 						CreatedOnToolsVersion = 11.2;
 					};
 				};
 			};
-			buildConfigurationList = 7482B25D236F22410086C661 /* Build configuration list for PBXProject "Sora" */;
+			buildConfigurationList = 74ED8EB2236F3F3F004BD10E /* Build configuration list for PBXProject "Sora" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -147,31 +243,35 @@
 				en,
 				Base,
 			);
-			mainGroup = 7482B259236F22410086C661;
-			productRefGroup = 7482B263236F22410086C661 /* Products */;
+			mainGroup = 74ED8EAE236F3F3F004BD10E;
+			productRefGroup = 74ED8EB8236F3F3F004BD10E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7482B261236F22410086C661 /* Sora */,
+				74ED8EB6236F3F3F004BD10E /* Sora */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7482B260236F22410086C661 /* Resources */ = {
+		74ED8EB5236F3F3F004BD10E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7482B272236F22430086C661 /* LaunchScreen.storyboard in Resources */,
-				7482B26F236F22430086C661 /* Preview Assets.xcassets in Resources */,
-				7482B26C236F22430086C661 /* Assets.xcassets in Resources */,
+				74DD430F2371D69D0010F122 /* document.json in Resources */,
+				74ED8EC7236F3F42004BD10E /* LaunchScreen.storyboard in Resources */,
+				74DD43122371D69D0010F122 /* meta.json in Resources */,
+				74DD43112371D69D0010F122 /* page.json in Resources */,
+				74ED8EC4236F3F42004BD10E /* Preview Assets.xcassets in Resources */,
+				74ED8EC1236F3F42004BD10E /* Assets.xcassets in Resources */,
+				74DD43102371D69D0010F122 /* user.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5DC95D4F9F3BD11B49D60801 /* [CP] Embed Pods Frameworks */ = {
+		7CB7B85B1B8B319E0B3A1F9B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -188,7 +288,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8475E706EBECA3A0F5EB6B8D /* [CP] Check Pods Manifest.lock */ = {
+		A3E32FA2ED4C41FDA6ECC5FD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -213,24 +313,36 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7482B25E236F22410086C661 /* Sources */ = {
+		74ED8EB3236F3F3F004BD10E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7482B266236F22410086C661 /* AppDelegate.swift in Sources */,
-				7482B268236F22410086C661 /* SceneDelegate.swift in Sources */,
-				7482B27A236F282C0086C661 /* Sora.swift in Sources */,
-				7482B26A236F22410086C661 /* ContentView.swift in Sources */,
+				74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */,
+				74C8A35123700C76000F4314 /* PageView.swift in Sources */,
+				74C8A34C236F6ED2000F4314 /* CaptureView.swift in Sources */,
+				74C8A3552370112D000F4314 /* TemplateViews.swift in Sources */,
+				74C8A35323701055000F4314 /* PhotoView.swift in Sources */,
+				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
+				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,
+				74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */,
+				7418C5EA2371F87500261816 /* ShareView.swift in Sources */,
+				74C8A35823701448000F4314 /* Models.swift in Sources */,
+				74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */,
+				74C2C1A923707A8B00D976DE /* GridView.swift in Sources */,
+				74D0B7D5237045240026CDE9 /* GradientView.swift in Sources */,
+				74DD43142371D7310010F122 /* Sketch.swift in Sources */,
+				74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */,
+				7429783323703B570094A16B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7482B270236F22430086C661 /* LaunchScreen.storyboard */ = {
+		74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7482B271236F22430086C661 /* Base */,
+				74ED8EC6236F3F42004BD10E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -238,7 +350,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		7482B274236F22430086C661 /* Debug */ = {
+		74ED8EC9236F3F42004BD10E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -298,7 +410,7 @@
 			};
 			name = Debug;
 		};
-		7482B275236F22430086C661 /* Release */ = {
+		74ED8ECA236F3F42004BD10E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -352,9 +464,9 @@
 			};
 			name = Release;
 		};
-		7482B277236F22430086C661 /* Debug */ = {
+		74ED8ECC236F3F42004BD10E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48418DC605E724739CFE525C /* Pods-Sora.debug.xcconfig */;
+			baseConfigurationReference = 8169209899364CE45D74BA76 /* Pods-Sora.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -362,20 +474,21 @@
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sora/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.Sora;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		7482B278236F22430086C661 /* Release */ = {
+		74ED8ECD236F3F42004BD10E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6B7AE5C5867645CC84BF077 /* Pods-Sora.release.xcconfig */;
+			baseConfigurationReference = 93EC57C3A6A04AAC6A5D0993 /* Pods-Sora.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -383,39 +496,40 @@
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sora/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.Sora;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7482B25D236F22410086C661 /* Build configuration list for PBXProject "Sora" */ = {
+		74ED8EB2236F3F3F004BD10E /* Build configuration list for PBXProject "Sora" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7482B274236F22430086C661 /* Debug */,
-				7482B275236F22430086C661 /* Release */,
+				74ED8EC9236F3F42004BD10E /* Debug */,
+				74ED8ECA236F3F42004BD10E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7482B276236F22430086C661 /* Build configuration list for PBXNativeTarget "Sora" */ = {
+		74ED8ECB236F3F42004BD10E /* Build configuration list for PBXNativeTarget "Sora" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7482B277236F22430086C661 /* Debug */,
-				7482B278236F22430086C661 /* Release */,
+				74ED8ECC236F3F42004BD10E /* Debug */,
+				74ED8ECD236F3F42004BD10E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7482B25A236F22410086C661 /* Project object */;
+	rootObject = 74ED8EAF236F3F3F004BD10E /* Project object */;
 }

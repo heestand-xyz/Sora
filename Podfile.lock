@@ -1,37 +1,33 @@
 PODS:
-  - CocoaAsyncSocket (7.6.3)
-  - LiveValues (1.1.2):
-    - OSCKit
-  - OSCKit (0.3.5):
-    - CocoaAsyncSocket (~> 7.3)
-  - PixelKit (0.8.1):
+  - LiveValues (1.1.4)
+  - PixelKit (0.8.2):
     - LiveValues (~> 1.1)
     - RenderKit (~> 0.3)
     - SwiftSVG (~> 2.0)
-  - RenderKit (0.3.0):
+  - RenderKit (0.3.1):
     - LiveValues (~> 1.1)
   - SwiftSVG (2.3.2)
+  - Zip (1.1.0)
 
 DEPENDENCIES:
   - PixelKit
+  - Zip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - CocoaAsyncSocket
     - LiveValues
-    - OSCKit
     - PixelKit
     - RenderKit
     - SwiftSVG
+    - Zip
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  LiveValues: 2525b802b6f0705d72b7681cfdb7091c0df6db98
-  OSCKit: 4470dbd30bc792dcf66dc4e7b5d1ec7174add33c
-  PixelKit: c45ccd71a6f578f4d4b0e7f496cc1dd2751f3bce
-  RenderKit: a82e0f7f7522244825905e0931dfa1d2604265c4
+  LiveValues: 5b40e21e1f19f87b8d605b4db1456004ec3f4deb
+  PixelKit: 6ce733ffc3cb268a49b1206050c537602947e53d
+  RenderKit: 7e0466b72a5cbba1b332e3e975f8556d67c2fadb
   SwiftSVG: ca7f64e403b8ea7ea8eba8c823b83ba4a059834c
+  Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: a4bc988868dbcdc70c2d8b5eeb419bcff620d4d3
+PODFILE CHECKSUM: b0cd9e495b6393ec400120dc7e014d681af6be15
 
 COCOAPODS: 1.7.5
