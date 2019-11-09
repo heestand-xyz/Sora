@@ -27,17 +27,37 @@ struct CaptureView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 LiveView(main: self.main)
-                Picker(selection: Binding<Int>(get: {
-                    self.main.direction == .horizontal ? 0 : self.main.direction == .vertical ? 1 : self.main.direction == .angle ? 2 : 3
-                }, set: { index in
-                    self.main.direction = index == 0 ? .horizontal : index == 1 ? .vertical : index == 2 ? .angle : .radial
-                }), label: EmptyView()) {
-                    Text("H").tag(0)
-                    Text("V").tag(1)
-                    Text("A").tag(2)
-                    Text("R").tag(3)
+                HStack {
+                    Button(action: {
+                        self.main.direction = .horizontal
+                    }) {
+                       Image("gradient_horizontal")
+                        .foregroundColor(.primary)
+                        .opacity(self.main.direction == .horizontal ? 1.0 : 0.2)
+                    }
+                    Button(action: {
+                        self.main.direction = .vertical
+                    }) {
+                       Image("gradient_vertical")
+                        .foregroundColor(.primary)
+                        .opacity(self.main.direction == .vertical ? 1.0 : 0.2)
+                    }
+                    Button(action: {
+                        self.main.direction = .angle
+                    }) {
+                        Image("gradient_angle")
+                            .foregroundColor(.primary)
+                            .opacity(self.main.direction == .angle ? 1.0 : 0.2)
+                    }
+                    Button(action: {
+                        self.main.direction = .radial
+                    }) {
+                        Image("gradient_radial")
+                            .foregroundColor(.primary)
+                            .opacity(self.main.direction == .radial ? 1.0 : 0.2)
+                    }
+
                 }
-                    .pickerStyle(SegmentedPickerStyle())
                 Spacer()
                 HStack(spacing: 50) {
                     if !main.photos.isEmpty {
@@ -73,9 +93,9 @@ struct CaptureView: View {
                     Button(action: {
                         self.main.state = .grid
                     }) {
-                        Color.primary
-                            .mask(Circle())
-                            .frame(width: 40, height: 40)
+                       Image("gradient_horizontal")
+                        .foregroundColor(.primary)
+                        .opacity(self.main.state == .grid ? 1.0 : 0.2)
                     }
                 }
                 Spacer()
