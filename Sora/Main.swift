@@ -7,11 +7,9 @@
 //
 
 import UIKit
-#if !targetEnvironment(simulator)
 import LiveValues
 import RenderKit
 import PixelKit
-#endif
 
 class Main: ObservableObject, NODEDelegate {
     
@@ -195,8 +193,10 @@ class Main: ObservableObject, NODEDelegate {
     }
     
     func nodeDidRender(_ node: NODE) {
+        #if !targetEnvironment(simulator)
         guard let pixels = getPixels() else { return }
         liveGaradient = makeGradient(at: kSteps, from: pixels, in: direction)
+        #endif
     }
     
     func capture() {
@@ -223,6 +223,7 @@ class Main: ObservableObject, NODEDelegate {
         
     }
     
+    #if !targetEnvironment(simulator)
     func getImage(from gradient: Gradient, done: @escaping (UIImage) -> (), failed: @escaping () -> ()) {
         postGradientPix.colorSteps = gradient.colorStops.map({ colorStop -> ColorStep in
             ColorStep(LiveFloat(colorStop.fraction), colorStop.color.liveColor)
@@ -243,7 +244,9 @@ class Main: ObservableObject, NODEDelegate {
             failed()
         }), forMode: .common)
     }
+    #endif
     
+    #if !targetEnvironment(simulator)
     func getPixels() -> PIX.PixelPack? {
         switch direction.axis {
         case .x:
@@ -252,6 +255,7 @@ class Main: ObservableObject, NODEDelegate {
             return resolutionVerticalPix.renderedPixels
         }
     }
+    #endif
     
     func captureFailed() {}
     
