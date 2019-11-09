@@ -53,7 +53,7 @@ class Sketch {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
-        let name = "Sora \(dateFormatter.string(from: Date()))"
+        let name = "Sora \(dateFormatter.string(from: photo.date))"
         
         let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let soraUrl = docUrl.appendingPathComponent("Sora")

@@ -45,7 +45,6 @@ class Main: ObservableObject, NODEDelegate {
     let feedbackPix: FeedbackPIX
     let crossPix: CrossPIX
     let hueSaturation: HueSaturationPIX
-    let blurPix: BlurPIX
     let cropVerticalPix: CropPIX
     let cropHorizontalPix: CropPIX
     let resolutionVerticalPix: ResolutionPIX
@@ -64,7 +63,6 @@ class Main: ObservableObject, NODEDelegate {
             feedbackPix.bypass = bypass
             crossPix.bypass = bypass
             hueSaturation.bypass = bypass
-            blurPix.bypass = bypass
             cropVerticalPix.bypass = bypass
             cropHorizontalPix.bypass = bypass
             resolutionVerticalPix.bypass = bypass
@@ -76,34 +74,7 @@ class Main: ObservableObject, NODEDelegate {
         }
     }
     
-    @Published var direction: Direction = .vertical {
-        didSet {
-//            #if !targetEnvironment(simulator)
-//            switch direction {
-//            case .horizontal:
-//                gradientPix.direction = .horizontal
-//                gradientPix.offset = 0.0
-//                gradientPix.extendRamp = .hold
-//                lookupPix.axis = .x
-//            case .vertical:
-//                gradientPix.direction = .vertical
-//                gradientPix.extendRamp = .mirror
-//                gradientPix.offset = 1.0
-//                lookupPix.axis = .y
-//            case .angle:
-//                gradientPix.direction = .angle
-//                gradientPix.offset = 0.75
-//                gradientPix.extendRamp = .loop
-//                lookupPix.axis = .y
-//            case .radial:
-//                gradientPix.direction = .radial
-//                gradientPix.offset = 1.0
-//                gradientPix.extendRamp = .mirror
-//                lookupPix.axis = .y
-//            }
-//            #endif
-        }
-    }
+    @Published var direction: Direction = .vertical
     
     @Published var photos: [Photo] = []
     
@@ -147,16 +118,12 @@ class Main: ObservableObject, NODEDelegate {
         hueSaturation.input = crossPix
         hueSaturation.saturation = 1.25
 
-        blurPix = BlurPIX()
-        blurPix.input = hueSaturation
-        blurPix.radius = 0.0
-
         cropVerticalPix = CropPIX()
-        cropVerticalPix.input = blurPix
+        cropVerticalPix.input = hueSaturation
         cropVerticalPix.cropFrame = CGRect(x: 0.5 - 0.5 / CGFloat(kRes), y: 0.0, width: 1.0 / CGFloat(kRes), height: 1.0)
         
         cropHorizontalPix = CropPIX()
-        cropHorizontalPix.input = blurPix
+        cropHorizontalPix.input = hueSaturation
         cropHorizontalPix.cropFrame = CGRect(x: 0, y: 0.5 - 0.5 / CGFloat(kRes), width: 1.0, height: 1.0 / CGFloat(kRes))
 
         resolutionVerticalPix = ResolutionPIX(at: .custom(w: 3, h: kSteps * 3))
@@ -384,6 +351,34 @@ class Main: ObservableObject, NODEDelegate {
         } catch {
             shareSketchFailed()
         }
+    }
+    
+    func sharePhotoImage() {
+        guard let photo = displayPhoto else { return }
+        guard let data = photo.photoImage.jpegData(compressionQuality: 0.8) else { return }
+        shareImage(data: data, at: photo.date, as: "jpg")
+    }
+    
+    func shareGradientImage() {
+        guard let photo = displayPhoto else { return }
+        guard let data = photo.gradientImage.pngData() else { return }
+        shareImage(data: data, at: photo.date, as: "png")
+    }
+    
+    func shareImage(data: Data, at date: Date, as ext: String) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
+        let name = "Sora \(dateFormatter.string(from: date))"
+        
+        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let url = docsUrl.appendingPathComponent("\(name).\(ext)")
+        
+        do {
+            try data.write(to: url)
+            share(url)
+        } catch {}
+        
     }
     
     func shareSketchFailed() {}
