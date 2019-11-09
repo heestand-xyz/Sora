@@ -17,6 +17,13 @@ extension Main {
         case vertical
         case angle
         case radial
+        enum Axis {
+            case x
+            case y
+        }
+        var axis: Axis {
+            self == .horizontal ? .x : .y
+        }
     }
 
     struct Photo: Identifiable, Equatable {
@@ -30,7 +37,7 @@ extension Main {
         
         let direction: Direction
         
-        let gradients: [Gradient]
+        let gradient: Gradient
         
         static func == (lhs: Photo, rhs: Photo) -> Bool {
             lhs.id == rhs.id
@@ -42,17 +49,29 @@ extension Main {
         
         let direction: Direction
         
-        let colorSteps: [ColorStep]
+        let colorStops: [ColorStop]
+        
+        var averageColor: Color {
+            let black = Color(red: 0.0, green: 0.0, blue: 0.0)
+            var color = colorStops.reduce(black) { result, colorStop -> Color in
+                Color(red: result.red + colorStop.color.red,
+                      green: result.green + colorStop.color.green,
+                      blue: result.blue + colorStop.color.blue)
+            }
+            let count = CGFloat(colorStops.count)
+            color = Color(red: color.red / count,
+                          green: color.green / count,
+                          blue: color.blue / count)
+            return color
+        }
         
     }
 
-    struct ColorStep: Identifiable {
+    struct ColorStop {
         
-        var id: CGFloat { step }
-
         let color: Color
         
-        let step: CGFloat
+        let fraction: CGFloat
         
     }
 
@@ -68,6 +87,10 @@ extension Main {
         
         var uiColor: UIColor {
             UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+        }
+        
+        var liveColor: LiveColor {
+            LiveColor(r: LiveFloat(red), g: LiveFloat(green), b: LiveFloat(blue))
         }
         
         var hex: String {

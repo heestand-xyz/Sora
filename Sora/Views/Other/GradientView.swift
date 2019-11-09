@@ -12,7 +12,7 @@ struct GradientView: View {
     let gradient: Main.Gradient
     var body: some View {
         let dir: Main.Direction = gradient.direction
-        let ramp = Gradient(colors: gradient.colorSteps.map({ $0.color.color }))
+        let ramp = Gradient(colors: gradient.colorStops.map({ $0.color.color }))
         return Group {
             if dir == .horizontal {
                 LinearGradient(gradient: ramp,
@@ -41,7 +41,7 @@ struct GradientView: View {
 struct GradientView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        let gradient = main.photos.last!.gradients.first!
+        let gradient = main.photos.last!.gradient
         return GradientView(gradient: gradient)
     }
 }

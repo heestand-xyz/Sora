@@ -33,24 +33,26 @@ struct DisplayView: View {
                             ZStack(alignment: .topLeading) {
                                 Rectangle()
                                     .opacity(0.0)
-                                GradientView(gradient: self.main.displayPhoto!.gradients.first!)
-                                    .mask(Circle())
-                                    .offset(x: self.lerp(from: self.main.displayFrame!.minX - geo.frame(in: .global).minX, to: 0.0),
-                                            y: self.lerp(from: self.main.displayFrame!.minY - geo.frame(in: .global).minY, to: 0.0))
-                                    .frame(width: self.lerp(from: self.main.displayFrame!.width,
-                                                            to: geo.size.width),
-                                           height: self.lerp(from: self.main.displayFrame!.height,
-                                                             to: geo.size.height))
+                                if self.main.displayPhoto != nil {
+                                    GradientView(gradient: self.main.displayPhoto!.gradient)
+                                        .mask(Circle())
+                                        .offset(x: self.lerp(from: self.main.displayFrame!.minX - geo.frame(in: .global).minX, to: 0.0),
+                                                y: self.lerp(from: self.main.displayFrame!.minY - geo.frame(in: .global).minY, to: 0.0))
+                                        .frame(width: self.lerp(from: self.main.displayFrame!.width,
+                                                                to: geo.size.width),
+                                               height: self.lerp(from: self.main.displayFrame!.height,
+                                                                 to: geo.size.height))
+                                }
                             }
                         }
                             .aspectRatio(1.0, contentMode: .fit)
                         HStack {
-                            ForEach(main.displayPhoto!.gradients.first!.colorSteps) { colorStep in
+                            ForEach(0..<4) { i in
                                 VStack {
                                     Circle()
-                                        .foregroundColor(colorStep.color.color)
+                                        .foregroundColor(self.color(at: i).color)
                                         .frame(width: 30, height: 30)
-                                    Text(colorStep.color.hex)
+                                    Text(self.color(at: i).hex)
                                         .font(.system(size: 12, weight: .bold, design: .monospaced))
                                 }
                             }
@@ -62,7 +64,7 @@ struct DisplayView: View {
                     Spacer()
                 }
                 GeometryReader { geo in
-                    PhotoView(photo: self.main.photos.first!)
+                    PhotoView(photo: self.main.displayPhoto!)
                         .offset(y: geo.size.height * (1.0 - self.main.displayFraction))
                         .gesture(DragGesture()
                             .onChanged({ value in
@@ -113,6 +115,14 @@ struct DisplayView: View {
             .sheet(isPresented: self.$main.showShare) {
                 ShareView(items: self.$main.shareItems)
         }
+    }
+    func color(at index: Int) -> Main.Color {
+        let relIndex = index * 3
+        let colorStops = main.displayPhoto!.gradient.colorStops
+        guard relIndex < colorStops.count else {
+            return colorStops.last!.color
+        }
+        return colorStops[relIndex].color
     }
     func lerp(from fromValue: CGFloat, to toValue: CGFloat) -> CGFloat {
         fromValue * (1.0 - main.displayFraction) + toValue * main.displayFraction

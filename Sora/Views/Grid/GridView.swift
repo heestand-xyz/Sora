@@ -12,27 +12,53 @@ struct GridView: View {
     let kColCount = 4
     @ObservedObject var main: Main
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 20) {
-                ForEach(0..<rowCount()) { i in
-                    HStack(spacing: 20) {
-                        ForEach(0..<self.kColCount) { j in
-                            if self.index(row: i, col: j) != nil {
-                                GeometryReader { geo in
-                                    Button(action: {
-                                        self.main.display(photo: self.photo(row: i, col: j)!, from: geo.frame(in: .global))
-                                    }) {
-                                        GradientView(gradient: self.photo(row: i, col: j)!.gradients.first!)
-                                            .mask(Circle())
-                                            .opacity(self.main.displayPhoto == self.photo(row: i, col: j)! ? 0.0 : 1.0)
+        ZStack {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 20) {
+                    ForEach(0..<rowCount()) { i in
+                        HStack(spacing: 20) {
+                            ForEach(0..<self.kColCount) { j in
+                                if self.index(row: i, col: j) != nil {
+                                    GeometryReader { geo in
+                                        Button(action: {
+                                            self.main.display(photo: self.photo(row: i, col: j)!, from: geo.frame(in: .global))
+                                        }) {
+                                            GradientView(gradient: self.photo(row: i, col: j)!.gradient)
+                                                .mask(Circle())
+                                                .opacity(self.main.displayPhoto == self.photo(row: i, col: j)! ? 0.0 : 1.0)
+                                        }
                                     }
-                                }
                                     .frame(width: 75, height: 75)
+                                }
                             }
                         }
                     }
                 }
             }
+            VStack {
+                HStack {
+                    Button(action: {
+                        self.main.state = .capture
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .font(.title)
+                            .foregroundColor(.primary)
+                    }
+                    Spacer()
+                }
+                Spacer()
+                Picker(selection: Binding<Int>(get: {
+                    Main.SortMethod.allCases.firstIndex(of: self.main.sortMethod)!
+                }, set: { index in
+                    self.main.sortMethod = Main.SortMethod.allCases[index]
+                }), label: EmptyView()) {
+                    ForEach(0..<Main.SortMethod.allCases.count) { i in
+                        Text(Main.SortMethod.allCases[i].rawValue).tag(i)
+                    }
+                }
+                    .pickerStyle(SegmentedPickerStyle())
+            }
+                .padding()
         }
     }
     func rowCount() -> Int {

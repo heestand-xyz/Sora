@@ -135,12 +135,12 @@ class Sketch {
         pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<rotation>>>", with: "\(rotation)")
 
         var gradientStops: [String] = []
-        for colorStep in gradient.colorSteps {
+        for colorStop in gradient.colorStops {
             var gradientStop = kColorStop
-            gradientStop = gradientStop.replacingOccurrences(of: "<<<position>>>", with: "\(colorStep.step)")
-            gradientStop = gradientStop.replacingOccurrences(of: "<<<red>>>", with: "\(colorStep.color.red)")
-            gradientStop = gradientStop.replacingOccurrences(of: "<<<green>>>", with: "\(colorStep.color.green)")
-            gradientStop = gradientStop.replacingOccurrences(of: "<<<blue>>>", with: "\(colorStep.color.blue)")
+            gradientStop = gradientStop.replacingOccurrences(of: "<<<position>>>", with: "\(colorStop.fraction)")
+            gradientStop = gradientStop.replacingOccurrences(of: "<<<red>>>", with: "\(colorStop.color.red)")
+            gradientStop = gradientStop.replacingOccurrences(of: "<<<green>>>", with: "\(colorStop.color.green)")
+            gradientStop = gradientStop.replacingOccurrences(of: "<<<blue>>>", with: "\(colorStop.color.blue)")
             gradientStops.append(gradientStop)
         }
         pageCustomJson = pageCustomJson.replacingOccurrences(of: "<<<gradientStops>>>", with: gradientStops.joined(separator: ","))

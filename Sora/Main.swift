@@ -13,10 +13,11 @@ import RenderKit
 import PixelKit
 #endif
 
-class Main: ObservableObject {
+class Main: ObservableObject, NODEDelegate {
     
     let kRes: Int = 255
-    let kSteps: [Int] = [3, 5, 10]
+    let kSteps: Int = 10
+    let kImgRes: Resolution = ._1024
     let kAnimationSeconds: CGFloat = 0.25
     
     enum State {
@@ -29,68 +30,80 @@ class Main: ObservableObject {
         }
     }
     
+    var sortMethod: SortMethod = .date {
+        didSet {
+            sort()
+        }
+    }
+    
     let sketch: Sketch
+    
+    @Published var liveGaradient: Gradient!
     
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
+    let flipFlopPix: FlipFlopPIX
     let resolutionPix: ResolutionPIX
     let feedbackPix: FeedbackPIX
     let crossPix: CrossPIX
+    let hueSaturation: HueSaturationPIX
     let blurPix: BlurPIX
-    let gradientPix: GradientPIX
-    let lookupPix: LookupPIX
+    let cropVerticalPix: CropPIX
+    let cropHorizontalPix: CropPIX
     let resolutionVerticalPix: ResolutionPIX
     let resolutionHorizontalPix: ResolutionPIX
-    let finalPix: PIX & NODEOut
-    let backgroundPix: PIX
-    let capturePix: PIX
+    let postGradientPix: GradientPIX
+    let postCirclePix: CirclePIX
+    let postBlendPix: BlendPIX
     #endif
     
     var bypass: Bool = false {
         didSet {
             #if !targetEnvironment(simulator)
             cameraPix.bypass = bypass
+            flipFlopPix.bypass = bypass
             resolutionPix.bypass = bypass
             feedbackPix.bypass = bypass
             crossPix.bypass = bypass
+            hueSaturation.bypass = bypass
             blurPix.bypass = bypass
-            gradientPix.bypass = bypass
-            lookupPix.bypass = bypass
+            cropVerticalPix.bypass = bypass
+            cropHorizontalPix.bypass = bypass
             resolutionVerticalPix.bypass = bypass
             resolutionHorizontalPix.bypass = bypass
-            finalPix.bypass = bypass
-            backgroundPix.bypass = bypass
-            capturePix.bypass = bypass
+            postGradientPix.bypass = bypass
+            postCirclePix.bypass = bypass
+            postBlendPix.bypass = bypass
             #endif
         }
     }
     
     @Published var direction: Direction = .vertical {
         didSet {
-            #if !targetEnvironment(simulator)
-            switch direction {
-            case .horizontal:
-                gradientPix.direction = .horizontal
-                gradientPix.offset = 0.0
-                gradientPix.extendRamp = .hold
-                lookupPix.axis = .x
-            case .vertical:
-                gradientPix.direction = .vertical
-                gradientPix.extendRamp = .mirror
-                gradientPix.offset = 1.0
-                lookupPix.axis = .y
-            case .angle:
-                gradientPix.direction = .angle
-                gradientPix.offset = 0.75
-                gradientPix.extendRamp = .loop
-                lookupPix.axis = .y
-            case .radial:
-                gradientPix.direction = .radial
-                gradientPix.offset = 1.0
-                gradientPix.extendRamp = .mirror
-                lookupPix.axis = .y
-            }
-            #endif
+//            #if !targetEnvironment(simulator)
+//            switch direction {
+//            case .horizontal:
+//                gradientPix.direction = .horizontal
+//                gradientPix.offset = 0.0
+//                gradientPix.extendRamp = .hold
+//                lookupPix.axis = .x
+//            case .vertical:
+//                gradientPix.direction = .vertical
+//                gradientPix.extendRamp = .mirror
+//                gradientPix.offset = 1.0
+//                lookupPix.axis = .y
+//            case .angle:
+//                gradientPix.direction = .angle
+//                gradientPix.offset = 0.75
+//                gradientPix.extendRamp = .loop
+//                lookupPix.axis = .y
+//            case .radial:
+//                gradientPix.direction = .radial
+//                gradientPix.offset = 1.0
+//                gradientPix.extendRamp = .mirror
+//                lookupPix.axis = .y
+//            }
+//            #endif
         }
     }
     
@@ -113,6 +126,11 @@ class Main: ObservableObject {
         cameraPix.view.placement = .aspectFill
         cameraPix.view.checker = false
         
+        // FIXME: Take away once bug is fixed.
+        flipFlopPix = FlipFlopPIX()
+        flipFlopPix.input = cameraPix
+        flipFlopPix.flip = .y
+        
         resolutionPix = ResolutionPIX(at: .square(kRes))
         resolutionPix.input = cameraPix
         resolutionPix.placement = .aspectFill
@@ -126,136 +144,148 @@ class Main: ObservableObject {
         crossPix.inputB = feedbackPix
         
         feedbackPix.feedPix = crossPix
+        
+        hueSaturation = HueSaturationPIX()
+        hueSaturation.input = crossPix
+        hueSaturation.saturation = 1.25
 
         blurPix = BlurPIX()
-        blurPix.input = crossPix
-        blurPix.radius = 1.0
+        blurPix.input = hueSaturation
+        blurPix.radius = 0.0
 
-        gradientPix = GradientPIX(at: .square(kRes))
-        gradientPix.direction = .vertical
-        gradientPix.offset = 1.0
-        gradientPix.extendRamp = .mirror
+        cropVerticalPix = CropPIX()
+        cropVerticalPix.input = blurPix
+        cropVerticalPix.cropFrame = CGRect(x: 0.5 - 0.5 / CGFloat(kRes), y: 0.0, width: 1.0 / CGFloat(kRes), height: 1.0)
+        
+        cropHorizontalPix = CropPIX()
+        cropHorizontalPix.input = blurPix
+        cropHorizontalPix.cropFrame = CGRect(x: 0, y: 0.5 - 0.5 / CGFloat(kRes), width: 1.0, height: 1.0 / CGFloat(kRes))
 
-        lookupPix = LookupPIX()
-        lookupPix.axis = .y
-        lookupPix.inputA = gradientPix
-        lookupPix.inputB = blurPix
+        resolutionVerticalPix = ResolutionPIX(at: .custom(w: 3, h: kSteps * 3))
+        resolutionVerticalPix.placement = .fill
+        resolutionVerticalPix.extend = .hold
+        resolutionVerticalPix.input = cropVerticalPix
         
-        resolutionVerticalPix = ResolutionPIX(at: .custom(w: 1, h: kRes))
-        resolutionVerticalPix.input = blurPix
+        resolutionHorizontalPix = ResolutionPIX(at: .custom(w: kSteps * 3, h: 3))
+        resolutionHorizontalPix.placement = .fill
+        resolutionHorizontalPix.extend = .hold
+        resolutionHorizontalPix.input = cropHorizontalPix
         
-        resolutionHorizontalPix = ResolutionPIX(at: .custom(w: kRes, h: 1))
-        resolutionHorizontalPix.input = blurPix
+        postGradientPix = GradientPIX(at: kImgRes)
         
-        finalPix = lookupPix
-        finalPix.view.checker = false
+        postCirclePix = CirclePIX(at: kImgRes)
+        postCirclePix.radius = 0.5
+        postCirclePix.bgColor = .clear
         
-        backgroundPix = finalPix._nil()
-        backgroundPix.view.placement = .fill
-        backgroundPix.view.checker = false
+        postBlendPix = BlendPIX()
+        postBlendPix.blendMode = .multiply
+        postBlendPix.inputA = postGradientPix
+        postBlendPix.inputB = postCirclePix
         
-        capturePix = finalPix._nil()
-        capturePix.view.checker = false
+        resolutionVerticalPix.delegate = self
+        resolutionHorizontalPix.delegate = self
         
         #endif
         
-        let photoImage = UIImage(named: "photo")!
-        let gradientImage = UIImage(named: "gradient")!
+        let black = Color(red: 0.0, green: 0.0, blue: 0.0)
+        liveGaradient = makeGradient(at: kSteps, from: black, to: black, in: direction)
         
-        for _ in 0..<33 {
-            let hue = CGFloat.random(in: 0.0...1.0)
-            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
-            let direction = Direction.allCases[.random(in: 0..<4)]
-            let photo = Photo(id: UUID(),
-                              photoImage: photoImage,
-                              gradientImage: gradientImage,
-                              date: Date(),
-                              direction: .vertical,
-                              gradients: [gradient(at: 5,
-                                                   from: Color(hue: hue),
-                                                   to: Color(hue: invHue),
-                                                   in: direction)])
-            photos.append(photo)
-        }
+        addTemplates()
         
-        let photo = Photo(id: UUID(),
-                          photoImage: photoImage,
-                          gradientImage: gradientImage,
-                          date: Date(),
-                          direction: .vertical,
-                          gradients: [gradient(at: 5,
-                                               from: Color(red: 1.0, green: 0.5, blue: 0.0),
-                                               to: Color(red: 0.0, green: 0.5, blue: 1.0),
-                                               in: .vertical)])
-        photos.append(photo)
-        
+    }
+    
+    func nodeDidRender(_ node: NODE) {
+        guard let pixels = getPixels() else { return }
+        liveGaradient = makeGradient(at: kSteps, from: pixels, in: direction)
     }
     
     func capture() {
         
         #if !targetEnvironment(simulator)
-        guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
-        guard let gradientImage = finalPix.renderedImage else { captureFailed(); return }
-        var pixels: PIX.PixelPack!
-        if direction == .horizontal {
-            pixels = resolutionHorizontalPix.renderedPixels
-        } else {
-            pixels = resolutionVerticalPix.renderedPixels
+        
+        guard let cameraImage = flipFlopPix.renderedImage else { captureFailed(); return }
+        guard let pixels = getPixels() else { captureFailed(); return }
+        
+        let gradient: Gradient = makeGradient(at: kSteps, from: pixels, in: direction)
+        
+        getImage(from: gradient, done: { image in
+        
+            let photo = Photo(id: UUID(), photoImage: cameraImage, gradientImage: image, date: Date(), direction: self.direction, gradient: gradient)
+            self.photos.append(photo)
+            
+        }) {
+            self.captureFailed()
         }
-        guard pixels != nil else { captureFailed(); return }
-        #endif
         
-        #if !targetEnvironment(simulator)
-        let photo = generatePhoto(photoImage: cameraImage, gradientImage: gradientImage, from: pixels, in: direction)
-        photos.append(photo)
-        #endif
-        
-        #if !targetEnvironment(simulator)
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
         #endif
         
+    }
+    
+    func getImage(from gradient: Gradient, done: @escaping (UIImage) -> (), failed: @escaping () -> ()) {
+        postGradientPix.colorSteps = gradient.colorStops.map({ colorStop -> ColorStep in
+            ColorStep(LiveFloat(colorStop.fraction), colorStop.color.liveColor)
+        })
+        var gotTexture: Bool?
+        postBlendPix.nextTextureAvalible {
+            guard gotTexture == nil else { return }
+            gotTexture = true
+            guard let image = self.postBlendPix.renderedImage else {
+                failed()
+                return
+            }
+            done(image)
+        }
+        RunLoop.current.add(Timer(timeInterval: 1.0, repeats: false, block: { _ in
+            guard gotTexture == nil else { return }
+            gotTexture = false
+            failed()
+        }), forMode: .common)
+    }
+    
+    func getPixels() -> PIX.PixelPack? {
+        switch direction.axis {
+        case .x:
+            return resolutionHorizontalPix.renderedPixels
+        case .y:
+            return resolutionVerticalPix.renderedPixels
+        }
     }
     
     func captureFailed() {}
     
     #if !targetEnvironment(simulator)
-    func generatePhoto(photoImage: UIImage, gradientImage: UIImage, from pixels: PIX.PixelPack, in direction: Direction) -> Photo {
-        let gradients: [Gradient] = kSteps.map { count -> Gradient in
-            gradient(at: count, from: pixels, in: direction)
-        }
-        return Photo(id: UUID(), photoImage: photoImage, gradientImage: gradientImage, date: Date(), direction: direction, gradients: gradients)
-    }
-    #endif
-    
-    #if !targetEnvironment(simulator)
-    func gradient(at count: Int, from pixels: PIX.PixelPack, in direction: Direction) -> Gradient {
-        var colorSteps: [ColorStep] = []
+    func makeGradient(at count: Int, from pixels: PIX.PixelPack, in direction: Direction) -> Gradient {
+        var colorStops: [ColorStop] = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
+            let relFraction = (CGFloat(i) + 0.5) / CGFloat(count)
             let color: Color
-            if direction == .horizontal {
-                color = Color(pixels.pixel(uv: CGVector(dx: fraction, dy: 0.0)).color)
-            } else {
-                color = Color(pixels.pixel(uv: CGVector(dx: 0.0, dy: 1.0 - fraction)).color)
+            switch direction.axis {
+            case .x:
+                color = Color(pixels.pixel(uv: CGVector(dx: relFraction, dy: 0.5)).color)
+            case .y:
+                color = Color(pixels.pixel(uv: CGVector(dx: 0.5, dy: 1.0 - relFraction)).color)
             }
-            let colorStep = ColorStep(color: color, step: fraction)
-            colorSteps.append(colorStep)
+            let colorStop = ColorStop(color: color, fraction: fraction)
+            colorStops.append(colorStop)
         }
-        return Gradient(direction: direction, colorSteps: colorSteps)
+        return Gradient(direction: direction, colorStops: colorStops)
     }
     #endif
     
-    func gradient(at count: Int, from fromColor: Color, to toColor: Color, in direction: Direction) -> Gradient {
-        var colorSteps: [ColorStep] = []
+    func makeGradient(at count: Int, from fromColor: Color, to toColor: Color, in direction: Direction) -> Gradient {
+        var colorStops: [ColorStop] = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
             let color = Color(red: fromColor.red * (1.0 - fraction) + toColor.red * fraction,
                                   green: fromColor.green * (1.0 - fraction) + toColor.green * fraction,
                                   blue: fromColor.blue * (1.0 - fraction) + toColor.blue * fraction)
-            let colorStep = ColorStep(color: color, step: fraction)
-            colorSteps.append(colorStep)
+            let colorStop = ColorStop(color: color, fraction: fraction)
+            colorStops.append(colorStop)
         }
-        return Gradient(direction: direction, colorSteps: colorSteps)
+        return Gradient(direction: direction, colorStops: colorStops)
     }
     
     func display(photo: Photo, from frame: CGRect) {
@@ -345,7 +375,7 @@ class Main: ObservableObject {
     func shareSketch() {
         guard let photo = displayPhoto else { return }
         do {
-            let file = try sketch.generate(from: photo, with: photo.gradients.first!)
+            let file = try sketch.generate(from: photo, with: photo.gradient)
             share(file)
         } catch {
             shareSketchFailed()
@@ -353,5 +383,63 @@ class Main: ObservableObject {
     }
     
     func shareSketchFailed() {}
+    
+    func addTemplates() {
+        
+        let photoImage = UIImage(named: "photo")!
+        let gradientImage = UIImage(named: "gradient")!
+        
+        for _ in 0..<33 {
+            let hue = CGFloat.random(in: 0.0...1.0)
+            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
+            let direction = Direction.allCases[.random(in: 0..<4)]
+            let photo = Photo(id: UUID(),
+                              photoImage: photoImage,
+                              gradientImage: gradientImage,
+                              date: Date(),
+                              direction: .vertical,
+                              gradient: makeGradient(at: kSteps,
+                                                     from: Color(hue: hue),
+                                                     to: Color(hue: invHue),
+                                                     in: direction))
+            photos.append(photo)
+        }
+        
+        let photo = Photo(id: UUID(),
+                          photoImage: photoImage,
+                          gradientImage: gradientImage,
+                          date: Date(),
+                          direction: .vertical,
+                          gradient: makeGradient(at: 5,
+                                                 from: Color(red: 1.0, green: 0.5, blue: 0.0),
+                                                 to: Color(red: 0.0, green: 0.5, blue: 1.0),
+                                                 in: .vertical))
+        photos.append(photo)
+        
+    }
+    
+    enum SortMethod: String, CaseIterable {
+        case date = "Date"
+        case hue = "Hue"
+        case sat = "Saturation"
+        case val = "Brightness"
+    }
+    
+    func sort() {
+        photos = photos.sorted(by: { photoA, photoB -> Bool in
+            let colorA = photoA.gradient.averageColor.liveColor
+            let colorB = photoB.gradient.averageColor.liveColor
+            switch self.sortMethod {
+            case .date:
+                return photoA.date < photoB.date
+            case .hue:
+                return colorA.hue.cg < colorB.hue.cg
+            case .sat:
+                return colorA.sat.cg < colorB.sat.cg
+            case .val:
+                return colorA.val.cg < colorB.val.cg
+            }
+        })
+    }
     
 }

@@ -20,7 +20,7 @@ struct CaptureView: View {
                 #if targetEnvironment(simulator)
                 GradientTemplateView(main: self.main)
                 #else
-                RawNODEUI(node: self.main.backgroundPix)
+                GradientView(gradient: self.main.liveGaradient)
                 #endif
             }
                 .opacity(0.25)
@@ -45,7 +45,7 @@ struct CaptureView: View {
                             Button(action: {
                                 self.main.display(photo: self.main.photos.last!, from: geo.frame(in: .global))
                             }) {
-                                GradientView(gradient: self.main.photos.last!.gradients.first!)
+                                GradientView(gradient: self.main.photos.last!.gradient)
                                     .mask(Circle())
                                     .opacity(self.main.displayPhoto == nil ? 1.0 : 0.0)
                             }
@@ -63,7 +63,7 @@ struct CaptureView: View {
                             #if targetEnvironment(simulator)
                             GradientTemplateView(main: self.main)
                             #else
-                            RawNODEUI(node: self.main.capturePix)
+                            GradientView(gradient: self.main.liveGaradient)
                             #endif
                         }
                         .mask(Circle())
