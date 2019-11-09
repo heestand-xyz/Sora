@@ -12,6 +12,7 @@ struct DisplayView: View {
     @ObservedObject var main: Main
     @State var dragging: Bool = false
     @State var dragPosCache: [CGFloat] = []
+    @State var showShareOptions: Bool = false
     var body: some View {
         ZStack(alignment: .bottom) {
             if main.displayPhoto != nil {
@@ -24,7 +25,7 @@ struct DisplayView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                self.main.shareSketch()
+                                self.showShareOptions = true
                             }) {
                                 Image(systemName: "square.and.arrow.up")
                             }
@@ -112,6 +113,25 @@ struct DisplayView: View {
             }
         }
             .edgesIgnoringSafeArea(.bottom)
+            .actionSheet(isPresented: self.$showShareOptions, content: {
+                ActionSheet(title: Text("Share Gradient"),
+                            message: Text("From \(self.main.displayPhoto?.gradient.colorStops.first?.color.hex ?? "#") to \(self.main.displayPhoto?.gradient.colorStops.last?.color.hex ?? "#")"),
+                            buttons: [
+                    .default(Text("Photo"), action: {
+                        self.showShareOptions = false
+                        self.main.sharePhotoImage()
+                    }),
+                    .default(Text("Gradient"), action: {
+                        self.showShareOptions = false
+                        self.main.shareGradientImage()
+                    }),
+                    .default(Text("Sketch"), action: {
+                        self.showShareOptions = false
+                        self.main.shareSketch()
+                    }),
+                    .cancel()
+                ])
+            })
             .sheet(isPresented: self.$main.showShare) {
                 ShareView(items: self.$main.shareItems)
         }
