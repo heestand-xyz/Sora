@@ -14,9 +14,9 @@ struct GridView: View {
     var body: some View {
         ZStack {
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 25) {
+                VStack(alignment: .leading, spacing: self.iPhoneScreen(min: 20, max: 25)) {
                     ForEach(0..<rowCount()) { i in
-                        HStack(spacing: 25) {
+                        HStack(spacing: self.iPhoneScreen(min: 20, max: 25)) {
                             ForEach(0..<self.kColCount) { j in
                                 if self.index(row: i, col: j) != nil {
                                     GeometryReader { geo in
@@ -31,7 +31,8 @@ struct GridView: View {
                                                 }
                                         }
                                     }
-                                    .frame(width: 95, height: 95)
+                                    .frame(width: self.iPhoneScreen(min: 75, max: 95),
+                                           height: self.iPhoneScreen(min: 75, max: 95))
                                 }
                             }
                         }
@@ -75,6 +76,12 @@ struct GridView: View {
     func photo(row rowIndex: Int, col colIndex: Int) -> Main.Photo? {
         guard let i = index(row: rowIndex, col: colIndex) else { return nil }
         return main.photos[i]
+    }
+    func iPhoneScreen(min:CGFloat,max:CGFloat) -> CGFloat {
+        let Min : CGFloat = 640
+        let Max : CGFloat = 1242
+        let fraction = (UIScreen.main.nativeBounds.width - Min) / (Max - Min)
+        return min * (1 - fraction) + max * fraction
     }
 }
 
