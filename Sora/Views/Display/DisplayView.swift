@@ -9,9 +9,17 @@
 import SwiftUI
 
 struct DisplayView: View {
+    let kCacheCount: Int = 10
+    let kVelocityLimit: CGFloat = 5.0
     @ObservedObject var main: Main
-    @State var dragging: Bool = false
-    @State var dragPosCache: [CGFloat] = []
+    enum Dragging {
+        case no
+        case yes
+        case yesX
+        case yesY
+    }
+    @State var dragging: Dragging = .no
+    @State var translationCache: [CGPoint] = []
     @State var showShareOptions: Bool = false
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -21,95 +29,55 @@ struct DisplayView: View {
                     .edgesIgnoringSafeArea(.all)
                     .opacity(Double(self.main.displayFraction))
                 VStack {
-                    VStack(spacing: 25) {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                self.showShareOptions = true
-                            }) {
-                                Image(systemName: "square.and.arrow.up")
-                            }
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            self.showShareOptions = true
+                        }) {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 20))
                         }
-                        GeometryReader { geo in
-                            ZStack(alignment: .topLeading) {
-                                Rectangle()
-                                    .opacity(0.0)
-                                if self.main.displayPhoto != nil {
-                                    GradientView(gradient: self.main.displayPhoto!.gradient)
-                                        .mask(Circle())
-                                        .offset(x: self.lerp(from: self.main.displayFrame!.minX - geo.frame(in: .global).minX, to: 0.0),
-                                                y: self.lerp(from: self.main.displayFrame!.minY - geo.frame(in: .global).minY, to: 0.0))
-                                        .frame(width: self.lerp(from: self.main.displayFrame!.width,
-                                                                to: geo.size.width),
-                                               height: self.lerp(from: self.main.displayFrame!.height,
-                                                                 to: geo.size.height))
-                                }
-                            }
-                        }
-                            .aspectRatio(1.0, contentMode: .fit)
-                        HStack {
-                            ForEach(0..<4) { i in
-                                VStack {
-                                    Circle()
-                                        .foregroundColor(self.color(at: i).color)
-                                        .frame(width: 30, height: 30)
-                                    Text(self.color(at: i).hex)
-                                        .font(.system(size: 12, weight: .bold, design: .monospaced))
-                                }
-                            }
-                        }
-                            .opacity(Double(self.main.displayFraction))
-                            .offset(y: (1.0 - self.main.displayFraction) * 200)
                     }
-                        .padding(30)
+                        .padding()
                     Spacer()
                 }
-                GeometryReader { geo in
-                    PhotoView(photo: self.main.displayPhoto!)
-                        .offset(y: geo.size.height * (1.0 - self.main.displayFraction))
-                        .gesture(DragGesture()
-                            .onChanged({ value in
-                                if !self.dragging {
-                                    self.main.reDragPhoto()
-                                }
-                                let pos = value.translation.height
-                                let fraction = 1.0 - min(max(pos / geo.size.height, 0.0), 1.0)
-                                print("fraction", fraction)
-                                self.main.displayFraction = fraction
-                                self.dragging = true
-                                if self.dragPosCache.count >= 10 {
-                                    self.dragPosCache.remove(at: 0)
-                                }
-                                self.dragPosCache.append(pos)
-                            })
-                            .onEnded({ _ in
-                                var velocity: CGFloat?
-                                if self.dragPosCache.count >= 10 {
-                                    let fromPos = self.dragPosCache.first!
-                                    let toPos = self.dragPosCache.last!
-                                    print("fromPos", fromPos, "toPos", toPos)
-                                    velocity = toPos - fromPos
-                                }
-                                print("velocity", velocity)
-                                if velocity != nil && velocity! > 5.0 {
-                                    if velocity! < 0.0 {
-                                        self.main.reDisplayPhoto()
-                                    } else {
-                                        self.main.reHidePhoto()
-                                    }
-                                } else {
-                                    if self.main.displayFraction > 0.5 {
-                                        self.main.reDisplayPhoto()
-                                    } else {
-                                        self.main.reHidePhoto()
-                                    }
-                                }
-                                self.dragging = false
-                                self.dragPosCache = []
-                            })
-                    )
+                VStack {
+                    GeometryReader { geo in
+                        ZStack {
+                            DisplayPhotoView(photo: self.main.displayPhoto!, fraction: self.main.displayFraction, frame: self.main.displayFrame!)
+                                .offset(x: self.offsetX(at: geo.size))
+                                .gesture(DragGesture()
+                                    .onChanged({ value in
+                                        self.onDragChange(with: value, at: geo.size)
+                                    })
+                                    .onEnded({ _ in
+                                        self.onDragEnded()
+                                    })
+                            )
+                            if self.main.nextDisplayPhoto != nil {
+                                DisplayPhotoView(photo: self.main.nextDisplayPhoto!, fraction: 1.0, frame: .zero)
+                                    .offset(x: self.nextOffsetX(at: geo.size))
+                            }
+                        }
+                            .layoutPriority(1)
+                    }
+                    Spacer()
                 }
+                if self.photo() != nil {                
+                    GeometryReader { geo in
+                        PhotoView(photo: self.photo()!)
+                            .offset(y: self.comboOffsetY(at: geo.size))
+                            .gesture(DragGesture()
+                                .onChanged({ value in
+                                    self.onDragChange(with: value, at: geo.size, swipe: false)
+                                })
+                                .onEnded({ _ in
+                                    self.onDragEnded(swipe: false)
+                                })
+                        )
+                    }
                     .aspectRatio(.displayPhotoAspectRatio, contentMode: .fit)
+                }
             }
         }
             .edgesIgnoringSafeArea(.bottom)
@@ -136,16 +104,124 @@ struct DisplayView: View {
                 ShareView(items: self.$main.shareItems)
         }
     }
-    func color(at index: Int) -> Main.Color {
-        let relIndex = index * 3
-        let colorStops = main.displayPhoto!.gradient.colorStops
-        guard relIndex < colorStops.count else {
-            return colorStops.last!.color
+    func onDragChange(with value: DragGesture.Value, at size: CGSize, swipe: Bool = true) {
+        if dragging == .no {
+            main.reDragPhoto()
+            dragging = .yes
+        } else {
+            if dragging == .yes {
+                let firstPos = translationCache.first!
+                let lastPos = translationCache.last!
+                let diffX = lastPos.x - firstPos.x
+                let diffY = lastPos.y - firstPos.y
+                if diffX != 0.0 || diffY != 0.0 {
+                    dragging = abs(diffX) > abs(diffY) ? .yesX : .yesY
+                    if dragging == .yesX && swipe {
+                        let way: Main.Way = diffX > 0.0 ? .right : .left
+                        main.loadNextDisplayPhoto(in: way)
+                    }
+                }
+            } else if dragging == .yesX && swipe && main.nextDisplayPhoto != nil {
+                let x = value.translation.width
+                var fraction = min(max(x / size.width, -1.0), 1.0)
+                if main.nextDisplayWay == .left {
+                    fraction = max(-fraction, 0.0)
+                } else if main.nextDisplayWay == .right {
+                    fraction = max(fraction, 0.0)
+                }
+                main.nextDisplayFraction = fraction
+            } else if dragging == .yesY {
+                let y = value.translation.height
+                let fraction = 1.0 - min(max(y / size.height, 0.0), 1.0)
+                main.displayFraction = fraction
+            }
         }
-        return colorStops[relIndex].color
+        if translationCache.count >= kCacheCount {
+            translationCache.remove(at: 0)
+        }
+        translationCache.append(CGPoint(x: value.translation.width,
+                                             y: value.translation.height))
     }
-    func lerp(from fromValue: CGFloat, to toValue: CGFloat) -> CGFloat {
-        fromValue * (1.0 - main.displayFraction) + toValue * main.displayFraction
+    func onDragEnded(swipe: Bool = true) {
+        var velocity: CGPoint?
+        if translationCache.count >= kCacheCount {
+            let fromPos = translationCache.first!
+            let toPos = translationCache.last!
+            velocity = CGPoint(x: toPos.x - fromPos.x,
+                               y: toPos.y - fromPos.y)
+        }
+        if dragging == .yesX && swipe && main.nextDisplayPhoto != nil {
+            if velocity != nil && abs(velocity!.y) > kVelocityLimit {
+                if main.nextDisplayWay == .left {
+                    if velocity!.x < 0.0 {
+                        main.reNext()
+                    } else {
+                        main.reBack()
+                    }
+                } else if main.nextDisplayWay == .right {
+                    if velocity!.x > 0.0 {
+                        main.reNext()
+                    } else {
+                        main.reBack()
+                    }
+                }
+            } else {
+                if (main.nextDisplayFraction ?? 0.0) > 0.5 {
+                    main.reNext()
+                } else {
+                    main.reBack()
+                }
+            }
+        } else if dragging == .yesY {
+            if velocity != nil && abs(velocity!.y) > kVelocityLimit {
+                if velocity!.y < 0.0 {
+                    main.reDisplayPhoto()
+                } else {
+                    main.reHidePhoto()
+                }
+            } else {
+                if main.displayFraction > 0.5 {
+                    main.reDisplayPhoto()
+                } else {
+                    main.reHidePhoto()
+                }
+            }
+        }
+        dragging = .no
+        translationCache = []
+    }
+    func comboOffsetY(at size: CGSize) -> CGFloat {
+        if let fraction = main.nextDisplayFraction {
+            let waveFraction = cos(fraction * .pi * 2 + .pi) / 2 + 0.5
+            return size.height * waveFraction
+        }
+        return size.height * (1.0 - self.main.displayFraction)
+    }
+    func offsetX(at size: CGSize) -> CGFloat {
+        guard let way = main.nextDisplayWay else { return 0.0 }
+        guard let fraction = main.nextDisplayFraction else { return 0.0 }
+        if way == .left {
+            return -fraction * size.width
+        } else {
+            return fraction * size.width
+        }
+    }
+    func nextOffsetX(at size: CGSize) -> CGFloat {
+        guard let way = main.nextDisplayWay else { return 0.0 }
+        guard var fraction = main.nextDisplayFraction else { return 0.0 }
+        fraction -= 1.0
+        if way == .left {
+            return -fraction * size.width
+        } else {
+            return fraction * size.width
+        }
+    }
+    func photo() -> Main.Photo? {
+        let fraction = main.nextDisplayFraction
+        if fraction != nil && fraction! > 0.5 {
+            return main.nextDisplayPhoto
+        }
+        return main.displayPhoto
     }
 }
 

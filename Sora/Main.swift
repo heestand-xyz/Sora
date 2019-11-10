@@ -81,9 +81,14 @@ class Main: ObservableObject, NODEDelegate {
     @Published var displayPhoto: Photo?
     @Published var displayFrame: CGRect?
     @Published var displayFraction: CGFloat = 0.0
-    
+    @Published var nextDisplayPhoto: Photo?
+    @Published var nextDisplayFraction: CGFloat?
+    @Published var nextDisplayWay: Way?
+
     @Published var showShare: Bool = false
     @Published var shareItems: [Any] = []
+    
+    var animationTimer: Timer?
     
     init() {
         
@@ -259,85 +264,6 @@ class Main: ObservableObject, NODEDelegate {
         return Gradient(direction: direction, colorStops: colorStops)
     }
     
-    func display(photo: Photo, from frame: CGRect) {
-        displayFrame = frame
-        displayPhoto = photo
-        animate(for: kAnimationSeconds, ease: .easeOut, animate: { fraction in
-            self.displayFraction = fraction
-        }) {}
-    }
-    
-    func hidePhoto() {
-        animate(for: kAnimationSeconds, ease: .easeOut, animate: { fraction in
-            self.displayFraction = 1.0 - fraction
-        }) {
-            self.displayPhoto = nil
-            self.displayFrame = nil
-        }
-    }
-    
-    func reDragPhoto() {
-        if let timer = animationTimer {
-            timer.invalidate()
-        }
-    }
-    
-    func reDisplayPhoto() {
-        let currentFraction = displayFraction
-        guard currentFraction != 1.0 else { return }
-        animate(for: kAnimationSeconds - currentFraction * kAnimationSeconds, ease: .easeOut, animate: { fraction in
-            self.displayFraction = currentFraction * (1.0 - fraction) + fraction
-        }) {}
-    }
-    
-    func reHidePhoto() {
-        let currentFraction = displayFraction
-        guard currentFraction != 0.0 else { return }
-        animate(for: kAnimationSeconds * currentFraction, ease: .easeOut, animate: { fraction in
-            self.displayFraction = currentFraction * (1.0 - fraction)
-        }) {
-            self.displayPhoto = nil
-            self.displayFrame = nil
-        }
-    }
-    
-    var animationTimer: Timer?
-    
-    enum Ease {
-        case easeIn
-        case easeOut
-        case easeInOut
-    }
-    
-    func animate(for seconds: CGFloat, ease: Ease? = nil, animate: @escaping (CGFloat) -> (), done: @escaping () -> ()) {
-        if let timer = animationTimer {
-            timer.invalidate()
-        }
-        var index = 0
-        let count = Int(seconds / 0.01)
-        animationTimer = Timer(timeInterval: 0.01, repeats: true, block: { timer in
-            index += 1
-            var fraction = CGFloat(index) / CGFloat(count)
-            if let ease = ease {
-                switch ease {
-                case .easeIn:
-                    fraction = sin(fraction * .pi / 2 - .pi / 2) + 1.0
-                case .easeOut:
-                    fraction = sin(fraction * .pi / 2)
-                case .easeInOut:
-                    fraction = sin(fraction * .pi - .pi / 2) / 2 + 0.5
-                }
-            }
-            animate(fraction)
-            if index >= count {
-                timer.invalidate()
-                self.animationTimer = nil
-                done()
-            }
-        })
-        RunLoop.current.add(animationTimer!, forMode: .common)
-    }
-    
     func share(_ item: Any) {
         shareItems = [item]
         showShare = true
@@ -386,14 +312,15 @@ class Main: ObservableObject, NODEDelegate {
     func addTemplates() {
         
         let photoImage = UIImage(named: "photo")!
+        let photo2Image = UIImage(named: "photo2")!
         let gradientImage = UIImage(named: "gradient")!
         
-        for _ in 0..<33 {
+        for i in 0..<33 {
             let hue = CGFloat.random(in: 0.0...1.0)
             let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
             let direction = Direction.allCases[.random(in: 0..<4)]
             let photo = Photo(id: UUID(),
-                              photoImage: photoImage,
+                              photoImage: i % 2 == 0 ? photo2Image : photoImage,
                               gradientImage: gradientImage,
                               date: Date(),
                               direction: .vertical,
@@ -401,7 +328,7 @@ class Main: ObservableObject, NODEDelegate {
                                                      from: Color(hue: hue),
                                                      to: Color(hue: invHue),
                                                      in: direction))
-            photos.append(photo)
+            photos.insert(photo, at: 0)
         }
         
         let photo = Photo(id: UUID(),

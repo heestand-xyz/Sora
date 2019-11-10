@@ -14,7 +14,7 @@ DEPENDENCIES:
   - Zip
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - LiveValues
     - PixelKit
     - RenderKit
@@ -30,4 +30,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b0cd9e495b6393ec400120dc7e014d681af6be15
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.5
