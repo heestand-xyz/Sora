@@ -86,8 +86,11 @@ extension Main {
     }
     
     func reNextPost() {
-        self.displayPhoto = self.nextDisplayPhoto
-//        self.displayFrame
+        guard let photo = nextDisplayPhoto else { return }
+        displayPhoto = photo
+        if state == .grid {        
+            displayFrame = gridFrames[photo.id] ?? .zero
+        }
     }
     
     func reBack() {

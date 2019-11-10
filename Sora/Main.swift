@@ -84,6 +84,7 @@ class Main: ObservableObject, NODEDelegate {
     @Published var nextDisplayPhoto: Photo?
     @Published var nextDisplayFraction: CGFloat?
     @Published var nextDisplayWay: Way?
+    var gridFrames: [UUID: CGRect] = [:]
 
     @Published var showShare: Bool = false
     @Published var shareItems: [Any] = []

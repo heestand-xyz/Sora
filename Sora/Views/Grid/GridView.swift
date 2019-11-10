@@ -26,6 +26,9 @@ struct GridView: View {
                                             GradientView(gradient: self.photo(row: i, col: j)!.gradient)
                                                 .mask(Circle())
                                                 .opacity(self.main.displayPhoto == self.photo(row: i, col: j)! ? 0.0 : 1.0)
+                                                .onAppear {
+                                                    self.main.gridFrames[self.photo(row: i, col: j)!.id] = geo.frame(in: .global)
+                                                }
                                         }
                                     }
                                     .frame(width: 75, height: 75)
