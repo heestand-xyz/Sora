@@ -77,6 +77,7 @@ class Main: ObservableObject, NODEDelegate {
     @Published var direction: Direction = .vertical
     
     @Published var photos: [Photo] = []
+    @Published var lastPhoto: Photo?
     
     @Published var displayPhoto: Photo?
     @Published var displayFrame: CGRect?
@@ -185,6 +186,7 @@ class Main: ObservableObject, NODEDelegate {
         
             let photo = Photo(id: UUID(), photoImage: cameraImage, gradientImage: image, date: Date(), direction: self.direction, gradient: gradient)
             self.photos.append(photo)
+            self.lastPhoto = photo
             
         }) {
             self.captureFailed()

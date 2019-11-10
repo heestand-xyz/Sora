@@ -29,29 +29,36 @@ struct DisplayPhotoView: View {
                 }
             }
                 .aspectRatio(1.0, contentMode: .fit)
-            HStack {
-                ForEach(0..<4) { i in
-                    VStack {
-                        Circle()
-                            .foregroundColor(self.color(at: i).color)
-                            .frame(width: 30, height: 30)
-                        Text(self.color(at: i).hex)
-                            .font(.system(size: 12, weight: .bold, design: .monospaced))
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    Rectangle()
+                        .opacity(0.0)
+                        .frame(width: 20)
+                    ForEach(0..<self.photo.gradient.colorStops.count) { i in
+                        VStack {
+                            Circle()
+                                .foregroundColor(self.photo.gradient.colorStops[i].color.color)
+                                .frame(width: 30, height: 30)
+                            Text(self.photo.gradient.colorStops[i].color.hex)
+                                .font(.system(size: 12, weight: .bold, design: .monospaced))
+                        }
                     }
+                    Rectangle()
+                        .opacity(0.0)
+                        .frame(width: 20)
                 }
             }
-            .opacity(Double(fraction))
-            .offset(y: (1.0 - fraction) * 200)
+                .frame(height: 50)
+                .opacity(Double(fraction))
+                .offset(y: (1.0 - fraction) * 200)
+                .mask(LinearGradient(gradient: Gradient(stops: [
+                    Gradient.Stop(color: .clear, location: 0.0),
+                    Gradient.Stop(color: .white, location: 0.15),
+                    Gradient.Stop(color: .white, location: 0.85),
+                    Gradient.Stop(color: .clear, location: 1.0)
+                ]), startPoint: .leading, endPoint: .trailing))
         }
             .padding(30)
-    }
-    func color(at index: Int) -> Main.Color {
-        let relIndex = index * 3
-        let colorStops = photo.gradient.colorStops
-        guard relIndex < colorStops.count else {
-            return colorStops.last!.color
-        }
-        return colorStops[relIndex].color
     }
     func lerp(from fromValue: CGFloat, to toValue: CGFloat) -> CGFloat {
         fromValue * (1.0 - fraction) + toValue * fraction
