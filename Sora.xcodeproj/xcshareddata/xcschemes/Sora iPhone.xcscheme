@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "744A36F12378337600405CF6"
-               BuildableName = "Sora iPhone.app"
+               BuildableName = "sora.app"
                BlueprintName = "Sora iPhone"
                ReferencedContainer = "container:Sora.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "744A36F12378337600405CF6"
-            BuildableName = "Sora iPhone.app"
+            BuildableName = "sora.app"
             BlueprintName = "Sora iPhone"
             ReferencedContainer = "container:Sora.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "744A36F12378337600405CF6"
-            BuildableName = "Sora iPhone.app"
+            BuildableName = "sora.app"
             BlueprintName = "Sora iPhone"
             ReferencedContainer = "container:Sora.xcodeproj">
          </BuildableReference>

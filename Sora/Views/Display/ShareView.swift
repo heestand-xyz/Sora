@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct ShareView: View {
+    @ObservedObject var main: Main
+    let photo: Main.Photo
     var body: some View {
         VStack {
             
@@ -23,8 +25,8 @@ struct ShareView: View {
                 ShareOption(
                     text:"Gradient",
                     imagename: "gradient_vertical",
-                    download:{},
-                    share:{},
+                    download: { self.main.saveGradientImage() },
+                    share: { self.main.shareGradientImage() },
                     quicklook: nil)
                 
                 Spacer()
@@ -36,8 +38,8 @@ struct ShareView: View {
                 ShareOption(
                     text:"Photo",
                     imagename: "gradient_vertical",
-                    download:{},
-                    share:{},
+                    download: { self.main.savePhotoImage() },
+                    share: { self.main.sharePhotoImage() },
                     quicklook: nil)
                 Spacer()
             }
@@ -55,7 +57,7 @@ struct ShareView: View {
                 text:"Sketch",
                 imagename: "gradient_vertical",
                     download: nil,
-                    share:{},
+                    share: { self.main.shareSketch() },
                     quicklook: nil)
                 
                 Spacer()
@@ -68,8 +70,8 @@ struct ShareView: View {
                 text:"PDF",
                 imagename: "gradient_vertical",
                     download: nil,
-                    share:{},
-                    quicklook:{})
+                    share: { self.main.sharePDF() },
+                    quicklook: { self.main.quickLookPDF() })
                 
                 Spacer()
                 
@@ -101,7 +103,10 @@ struct ShareView: View {
               
             
         }
-        .padding(.all, 20.0)
+            .padding(.all, 20.0)
+            .sheet(isPresented: self.$main.showShare) {
+                ShareSheetView(items: self.$main.shareItems)
+        }
     }
 }
 
@@ -147,6 +152,7 @@ struct ShareOption:View {
 
 struct ShareView_Previews: PreviewProvider {
     static var previews: some View {
-        ShareView()
+        let main = Main()
+        return ShareView(main: main, photo: main.photos.last!)
     }
 }
