@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ShareView: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var main: Main
     let photo: Main.Photo
     var body: some View {
@@ -84,7 +85,9 @@ struct ShareView: View {
                  
                  Spacer()
                  
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                 Button(action: {
+                    self.main.delete(photo: self.photo)
+                 }) {
                     Text("Delete")
                         .accentColor(/*@START_MENU_TOKEN@*/.red/*@END_MENU_TOKEN@*/)
                     
@@ -94,7 +97,9 @@ struct ShareView: View {
                  Divider()
                  Spacer()
                  
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                 Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                 }) {
                      Text("Cancel")
                  }
                  Spacer()
@@ -104,9 +109,22 @@ struct ShareView: View {
             
         }
             .padding(.all, 20.0)
-            .sheet(isPresented: self.$main.showShare) {
-                ShareSheetView(items: self.$main.shareItems)
-        }
+            .sheet(isPresented: Binding<Bool>(get: {
+                self.main.showShare || self.main.showQuickLook
+            }, set: { active in
+                if !active {
+                    self.main.showShare = false
+                    self.main.showQuickLook = false
+                }
+            })) {
+                Group {
+                    if self.main.showShare {
+                        ShareSheetView(items: self.$main.shareItems)
+                    } else if self.main.showQuickLook {
+                        QuickLookView(items: self.$main.quickLookItems)
+                    }
+                }
+            }
     }
 }
 

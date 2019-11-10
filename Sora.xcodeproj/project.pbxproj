@@ -41,6 +41,8 @@
 		744A370F2378337600405CF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */; };
 		744A37102378337600405CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC0236F3F42004BD10E /* Assets.xcassets */; };
 		744A37112378337600405CF6 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430C2371D69D0010F122 /* user.json */; };
+		744A37192378732E00405CF6 /* QuickLookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A37182378732E00405CF6 /* QuickLookView.swift */; };
+		744A371A2378740700405CF6 /* QuickLookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A37182378732E00405CF6 /* QuickLookView.swift */; };
 		745125C723782D96002616C4 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C623782D96002616C4 /* PDF.swift */; };
 		745125C923782E66002616C4 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C823782E66002616C4 /* Share.swift */; };
 		74C2C1A923707A8B00D976DE /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2C1A823707A8B00D976DE /* GridView.swift */; };
@@ -77,6 +79,7 @@
 		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		744A37162378337600405CF6 /* sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		744A37172378337600405CF6 /* Sora copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Sora copy-Info.plist"; path = "/Users/hexagons/Documents/Code/Apps/Development/Sora/Sora copy-Info.plist"; sourceTree = "<absolute>"; };
+		744A37182378732E00405CF6 /* QuickLookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookView.swift; sourceTree = "<group>"; };
 		745125C623782D96002616C4 /* PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		745125C823782E66002616C4 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		74C2C1A823707A8B00D976DE /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 				74C8A3542370112C000F4314 /* TemplateViews.swift */,
 				74D0B7D4237045240026CDE9 /* GradientView.swift */,
 				7418C5E92371F87500261816 /* ShareSheetView.swift */,
+				744A37182378732E00405CF6 /* QuickLookView.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -472,6 +476,7 @@
 				744A36FC2378337600405CF6 /* SceneDelegate.swift in Sources */,
 				744A36FD2378337600405CF6 /* Main.swift in Sources */,
 				744A36FE2378337600405CF6 /* ShareSheetView.swift in Sources */,
+				744A371A2378740700405CF6 /* QuickLookView.swift in Sources */,
 				744A36FF2378337600405CF6 /* Models.swift in Sources */,
 				744A37002378337600405CF6 /* ContentView.swift in Sources */,
 				744A37012378337600405CF6 /* GridView.swift in Sources */,
@@ -500,6 +505,7 @@
 				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,
 				74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */,
 				7418C5EA2371F87500261816 /* ShareSheetView.swift in Sources */,
+				744A37192378732E00405CF6 /* QuickLookView.swift in Sources */,
 				74C8A35823701448000F4314 /* Models.swift in Sources */,
 				74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */,
 				74C2C1A923707A8B00D976DE /* GridView.swift in Sources */,

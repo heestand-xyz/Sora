@@ -15,6 +15,11 @@ extension Main {
         showShare = true
     }
     
+    func quickLook(_ item: URL) {
+        quickLookItems = [item]
+        showQuickLook = true
+    }
+    
     // MARK: - Sketch
     
     func shareSketch() {
@@ -38,7 +43,9 @@ extension Main {
     }
     
     func quickLookPDF() {
-        
+        guard let photo = displayPhoto else { return }
+        guard let pdf = try? PDF.create(from: photo) else { return }
+        quickLook(pdf)
     }
     
     // MARK: - Image

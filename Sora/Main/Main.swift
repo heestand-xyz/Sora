@@ -86,9 +86,12 @@ class Main: ObservableObject, NODEDelegate {
     @Published var nextDisplayFraction: CGFloat?
     @Published var nextDisplayWay: Way?
     var gridFrames: [UUID: CGRect] = [:]
-
+    
     @Published var showShare: Bool = false
     @Published var shareItems: [Any] = []
+        
+    @Published var showQuickLook: Bool = false
+    @Published var quickLookItems: [URL] = []
     
     var animationTimer: Timer?
     
@@ -330,6 +333,10 @@ class Main: ObservableObject, NODEDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
         return "Sora \(dateFormatter.string(from: photo.date))"
+    }
+    
+    func delete(photo: Photo) {
+        
     }
     
 }
