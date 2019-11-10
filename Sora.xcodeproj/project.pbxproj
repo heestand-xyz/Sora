@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		71DA31AFD95FE797AFCE3458 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA2A03AAA76417A55859E3D /* Pods_Sora.framework */; };
+		0CF54AB00A0A9335EC827578 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6ABDF4E3ED16D3E267D7A4 /* Pods_Sora.framework */; };
 		7413BD82237825440059E297 /* DisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60D2377304E00261816 /* DisplayPhotoView.swift */; };
 		7418C5EA2371F87500261816 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareView.swift */; };
 		7418C60C23772EF100261816 /* DisplayPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60B23772EF100261816 /* DisplayPhoto.swift */; };
@@ -32,7 +32,6 @@
 		744A37052378337600405CF6 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A349236F6E2A000F4314 /* DisplayView.swift */; };
 		744A37062378337600405CF6 /* DisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60D2377304E00261816 /* DisplayPhotoView.swift */; };
 		744A37072378337600405CF6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429783223703B570094A16B /* Constants.swift */; };
-		744A37092378337600405CF6 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA2A03AAA76417A55859E3D /* Pods_Sora.framework */; };
 		744A370B2378337600405CF6 /* document.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430B2371D69D0010F122 /* document.json */; };
 		744A370C2378337600405CF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */; };
 		744A370D2378337600405CF6 /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430E2371D69D0010F122 /* meta.json */; };
@@ -63,9 +62,14 @@
 		74ED8EC7236F3F42004BD10E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */; };
 		74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Main.swift */; };
 		74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECF236F3FAD004BD10E /* LiveView.swift */; };
+		FC85DCC9E9C15826FE540511 /* Pods_Sora_iPhone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32C342DC7D6253A972CA20A0 /* Pods_Sora_iPhone.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32C342DC7D6253A972CA20A0 /* Pods_Sora_iPhone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora_iPhone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A93678B5B9411947853E88A /* Pods-Sora iPhone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora iPhone.debug.xcconfig"; path = "Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone.debug.xcconfig"; sourceTree = "<group>"; };
+		5B6ABDF4E3ED16D3E267D7A4 /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D24D8EF6C79AC7465D6255C /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
 		7418C5E92371F87500261816 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		7418C60B23772EF100261816 /* DisplayPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhoto.swift; sourceTree = "<group>"; };
 		7418C60D2377304E00261816 /* DisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhotoView.swift; sourceTree = "<group>"; };
@@ -97,9 +101,8 @@
 		74ED8EC8236F3F42004BD10E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74ED8ECE236F3FAC004BD10E /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		74ED8ECF236F3FAD004BD10E /* LiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
-		A15160F184845C099813ADE5 /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
-		BFA2A03AAA76417A55859E3D /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EBDDAF49C394E90465F1696E /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
+		8AB34A2501C80E692A1B9DC9 /* Pods-Sora iPhone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora iPhone.release.xcconfig"; path = "Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone.release.xcconfig"; sourceTree = "<group>"; };
+		E9841FACEBE71FCBA5207072 /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				744A37092378337600405CF6 /* Pods_Sora.framework in Frameworks */,
+				FC85DCC9E9C15826FE540511 /* Pods_Sora_iPhone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,17 +118,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71DA31AFD95FE797AFCE3458 /* Pods_Sora.framework in Frameworks */,
+				0CF54AB00A0A9335EC827578 /* Pods_Sora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		364D74D763BAE88D4B4DE3CC /* Frameworks */ = {
+		4FD0D6A0AD156B59AA44921F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BFA2A03AAA76417A55859E3D /* Pods_Sora.framework */,
+				5B6ABDF4E3ED16D3E267D7A4 /* Pods_Sora.framework */,
+				32C342DC7D6253A972CA20A0 /* Pods_Sora_iPhone.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,8 +215,8 @@
 				74ED8EB9236F3F3F004BD10E /* Sora */,
 				74ED8EB8236F3F3F004BD10E /* Products */,
 				ED4070C8AB2D4CAA2961D39B /* Pods */,
-				364D74D763BAE88D4B4DE3CC /* Frameworks */,
 				744A37172378337600405CF6 /* Sora copy-Info.plist */,
+				4FD0D6A0AD156B59AA44921F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,8 +256,10 @@
 		ED4070C8AB2D4CAA2961D39B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A15160F184845C099813ADE5 /* Pods-Sora.debug.xcconfig */,
-				EBDDAF49C394E90465F1696E /* Pods-Sora.release.xcconfig */,
+				E9841FACEBE71FCBA5207072 /* Pods-Sora.debug.xcconfig */,
+				5D24D8EF6C79AC7465D6255C /* Pods-Sora.release.xcconfig */,
+				3A93678B5B9411947853E88A /* Pods-Sora iPhone.debug.xcconfig */,
+				8AB34A2501C80E692A1B9DC9 /* Pods-Sora iPhone.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -265,11 +271,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 744A37132378337600405CF6 /* Build configuration list for PBXNativeTarget "Sora iPhone" */;
 			buildPhases = (
-				744A36F22378337600405CF6 /* [CP] Check Pods Manifest.lock */,
+				28BA90A7AD0029B8981F5408 /* [CP] Check Pods Manifest.lock */,
 				744A36F32378337600405CF6 /* Sources */,
 				744A37082378337600405CF6 /* Frameworks */,
 				744A370A2378337600405CF6 /* Resources */,
-				744A37122378337600405CF6 /* [CP] Embed Pods Frameworks */,
+				B4CE1C8994B7508451C1241F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -284,11 +290,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74ED8ECB236F3F42004BD10E /* Build configuration list for PBXNativeTarget "Sora" */;
 			buildPhases = (
-				54355B07FC93FE346162F06E /* [CP] Check Pods Manifest.lock */,
+				FAD92693CE67AFAA19C34DD5 /* [CP] Check Pods Manifest.lock */,
 				74ED8EB3236F3F3F004BD10E /* Sources */,
 				74ED8EB4236F3F3F004BD10E /* Frameworks */,
 				74ED8EB5236F3F3F004BD10E /* Resources */,
-				888511C053626C1C66D5BE48 /* [CP] Embed Pods Frameworks */,
+				0C2AB00B3DD2AFDB53254276 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -365,7 +371,63 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		54355B07FC93FE346162F06E /* [CP] Check Pods Manifest.lock */ = {
+		0C2AB00B3DD2AFDB53254276 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		28BA90A7AD0029B8981F5408 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sora iPhone-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4CE1C8994B7508451C1241F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAD92693CE67AFAA19C34DD5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -385,62 +447,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		744A36F22378337600405CF6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sora-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		744A37122378337600405CF6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		888511C053626C1C66D5BE48 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -516,12 +522,12 @@
 /* Begin XCBuildConfiguration section */
 		744A37142378337600405CF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A15160F184845C099813ADE5 /* Pods-Sora.debug.xcconfig */;
+			baseConfigurationReference = 3A93678B5B9411947853E88A /* Pods-Sora iPhone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
-				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				DEVELOPMENT_TEAM = SQ973MN6C3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sora copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -539,12 +545,12 @@
 		};
 		744A37152378337600405CF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EBDDAF49C394E90465F1696E /* Pods-Sora.release.xcconfig */;
+			baseConfigurationReference = 8AB34A2501C80E692A1B9DC9 /* Pods-Sora iPhone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
-				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				DEVELOPMENT_TEAM = SQ973MN6C3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sora copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -676,12 +682,12 @@
 		};
 		74ED8ECC236F3F42004BD10E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A15160F184845C099813ADE5 /* Pods-Sora.debug.xcconfig */;
+			baseConfigurationReference = E9841FACEBE71FCBA5207072 /* Pods-Sora.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
-				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				DEVELOPMENT_TEAM = SQ973MN6C3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sora/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -699,12 +705,12 @@
 		};
 		74ED8ECD236F3F42004BD10E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EBDDAF49C394E90465F1696E /* Pods-Sora.release.xcconfig */;
+			baseConfigurationReference = 5D24D8EF6C79AC7465D6255C /* Pods-Sora.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
-				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				DEVELOPMENT_TEAM = SQ973MN6C3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sora/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
