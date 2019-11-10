@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60CC8443237851AC000A0237 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CC8442237851AC000A0237 /* ShareView.swift */; };
+		60CC8444237851AC000A0237 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CC8442237851AC000A0237 /* ShareView.swift */; };
 		67A335FF408B0D124901E373 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AAC6F94282A3EC324FF8C8 /* Pods_Sora.framework */; };
 		7413BD82237825440059E297 /* DisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60D2377304E00261816 /* DisplayPhotoView.swift */; };
-		7418C5EA2371F87500261816 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareView.swift */; };
+		7418C5EA2371F87500261816 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareSheetView.swift */; };
 		7418C60C23772EF100261816 /* DisplayPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60B23772EF100261816 /* DisplayPhoto.swift */; };
 		7429783323703B570094A16B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429783223703B570094A16B /* Constants.swift */; };
 		744A36F42378337600405CF6 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C623782D96002616C4 /* PDF.swift */; };
@@ -22,7 +24,7 @@
 		744A36FB2378337600405CF6 /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECF236F3FAD004BD10E /* LiveView.swift */; };
 		744A36FC2378337600405CF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */; };
 		744A36FD2378337600405CF6 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Main.swift */; };
-		744A36FE2378337600405CF6 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareView.swift */; };
+		744A36FE2378337600405CF6 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareSheetView.swift */; };
 		744A36FF2378337600405CF6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35723701448000F4314 /* Models.swift */; };
 		744A37002378337600405CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBE236F3F3F004BD10E /* ContentView.swift */; };
 		744A37012378337600405CF6 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2C1A823707A8B00D976DE /* GridView.swift */; };
@@ -68,7 +70,8 @@
 /* Begin PBXFileReference section */
 		30CC650E850CB538525CE5CC /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
 		56C2D461A2B1BCA4624CA942 /* Pods-Sora iPhone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora iPhone.release.xcconfig"; path = "Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone.release.xcconfig"; sourceTree = "<group>"; };
-		7418C5E92371F87500261816 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		60CC8442237851AC000A0237 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		7418C5E92371F87500261816 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		7418C60B23772EF100261816 /* DisplayPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhoto.swift; sourceTree = "<group>"; };
 		7418C60D2377304E00261816 /* DisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhotoView.swift; sourceTree = "<group>"; };
 		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -139,7 +142,7 @@
 			children = (
 				74C8A3542370112C000F4314 /* TemplateViews.swift */,
 				74D0B7D4237045240026CDE9 /* GradientView.swift */,
-				7418C5E92371F87500261816 /* ShareView.swift */,
+				7418C5E92371F87500261816 /* ShareSheetView.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				7418C60D2377304E00261816 /* DisplayPhotoView.swift */,
 				74C8A35023700C76000F4314 /* PageView.swift */,
 				74C8A35223701055000F4314 /* PhotoView.swift */,
+				60CC8442237851AC000A0237 /* ShareView.swift */,
 			);
 			path = Display;
 			sourceTree = "<group>";
@@ -459,6 +463,7 @@
 				744A36F42378337600405CF6 /* PDF.swift in Sources */,
 				744A36F52378337600405CF6 /* AppDelegate.swift in Sources */,
 				744A36F62378337600405CF6 /* PageView.swift in Sources */,
+				60CC8444237851AC000A0237 /* ShareView.swift in Sources */,
 				744A36F72378337600405CF6 /* CaptureView.swift in Sources */,
 				744A36F82378337600405CF6 /* TemplateViews.swift in Sources */,
 				744A36F92378337600405CF6 /* Share.swift in Sources */,
@@ -466,7 +471,7 @@
 				744A36FB2378337600405CF6 /* LiveView.swift in Sources */,
 				744A36FC2378337600405CF6 /* SceneDelegate.swift in Sources */,
 				744A36FD2378337600405CF6 /* Main.swift in Sources */,
-				744A36FE2378337600405CF6 /* ShareView.swift in Sources */,
+				744A36FE2378337600405CF6 /* ShareSheetView.swift in Sources */,
 				744A36FF2378337600405CF6 /* Models.swift in Sources */,
 				744A37002378337600405CF6 /* ContentView.swift in Sources */,
 				744A37012378337600405CF6 /* GridView.swift in Sources */,
@@ -486,6 +491,7 @@
 				745125C723782D96002616C4 /* PDF.swift in Sources */,
 				74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */,
 				74C8A35123700C76000F4314 /* PageView.swift in Sources */,
+				60CC8443237851AC000A0237 /* ShareView.swift in Sources */,
 				74C8A34C236F6ED2000F4314 /* CaptureView.swift in Sources */,
 				74C8A3552370112D000F4314 /* TemplateViews.swift in Sources */,
 				745125C923782E66002616C4 /* Share.swift in Sources */,
@@ -493,7 +499,7 @@
 				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
 				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,
 				74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */,
-				7418C5EA2371F87500261816 /* ShareView.swift in Sources */,
+				7418C5EA2371F87500261816 /* ShareSheetView.swift in Sources */,
 				74C8A35823701448000F4314 /* Models.swift in Sources */,
 				74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */,
 				74C2C1A923707A8B00D976DE /* GridView.swift in Sources */,
