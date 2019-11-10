@@ -12,6 +12,8 @@
 		7418C5EA2371F87500261816 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareView.swift */; };
 		7418C60C23772EF100261816 /* DisplayPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60B23772EF100261816 /* DisplayPhoto.swift */; };
 		7429783323703B570094A16B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429783223703B570094A16B /* Constants.swift */; };
+		745125C723782D96002616C4 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C623782D96002616C4 /* PDF.swift */; };
+		745125C923782E66002616C4 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C823782E66002616C4 /* Share.swift */; };
 		74C2C1A923707A8B00D976DE /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2C1A823707A8B00D976DE /* GridView.swift */; };
 		74C8A34A236F6E2A000F4314 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A349236F6E2A000F4314 /* DisplayView.swift */; };
 		74C8A34C236F6ED2000F4314 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A34B236F6ED2000F4314 /* CaptureView.swift */; };
@@ -40,6 +42,8 @@
 		7418C60B23772EF100261816 /* DisplayPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhoto.swift; sourceTree = "<group>"; };
 		7418C60D2377304E00261816 /* DisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhotoView.swift; sourceTree = "<group>"; };
 		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		745125C623782D96002616C4 /* PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
+		745125C823782E66002616C4 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		74C2C1A823707A8B00D976DE /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		74C8A349236F6E2A000F4314 /* DisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
 		74C8A34B236F6ED2000F4314 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
@@ -96,6 +100,20 @@
 				7418C5E92371F87500261816 /* ShareView.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		745125CB23782E7F002616C4 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				74ED8ECE236F3FAC004BD10E /* Main.swift */,
+				7429783223703B570094A16B /* Constants.swift */,
+				7418C60B23772EF100261816 /* DisplayPhoto.swift */,
+				74C8A35723701448000F4314 /* Models.swift */,
+				74DD43132371D7310010F122 /* Sketch.swift */,
+				745125C623782D96002616C4 /* PDF.swift */,
+				745125C823782E66002616C4 /* Share.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		74C2C1A723707A7A00D976DE /* Grid */ = {
@@ -173,11 +191,7 @@
 				74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */,
 				74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */,
 				74C8A34D236F7017000F4314 /* Views */,
-				74ED8ECE236F3FAC004BD10E /* Main.swift */,
-				7429783223703B570094A16B /* Constants.swift */,
-				7418C60B23772EF100261816 /* DisplayPhoto.swift */,
-				74C8A35723701448000F4314 /* Models.swift */,
-				74DD43132371D7310010F122 /* Sketch.swift */,
+				745125CB23782E7F002616C4 /* Main */,
 				74ED8EC0236F3F42004BD10E /* Assets.xcassets */,
 				74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */,
 				74ED8EC8236F3F42004BD10E /* Info.plist */,
@@ -323,10 +337,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				745125C723782D96002616C4 /* PDF.swift in Sources */,
 				74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */,
 				74C8A35123700C76000F4314 /* PageView.swift in Sources */,
 				74C8A34C236F6ED2000F4314 /* CaptureView.swift in Sources */,
 				74C8A3552370112D000F4314 /* TemplateViews.swift in Sources */,
+				745125C923782E66002616C4 /* Share.swift in Sources */,
 				74C8A35323701055000F4314 /* PhotoView.swift in Sources */,
 				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
 				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,

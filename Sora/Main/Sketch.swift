@@ -51,9 +51,7 @@ class Sketch {
     
     func generate(from photo: Main.Photo, with gradient: Main.Gradient) throws -> URL {
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
-        let name = "Sora \(dateFormatter.string(from: photo.date))"
+        let name = Main.name(for: photo)
         
         let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let soraUrl = docUrl.appendingPathComponent("Sora")

@@ -97,6 +97,10 @@ struct DisplayView: View {
                         self.showShareOptions = false
                         self.main.shareSketch()
                     }),
+                    .default(Text("PDF"), action: {
+                        self.showShareOptions = false
+                        self.main.sharePDF()
+                    }),
                     .cancel()
                 ])
             })

@@ -265,51 +265,6 @@ class Main: ObservableObject, NODEDelegate {
         return Gradient(direction: direction, colorStops: colorStops)
     }
     
-    func share(_ item: Any) {
-        shareItems = [item]
-        showShare = true
-    }
-    
-    func shareSketch() {
-        guard let photo = displayPhoto else { return }
-        do {
-            let file = try sketch.generate(from: photo, with: photo.gradient)
-            share(file)
-        } catch {
-            shareSketchFailed()
-        }
-    }
-    
-    func sharePhotoImage() {
-        guard let photo = displayPhoto else { return }
-        guard let data = photo.photoImage.jpegData(compressionQuality: 0.8) else { return }
-        shareImage(data: data, at: photo.date, as: "jpg")
-    }
-    
-    func shareGradientImage() {
-        guard let photo = displayPhoto else { return }
-        guard let data = photo.gradientImage.pngData() else { return }
-        shareImage(data: data, at: photo.date, as: "png")
-    }
-    
-    func shareImage(data: Data, at date: Date, as ext: String) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
-        let name = "Sora \(dateFormatter.string(from: date))"
-        
-        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let url = docsUrl.appendingPathComponent("\(name).\(ext)")
-        
-        do {
-            try data.write(to: url)
-            share(url)
-        } catch {}
-        
-    }
-    
-    func shareSketchFailed() {}
-    
     func addTemplates() {
         
         let photoImage = UIImage(named: "photo")!
@@ -367,6 +322,12 @@ class Main: ObservableObject, NODEDelegate {
                 return colorA.val.cg < colorB.val.cg
             }
         })
+    }
+    
+    static func name(for photo: Photo) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
+        return "Sora \(dateFormatter.string(from: photo.date))"
     }
     
 }
