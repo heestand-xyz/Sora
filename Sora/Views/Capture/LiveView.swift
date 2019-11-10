@@ -16,7 +16,7 @@ struct LiveView: View {
     @ObservedObject var main: Main
     var body: some View {
         GeometryReader { geo in
-            ZStack() {
+            ZStack {
                 Group {
                     #if targetEnvironment(simulator)
                     GradientTemplateView(main: self.main)

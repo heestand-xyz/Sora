@@ -90,12 +90,14 @@ struct CaptureView: View {
                             .frame(width: 60, height: 60)
                             .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.primary))
                     }
-                    Button(action: {
-                        self.main.state = .grid
-                    }) {
-                       Image("gradient_horizontal")
-                        .foregroundColor(.primary)
-                        .opacity(self.main.state == .grid ? 1.0 : 0.2)
+                    NavigationLink(destination: GridView(main: main), isActive: Binding<Bool>(get: {
+                        self.main.state == .grid
+                    }, set: { active in
+                        self.main.state = active ? .grid : .capture
+                    })) {
+                        Image("gradient_horizontal")
+                            .foregroundColor(.primary)
+                            .opacity(self.main.state == .grid ? 1.0 : 0.2)
                     }
                 }
                 Spacer()

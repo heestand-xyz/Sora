@@ -12,10 +12,8 @@ struct ContentView: View {
     @ObservedObject var main: Main
     var body: some View {
         ZStack {
-            if main.state == .capture {
+            NavigationView {
                 CaptureView(main: main)
-            } else if main.state == .grid {
-                GridView(main: main)
             }
             DisplayView(main: main)
         }
