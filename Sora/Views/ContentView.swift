@@ -14,6 +14,8 @@ struct ContentView: View {
         ZStack {
             NavigationView {
                 CaptureView(main: main)
+//                    .navigationBarTitle("Sora")
+//                    .navigationBarHidden(true)
             }
             DisplayView(main: main)
         }

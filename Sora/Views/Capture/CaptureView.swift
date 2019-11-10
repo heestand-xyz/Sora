@@ -25,8 +25,9 @@ struct CaptureView: View {
             }
                 .opacity(0.25)
                 .edgesIgnoringSafeArea(.all)
-            VStack {
+            VStack(spacing: 10) {
                 LiveView(main: self.main)
+                    .offset(y: -80)
                 HStack {
                     Button(action: {
                         self.main.direction = .horizontal
@@ -90,19 +91,22 @@ struct CaptureView: View {
                             .frame(width: 60, height: 60)
                             .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.primary))
                     }
-                    NavigationLink(destination: GridView(main: main), isActive: Binding<Bool>(get: {
+                    NavigationLink(destination: GeometryReader { geo in
+                            GridView(main: self.main)
+                                .frame(height: geo.size.height + 50)
+                                .offset(y: -25)
+                        }, isActive: Binding<Bool>(get: {
                         self.main.state == .grid
                     }, set: { active in
                         self.main.state = active ? .grid : .capture
                     })) {
-                        Image("gradient_horizontal")
+                        Image(systemName: "folder.fill")
                             .foregroundColor(.primary)
-                            .opacity(self.main.state == .grid ? 1.0 : 0.2)
                     }
                 }
                 Spacer()
             }
-                .padding(30)
+                .padding(10)
         }
     }
 }

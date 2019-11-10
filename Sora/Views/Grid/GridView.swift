@@ -39,16 +39,16 @@ struct GridView: View {
                 }
             }
             VStack {
-                HStack {
-                    Button(action: {
-                        self.main.state = .capture
-                    }) {
-                        Image(systemName: "arrow.left")
-                            .font(.title)
-                            .foregroundColor(.primary)
-                    }
-                    Spacer()
-                }
+//                HStack {
+//                    Button(action: {
+//                        self.main.state = .capture
+//                    }) {
+//                        Image(systemName: "arrow.left")
+//                            .font(.title)
+//                            .foregroundColor(.primary)
+//                    }
+//                    Spacer()
+//                }
                 Spacer()
                 Picker(selection: Binding<Int>(get: {
                     Main.SortMethod.allCases.firstIndex(of: self.main.sortMethod)!
