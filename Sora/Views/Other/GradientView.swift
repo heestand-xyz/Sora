@@ -32,6 +32,7 @@ struct GradientView: View {
                                    center: .center,
                                    startRadius: 0.0,
                                    endRadius: geo.size.width / 2)
+                        .aspectRatio(1.0, contentMode: .fill)
                 }
             }
         }

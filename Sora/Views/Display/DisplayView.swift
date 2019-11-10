@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DisplayView: View {
     let kCacheCount: Int = 10
+    let kTranslationHeight: CGFloat = 300
     let kVelocityLimit: CGFloat = 5.0
     @ObservedObject var main: Main
     enum Dragging {
@@ -67,6 +68,7 @@ struct DisplayView: View {
                     GeometryReader { geo in
                         PhotoView(photo: self.photo()!)
                             .offset(y: self.comboOffsetY(at: geo.size))
+                            .opacity(self.comboAlpha())
                             .gesture(DragGesture()
                                 .onChanged({ value in
                                     self.onDragChange(with: value, at: geo.size, swipe: false)
@@ -121,7 +123,7 @@ struct DisplayView: View {
                 if diffX != 0.0 || diffY != 0.0 {
                     dragging = abs(diffX) > abs(diffY) ? .yesX : .yesY
                     if dragging == .yesX && swipe {
-                        let way: Main.Way = diffX > 0.0 ? .right : .left
+                        let way: Main.Way = diffX < 0.0 ? .right : .left
                         main.loadNextDisplayPhoto(in: way)
                     }
                 }
@@ -129,14 +131,14 @@ struct DisplayView: View {
                 let x = value.translation.width
                 var fraction = min(max(x / size.width, -1.0), 1.0)
                 if main.nextDisplayWay == .left {
-                    fraction = max(-fraction, 0.0)
-                } else if main.nextDisplayWay == .right {
                     fraction = max(fraction, 0.0)
+                } else if main.nextDisplayWay == .right {
+                    fraction = max(-fraction, 0.0)
                 }
                 main.nextDisplayFraction = fraction
             } else if dragging == .yesY {
                 let y = value.translation.height
-                let fraction = 1.0 - min(max(y / size.height, 0.0), 1.0)
+                let fraction = 1.0 - min(max(y / kTranslationHeight, 0.0), 1.0)
                 main.displayFraction = fraction
             }
         }
@@ -157,13 +159,13 @@ struct DisplayView: View {
         if dragging == .yesX && swipe && main.nextDisplayPhoto != nil {
             if velocity != nil && abs(velocity!.y) > kVelocityLimit {
                 if main.nextDisplayWay == .left {
-                    if velocity!.x < 0.0 {
+                    if velocity!.x > 0.0 {
                         main.reNext()
                     } else {
                         main.reBack()
                     }
                 } else if main.nextDisplayWay == .right {
-                    if velocity!.x > 0.0 {
+                    if velocity!.x < 0.0 {
                         main.reNext()
                     } else {
                         main.reBack()
@@ -194,10 +196,17 @@ struct DisplayView: View {
         dragging = .no
         translationCache = []
     }
+    func comboAlpha() -> Double {
+        if let fraction = main.nextDisplayFraction {
+            let waveFraction = cos(Double(fraction) * .pi * 2 + .pi) / 2 + 0.5
+            return 1.0 - waveFraction
+        }
+        return 1.0
+    }
     func comboOffsetY(at size: CGSize) -> CGFloat {
         if let fraction = main.nextDisplayFraction {
             let waveFraction = cos(fraction * .pi * 2 + .pi) / 2 + 0.5
-            return size.height * waveFraction
+            return size.height * waveFraction * 0.1
         }
         return size.height * (1.0 - self.main.displayFraction)
     }
@@ -205,9 +214,9 @@ struct DisplayView: View {
         guard let way = main.nextDisplayWay else { return 0.0 }
         guard let fraction = main.nextDisplayFraction else { return 0.0 }
         if way == .left {
-            return -fraction * size.width
-        } else {
             return fraction * size.width
+        } else {
+            return -fraction * size.width
         }
     }
     func nextOffsetX(at size: CGSize) -> CGFloat {
@@ -215,9 +224,9 @@ struct DisplayView: View {
         guard var fraction = main.nextDisplayFraction else { return 0.0 }
         fraction -= 1.0
         if way == .left {
-            return -fraction * size.width
-        } else {
             return fraction * size.width
+        } else {
+            return -fraction * size.width
         }
     }
     func photo() -> Main.Photo? {
