@@ -72,7 +72,7 @@
 		7418C60B23772EF100261816 /* DisplayPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhoto.swift; sourceTree = "<group>"; };
 		7418C60D2377304E00261816 /* DisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhotoView.swift; sourceTree = "<group>"; };
 		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		744A37162378337600405CF6 /* Sora iPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sora iPhone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		744A37162378337600405CF6 /* sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		744A37172378337600405CF6 /* Sora copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Sora copy-Info.plist"; path = "/Users/hexagons/Documents/Code/Apps/Development/Sora/Sora copy-Info.plist"; sourceTree = "<absolute>"; };
 		745125C623782D96002616C4 /* PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		745125C823782E66002616C4 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 		74DD430D2371D69D0010F122 /* page.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page.json; sourceTree = "<group>"; };
 		74DD430E2371D69D0010F122 /* meta.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = meta.json; sourceTree = "<group>"; };
 		74DD43132371D7310010F122 /* Sketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sketch.swift; sourceTree = "<group>"; };
-		74ED8EB7236F3F3F004BD10E /* Sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		74ED8EB7236F3F3F004BD10E /* sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		74ED8EBE236F3F3F004BD10E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -223,8 +223,8 @@
 		74ED8EB8236F3F3F004BD10E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				74ED8EB7236F3F3F004BD10E /* Sora.app */,
-				744A37162378337600405CF6 /* Sora iPhone.app */,
+				74ED8EB7236F3F3F004BD10E /* sora.app */,
+				744A37162378337600405CF6 /* sora.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 			);
 			name = "Sora iPhone";
 			productName = Sora;
-			productReference = 744A37162378337600405CF6 /* Sora iPhone.app */;
+			productReference = 744A37162378337600405CF6 /* sora.app */;
 			productType = "com.apple.product-type.application";
 		};
 		74ED8EB6236F3F3F004BD10E /* Sora */ = {
@@ -302,7 +302,7 @@
 			);
 			name = Sora;
 			productName = Sora;
-			productReference = 74ED8EB7236F3F3F004BD10E /* Sora.app */;
+			productReference = 74ED8EB7236F3F3F004BD10E /* sora.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -536,7 +536,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = sora;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -559,7 +559,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = sora;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -696,7 +696,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = sora;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -719,7 +719,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = sora;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
