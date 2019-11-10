@@ -83,32 +83,12 @@ struct DisplayView: View {
             }
         }
             .edgesIgnoringSafeArea(.bottom)
-            .actionSheet(isPresented: self.$showShareOptions, content: {
-                ActionSheet(title: Text("Share Gradient"),
-                            message: Text("From \(self.main.displayPhoto?.gradient.colorStops.first?.color.hex ?? "#") to \(self.main.displayPhoto?.gradient.colorStops.last?.color.hex ?? "#")"),
-                            buttons: [
-                    .default(Text("Photo"), action: {
-                        self.showShareOptions = false
-                        self.main.sharePhotoImage()
-                    }),
-                    .default(Text("Gradient"), action: {
-                        self.showShareOptions = false
-                        self.main.shareGradientImage()
-                    }),
-                    .default(Text("Sketch"), action: {
-                        self.showShareOptions = false
-                        self.main.shareSketch()
-                    }),
-                    .default(Text("PDF"), action: {
-                        self.showShareOptions = false
-                        self.main.sharePDF()
-                    }),
-                    .cancel()
-                ])
-            })
-            .sheet(isPresented: self.$main.showShare) {
-                ShareView(items: self.$main.shareItems)
-        }
+            .sheet(isPresented: self.$showShareOptions) {
+                ShareView()
+            }
+            //.sheet(isPresented: self.$main.showShare) {
+                //ShareSheetView(items: self.$main.shareItems)
+        //}
     }
     func onDragChange(with value: DragGesture.Value, at size: CGSize, swipe: Bool = true) {
         if dragging == .no {
