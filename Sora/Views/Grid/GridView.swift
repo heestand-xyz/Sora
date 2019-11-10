@@ -9,14 +9,14 @@
 import SwiftUI
 
 struct GridView: View {
-    let kColCount = 4
+    let kColCount = 3
     @ObservedObject var main: Main
     var body: some View {
         ZStack {
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 25) {
                     ForEach(0..<rowCount()) { i in
-                        HStack(spacing: 20) {
+                        HStack(spacing: 25) {
                             ForEach(0..<self.kColCount) { j in
                                 if self.index(row: i, col: j) != nil {
                                     GeometryReader { geo in
@@ -31,7 +31,7 @@ struct GridView: View {
                                                 }
                                         }
                                     }
-                                    .frame(width: 75, height: 75)
+                                    .frame(width: 95, height: 95)
                                 }
                             }
                         }
