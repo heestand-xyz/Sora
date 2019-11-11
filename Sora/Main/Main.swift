@@ -332,7 +332,7 @@ class Main: ObservableObject, NODEDelegate {
     static func name(for photo: Photo) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
-        return "Sora \(dateFormatter.string(from: photo.date))"
+        return "sora \(dateFormatter.string(from: photo.date))"
     }
     
     func delete(photo: Photo) {
