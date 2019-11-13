@@ -11,21 +11,67 @@ import SwiftUI
 struct PhotoView: View {
     let photo: Main.Photo
     var body: some View {
+        
         GeometryReader { geo in
             GeometryReader { _ in
-                Image(uiImage: self.photo.photoImage)
-                    .resizable()
-                    .scaledToFill()
+                ZStack{
+                    Image(uiImage: self.photo.photoImage)
+                        .resizable()
+                        .scaledToFill()
+                    LinearGradient(gradient: Gradient(colors: [.black, .clear])
+                        , startPoint: .top, endPoint: .center)
+                        .opacity(0.75)
+                    VStack {
+                        HStack{
+                            Image("gradient_vertical")
+                                .renderingMode(.template)
+                                .foregroundColor(.white)
+                                .padding(.trailing, 10.0)
+                            VStack(alignment: .leading){
+                                Text(self.date())
+                                    .font(.system(size: 24, weight: .regular))
+                                    .foregroundColor(.white)
+                                    .padding(.bottom, 1.0)
+                                Text(self.time())
+                                    .font(.system(size: 18, weight: .regular))
+                                    .foregroundColor(.white)
+            
+                           }
+                       Spacer()}
+                    Spacer()
+                    }
+                    .padding([.top], 40.0)
+                    .padding([.leading], 50.0)
+                    //.frame(width: 320.0, height: 260.0)
+                    
+                }
+                
             }
+            
                 .mask(ZStack(alignment: .bottom) {
                     RoundedRectangle(cornerRadius: .displayPhotoCornerRadius)
                     Rectangle()
                         .frame(height: .displayPhotoCornerRadius)
-                }
+                   
+                    
+                    }
             )
         }
         .aspectRatio(.displayPhotoAspectRatio, contentMode: .fit)
     }
+    func date() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        return "\(dateFormatter.string(from: photo.date))"
+    }
+    func time() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return "\(dateFormatter.string(from: photo.date))"
+    }
+    
+    
+    
 }
 
 struct PhotoView_Previews: PreviewProvider {
