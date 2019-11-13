@@ -84,11 +84,8 @@ struct DisplayView: View {
         }
             .edgesIgnoringSafeArea(.bottom)
             .sheet(isPresented: self.$showShareOptions) {
-                ShareView()
+                ShareView(main: self.main, photo: self.main.displayPhoto!)
             }
-            //.sheet(isPresented: self.$main.showShare) {
-                //ShareSheetView(items: self.$main.shareItems)
-        //}
     }
     func onDragChange(with value: DragGesture.Value, at size: CGSize, swipe: Bool = true) {
         if dragging == .no {

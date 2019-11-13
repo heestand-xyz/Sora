@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "744A36F12378337600405CF6"
+               BlueprintIdentifier = "74ED8EB6236F3F3F004BD10E"
                BuildableName = "sora.app"
-               BlueprintName = "Sora iPhone"
+               BlueprintName = "Sora"
                ReferencedContainer = "container:Sora.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "744A36F12378337600405CF6"
+            BlueprintIdentifier = "74ED8EB6236F3F3F004BD10E"
             BuildableName = "sora.app"
-            BlueprintName = "Sora iPhone"
+            BlueprintName = "Sora"
             ReferencedContainer = "container:Sora.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "744A36F12378337600405CF6"
+            BlueprintIdentifier = "74ED8EB6236F3F3F004BD10E"
             BuildableName = "sora.app"
-            BlueprintName = "Sora iPhone"
+            BlueprintName = "Sora"
             ReferencedContainer = "container:Sora.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

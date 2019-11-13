@@ -15,6 +15,13 @@ extension Main {
         showShare = true
     }
     
+    func quickLook(_ item: URL) {
+        quickLookItems = [item]
+        showQuickLook = true
+    }
+    
+    // MARK: - Sketch
+    
     func shareSketch() {
         guard let photo = displayPhoto else { return }
         do {
@@ -25,10 +32,30 @@ extension Main {
         }
     }
     
+    func shareSketchFailed() {}
+    
+    // MARK: - PDF
+    
     func sharePDF() {
         guard let photo = displayPhoto else { return }
         guard let pdf = try? PDF.create(from: photo) else { return }
         share(pdf)
+    }
+    
+    func quickLookPDF() {
+        guard let photo = displayPhoto else { return }
+        guard let pdf = try? PDF.create(from: photo) else { return }
+        quickLook(pdf)
+    }
+    
+    // MARK: - Image
+    
+    func savePhotoImage() {
+        
+    }
+    
+    func saveGradientImage() {
+        
     }
     
     func sharePhotoImage() {
@@ -56,7 +83,5 @@ extension Main {
         } catch {}
         
     }
-    
-    func shareSketchFailed() {}
     
 }

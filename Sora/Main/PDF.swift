@@ -7,6 +7,7 @@
 //
 
 import PDFKit
+import RenderKit
 
 class PDF {
     
@@ -14,8 +15,9 @@ class PDF {
         
         let format = UIGraphicsPDFRendererFormat()
         
-        let pageWidth = 8.5 * 72.0
-        let pageHeight = 11.0 * 72.0
+        let pageWidth: CGFloat = 595
+        let pageHeight: CGFloat = 842
+        let padding: CGFloat = 100
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
         
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
@@ -24,11 +26,57 @@ class PDF {
         
             context.beginPage()
             
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 50, weight: .ultraLight)
-            ]
-            let text = "Sora"
-            text.draw(at: CGPoint(x: pageWidth / 2, y: 0), withAttributes: attributes)
+            photo.gradientImage.draw(in: CGRect(x: padding, y: padding, width: 200, height: 200))
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
+            let info = dateFormatter.string(from: photo.date)
+            
+            let infoText = NSAttributedString(string: info, attributes: [
+                .font: UIFont.systemFont(ofSize: 10, weight: .regular),
+                .foregroundColor: UIColor(white: 0.0, alpha: 0.5)
+            ])
+            infoText.draw(at: CGPoint(x: padding, y: 325))
+            
+            let image = photo.photoImage
+            let width = image.size.width
+            let croppedImage = Texture.resize(image, to: CGSize(width: width, height: width), placement: .fill)
+            croppedImage.draw(in: CGRect(x: padding, y: 400, width: 200, height: 200))
+            
+            let drawContext = context.cgContext
+            for (i, colorStep) in photo.gradient.colorStops.enumerated() {
+                
+                let x = pageWidth - 250
+                let y = padding + CGFloat(i) * 50
+                
+                drawContext.saveGState()
+                drawContext.setFillColor(colorStep.color.uiColor.cgColor)
+                drawContext.addEllipse(in: CGRect(x: x, y: y, width: 25, height: 25))
+                drawContext.fillPath()
+                drawContext.restoreGState()
+                
+                var r = "\(Int(round(colorStep.color.red * 255)))"
+                if r.count == 1 { r = r + "  " } else if r.count == 2 { r = r + " " }
+                var g = "\(Int(round(colorStep.color.green * 255)))"
+                if g.count == 1 { g = g + "  " } else if g.count == 2 { g = g + " " }
+                var b = "\(Int(round(colorStep.color.blue * 255)))"
+                if b.count == 1 { b = b + "  " } else if b.count == 2 { b = b + " " }
+                let colorTxt = "\(colorStep.color.hex)\nR:\(r) G:\(g) B:\(b)"
+                let colorText = NSAttributedString(string: colorTxt, attributes: [
+                    .font: UIFont.monospacedSystemFont(ofSize: 10, weight: .regular),
+                    .foregroundColor: UIColor(white: 0.0, alpha: 0.5)
+                ])
+                colorText.draw(at: CGPoint(x: x + 35, y: y))
+                
+            }
+            
+            let footerText = NSAttributedString(string: "sora", attributes: [
+                .font: UIFont.systemFont(ofSize: 20, weight: .regular),
+                .foregroundColor: UIColor(white: 0.0, alpha: 0.5)
+            ])
+            footerText.draw(at: CGPoint(x: (pageWidth - footerText.size().width) / 2, y: pageHeight - footerText.size().height - 25))
+            
+            
         }
         
         let name = Main.name(for: photo)

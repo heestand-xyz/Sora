@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct ShareView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var main: Main
+    let photo: Main.Photo
     var body: some View {
         VStack {
             
@@ -25,8 +28,8 @@ struct ShareView: View {
                 ShareOption(
                     text:"Gradient",
                     imagename: "gradient_vertical",
-                    download:{},
-                    share:{},
+                    download: { self.main.saveGradientImage() },
+                    share: { self.main.shareGradientImage() },
                     quicklook: nil)
                     .frame(width: 100.0)
                 
@@ -39,8 +42,8 @@ struct ShareView: View {
                 ShareOption(
                     text:"Photo",
                     imagename: "share_photo",
-                    download:{},
-                    share:{},
+                    download: { self.main.savePhotoImage() },
+                    share: { self.main.sharePhotoImage() },
                     quicklook: nil)
                     .frame(width: 100.0)
                 
@@ -60,7 +63,7 @@ struct ShareView: View {
                 text:"Sketch",
                 imagename: "share_sketch",
                     download: nil,
-                    share:{},
+                    share: { self.main.shareSketch() },
                     quicklook: nil)
                     .frame(width: 100.0)
                 
@@ -74,8 +77,8 @@ struct ShareView: View {
                 text:"PDF",
                 imagename: "share_pdf",
                     download: nil,
-                    share:{},
-                    quicklook:{})
+                    share: { self.main.sharePDF() },
+                    quicklook: { self.main.quickLookPDF() })
                     .frame(width: 100.0)
                 
                 Spacer()
@@ -89,7 +92,9 @@ struct ShareView: View {
                  
                  Spacer()
                  
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                 Button(action: {
+                    self.main.delete(photo: self.photo)
+                 }) {
                     Text("Delete")
                         .font(.system(size: 18, weight: .bold))
                         .accentColor(Color(red: 2.0, green: 0.3, blue: 0.1, opacity: 1.0))
@@ -101,7 +106,9 @@ struct ShareView: View {
                  Divider()
                  Spacer()
                  
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                 Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                 }) {
                      Text("Cancel")
                     .font(.system(size: 18, weight: .bold))
                      .frame(height: 40.0)
@@ -114,7 +121,23 @@ struct ShareView: View {
               
             
         }
-        .padding(.all, 30.0)
+            .padding(.all, 20.0)
+            .sheet(isPresented: Binding<Bool>(get: {
+                self.main.showShare || self.main.showQuickLook
+            }, set: { active in
+                if !active {
+                    self.main.showShare = false
+                    self.main.showQuickLook = false
+                }
+            })) {
+                Group {
+                    if self.main.showShare {
+                        ShareSheetView(items: self.$main.shareItems)
+                    } else if self.main.showQuickLook {
+                        QuickLookView(items: self.$main.quickLookItems)
+                    }
+                }
+            }
     }
 }
 
@@ -174,6 +197,7 @@ struct ShareOption:View {
 
 struct ShareView_Previews: PreviewProvider {
     static var previews: some View {
-        ShareView()
+        let main = Main()
+        return ShareView(main: main, photo: main.photos.last!)
     }
 }
