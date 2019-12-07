@@ -9,14 +9,11 @@
 import SwiftUI
 
 struct ContentView: View {
-//    @Environment(\.managedObjectContext) var context
     @ObservedObject var main: Main
     var body: some View {
         ZStack {
             NavigationView {
                 CaptureView(main: main)
-//                    .navigationBarTitle("Sora")
-//                    .navigationBarHidden(true)
             }
             DisplayView(main: main)
         }

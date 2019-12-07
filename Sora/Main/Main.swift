@@ -76,7 +76,7 @@ class Main: ObservableObject, NODEDelegate {
         (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
     var soraGradients: [SoraGradient]? {
-        let request: NSFetchRequest<SoraGradient> = SoraGradient.fetchRequest()
+        let request: NSFetchRequest<SoraGradient> = SoraGradient.sortedFetchRequest()
         guard let results: [SoraGradient] = try? context.fetch(request) else { return nil }
         return results
     }
@@ -174,6 +174,10 @@ class Main: ObservableObject, NODEDelegate {
         liveGaradient = makeGradient(at: kSteps, from: black, to: black, in: direction)
         
 //        addTemplates()
+
+//        #if DEBUG
+//        deleteAllData()
+//        #endif
         
     }
     
@@ -231,23 +235,41 @@ class Main: ObservableObject, NODEDelegate {
     
     #if !targetEnvironment(simulator)
     func getImage(from gradient: Gradient, done: @escaping (UIImage) -> (), failed: @escaping () -> ()) {
+        postBlendPix.texture = nil
+        switch gradient.direction {
+        case .horizontal:
+            postGradientPix.direction = .horizontal
+            postGradientPix.offset = 0.0
+            postGradientPix.extendRamp = .hold
+        case .vertical:
+            postGradientPix.direction = .vertical
+            postGradientPix.extendRamp = .mirror
+            postGradientPix.offset = 1.0
+        case .angle:
+            postGradientPix.direction = .angle
+            postGradientPix.offset = 0.75
+            postGradientPix.extendRamp = .loop
+        case .radial:
+            postGradientPix.direction = .radial
+            postGradientPix.offset = 1.0
+            postGradientPix.extendRamp = .mirror
+        }
         postGradientPix.colorSteps = gradient.colorStops.map({ colorStop -> ColorStep in
             ColorStep(LiveFloat(colorStop.fraction), colorStop.color.liveColor)
         })
-        var gotTexture: Bool?
-        postBlendPix.nextTextureAvalible {
-            guard gotTexture == nil else { return }
-            gotTexture = true
+        var index = 0
+        RunLoop.current.add(Timer(timeInterval: 0.1, repeats: true, block: { timer in
             guard let image = self.postBlendPix.renderedImage else {
+                if index < 10 {
+                    index += 1
+                    return
+                }
                 failed()
+                timer.invalidate()
                 return
             }
             done(image)
-        }
-        RunLoop.current.add(Timer(timeInterval: 1.0, repeats: false, block: { _ in
-            guard gotTexture == nil else { return }
-            gotTexture = false
-            failed()
+            timer.invalidate()
         }), forMode: .common)
     }
     #endif
@@ -390,5 +412,19 @@ class Main: ObservableObject, NODEDelegate {
         sg.photoImage = UIImage(named: "photo")!.jpegData(compressionQuality: 0.8)!
         return sg
     }
+    
+    #if DEBUG
+    func deleteAllData() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "SoraGradient")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try context.execute(batchDeleteRequest)
+            try context.save()
+            print("ALL DATA DELETED")
+        } catch {
+            print("Detele all data error :", error)
+        }
+    }
+    #endif
     
 }

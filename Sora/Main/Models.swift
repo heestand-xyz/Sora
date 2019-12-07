@@ -9,8 +9,15 @@
 import SwiftUI
 import UIKit
 import LiveValues
+import CoreData
 
 extension SoraGradient {
+    static func sortedFetchRequest() -> NSFetchRequest<SoraGradient> {
+        let request: NSFetchRequest<SoraGradient> = SoraGradient.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        return request
+    }
     static func == (lhs: SoraGradient, rhs: SoraGradient) -> Bool {
         lhs.id! == rhs.id!
     }

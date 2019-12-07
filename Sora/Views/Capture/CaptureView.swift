@@ -13,8 +13,6 @@ import PixelKit
 #endif
 
 struct CaptureView: View {
-//    @Environment(\.managedObjectContext) var context
-//    @FetchRequest(fetchRequest: SoraGradient.fetchRequest()) var soraGradients: FetchedResults<SoraGradient>
     @ObservedObject var main: Main
     var body: some View {
         ZStack {

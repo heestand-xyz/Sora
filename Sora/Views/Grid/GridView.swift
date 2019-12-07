@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct GridView: View {
-    @FetchRequest(fetchRequest: SoraGradient.fetchRequest()) var soraGradients: FetchedResults<SoraGradient>
+    @FetchRequest(fetchRequest: SoraGradient.sortedFetchRequest()) var soraGradients: FetchedResults<SoraGradient>
     let kColCount = 3
     @ObservedObject var main: Main
     var body: some View {
@@ -74,9 +74,14 @@ struct GridView: View {
         guard index < soraGradients.count else { return nil }
         return index
     }
+    func sortedSoraGradients() -> [SoraGradient] {
+        soraGradients.sorted { a, b -> Bool in
+            Main.sort(a: a, b: b, with: main.sortMethod)
+        }
+    }
     func soraGradient(row rowIndex: Int, col colIndex: Int) -> SoraGradient? {
         guard let i = index(row: rowIndex, col: colIndex) else { return nil }
-        return soraGradients[i]
+        return sortedSoraGradients()[i]
     }
     func iPhoneScreen(min:CGFloat,max:CGFloat) -> CGFloat {
         let Min : CGFloat = 640
