@@ -13,6 +13,8 @@ import PixelKit
 #endif
 
 struct CaptureView: View {
+//    @Environment(\.managedObjectContext) var context
+//    @FetchRequest(fetchRequest: SoraGradient.fetchRequest()) var soraGradients: FetchedResults<SoraGradient>
     @ObservedObject var main: Main
     var body: some View {
         ZStack {
@@ -61,14 +63,14 @@ struct CaptureView: View {
                 }
                 Spacer()
                 HStack(spacing: 50) {
-                    if self.main.lastPhoto != nil {
+                    if self.main.lastSoraGradient != nil {
                         GeometryReader { geo in
                             Button(action: {
-                                self.main.display(photo: self.main.lastPhoto!, from: geo.frame(in: .global))
+                                self.main.display(sg: self.main.lastSoraGradient!, from: geo.frame(in: .global))
                             }) {
-                                GradientView(gradient: self.main.lastPhoto!.gradient)
+                                GradientView(gradient: Main.gradient(from: self.main.lastSoraGradient!)!)
                                     .mask(Circle())
-                                    .opacity(self.main.displayPhoto == nil ? 1.0 : 0.0)
+                                    .opacity(self.main.displaySoraGradient == nil ? 1.0 : 0.0)
                             }
                         }
                             .frame(width: 40, height: 40)

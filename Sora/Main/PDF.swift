@@ -11,7 +11,30 @@ import RenderKit
 
 class PDF {
     
-    static func create(from photo: Main.Photo) throws -> URL {
+    enum PDFError: Error {
+        case gradient
+        case image
+    }
+    
+    static func create(from sg: SoraGradient) throws -> URL {
+        
+        guard let gradient = Main.gradient(from: sg) else {
+            throw PDFError.gradient
+        }
+        
+        guard let gradientImageData = sg.gradientImage else {
+            throw PDFError.image
+        }
+        guard let gradientImage = UIImage(data: gradientImageData) else {
+            throw PDFError.image
+        }
+        
+        guard let photoImageData = sg.photoImage else {
+            throw PDFError.image
+        }
+        guard let photoImage = UIImage(data: photoImageData) else {
+            throw PDFError.image
+        }
         
         let format = UIGraphicsPDFRendererFormat()
         
@@ -26,11 +49,11 @@ class PDF {
         
             context.beginPage()
             
-            photo.gradientImage.draw(in: CGRect(x: padding, y: padding, width: 200, height: 200))
+            gradientImage.draw(in: CGRect(x: padding, y: padding, width: 200, height: 200))
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
-            let info = dateFormatter.string(from: photo.date)
+            let info = dateFormatter.string(from: sg.date!)
             
             let infoText = NSAttributedString(string: info, attributes: [
                 .font: UIFont.systemFont(ofSize: 10, weight: .regular),
@@ -38,13 +61,13 @@ class PDF {
             ])
             infoText.draw(at: CGPoint(x: padding, y: 325))
             
-            let image = photo.photoImage
+            let image = photoImage
             let width = image.size.width
             let croppedImage = Texture.resize(image, to: CGSize(width: width, height: width), placement: .fill)
             croppedImage.draw(in: CGRect(x: padding, y: 400, width: 200, height: 200))
             
             let drawContext = context.cgContext
-            for (i, colorStep) in photo.gradient.colorStops.enumerated() {
+            for (i, colorStep) in gradient.colorStops.enumerated() {
                 
                 let x = pageWidth - 250
                 let y = padding + CGFloat(i) * 50
@@ -79,10 +102,10 @@ class PDF {
             
         }
         
-        let name = Main.name(for: photo)
+        let name = Main.name(for: sg)
         let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let soraUrl = docUrl.appendingPathComponent("Sora")
-        let photoUrl = soraUrl.appendingPathComponent(photo.id.uuidString)
+        let photoUrl = soraUrl.appendingPathComponent(sg.id!.uuidString)
         try FileManager.default.createDirectory(at: photoUrl, withIntermediateDirectories: true, attributes: nil)
         let pdfUrl = photoUrl.appendingPathComponent("\(name).pdf")
         

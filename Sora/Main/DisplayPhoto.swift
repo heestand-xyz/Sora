@@ -22,40 +22,41 @@ extension Main {
         }
     }
     
-    func loadNextDisplayPhoto(in way: Way) {
-        guard let currentPhoto = displayPhoto else { return }
-        let currentIndex = photos.firstIndex(of: currentPhoto)!
+    func loadNextDisplaySoraGradient(in way: Way) {
+        guard let sg = displaySoraGradient else { return }
+        guard let sgs = soraGradients else { return }
+        let currentIndex = sgs.firstIndex(of: sg)!
         let nextIndex = currentIndex + way.extra
-        guard nextIndex >= 0 && nextIndex < photos.count else { return }
-        nextDisplayPhoto = photos[nextIndex]
+        guard nextIndex >= 0 && nextIndex < sgs.count else { return }
+        nextDisplaySoraGradient = sgs[nextIndex]
         nextDisplayFraction = 0.0
         nextDisplayWay = way
     }
     
-    func display(photo: Photo, from frame: CGRect) {
+    func display(sg: SoraGradient, from frame: CGRect) {
         displayFrame = frame
-        displayPhoto = photo
+        displaySoraGradient = sg
         animate(for: kAnimationSeconds, ease: .easeOut, animate: { fraction in
             self.displayFraction = fraction
         }) {}
     }
     
-    func hidePhoto() {
+    func hideSoraGradient() {
         animate(for: kAnimationSeconds, ease: .easeOut, animate: { fraction in
             self.displayFraction = 1.0 - fraction
         }) {
-            self.displayPhoto = nil
+            self.displaySoraGradient = nil
             self.displayFrame = nil
         }
     }
     
-    func reDragPhoto() {
+    func reDragSoraGradient() {
         if let timer = animationTimer {
             timer.invalidate()
         }
     }
     
-    func reDisplayPhoto() {
+    func reDisplaySoraGradient() {
         let currentFraction = displayFraction
         guard currentFraction != 1.0 else { return }
         animate(for: kAnimationSeconds * (1.0 - currentFraction), ease: .easeOut, animate: { fraction in
@@ -63,13 +64,13 @@ extension Main {
         }) {}
     }
     
-    func reHidePhoto() {
+    func reHideSoraGradient() {
         let currentFraction = displayFraction
         guard currentFraction != 0.0 else { return }
         animate(for: kAnimationSeconds * currentFraction, ease: .easeOut, animate: { fraction in
             self.displayFraction = currentFraction * (1.0 - fraction)
         }) {
-            self.displayPhoto = nil
+            self.displaySoraGradient = nil
             self.displayFrame = nil
         }
     }
@@ -86,10 +87,10 @@ extension Main {
     }
     
     func reNextPost() {
-        guard let photo = nextDisplayPhoto else { return }
-        displayPhoto = photo
+        guard let sg = nextDisplaySoraGradient else { return }
+        displaySoraGradient = sg
         if state == .grid {        
-            displayFrame = gridFrames[photo.id] ?? .zero
+            displayFrame = gridFrames[sg.id!] ?? .zero
         }
     }
     
@@ -104,7 +105,7 @@ extension Main {
     }
     
     func reReset() {
-        nextDisplayPhoto = nil
+        nextDisplaySoraGradient = nil
         nextDisplayFraction = nil
         nextDisplayWay = nil
     }

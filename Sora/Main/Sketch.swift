@@ -49,13 +49,13 @@ class Sketch {
         
     }
     
-    func generate(from photo: Main.Photo, with gradient: Main.Gradient) throws -> URL {
+    func generate(from sg: SoraGradient, with gradient: Main.Gradient) throws -> URL {
         
-        let name = Main.name(for: photo)
+        let name = Main.name(for: sg)
         
         let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let soraUrl = docUrl.appendingPathComponent("Sora")
-        let photoUrl = soraUrl.appendingPathComponent(photo.id.uuidString)
+        let photoUrl = soraUrl.appendingPathComponent(sg.id!.uuidString)
         let sketchUrl = photoUrl.appendingPathComponent(name)
         try FileManager.default.createDirectory(at: sketchUrl, withIntermediateDirectories: true, attributes: nil)
         let sketchPagesUrl = sketchUrl.appendingPathComponent("pages")
@@ -83,7 +83,7 @@ class Sketch {
         let pageData = pageCustomJson.data(using: .utf8)!
         try pageData.write(to: pageUrl)
         
-        if let previewData = photo.gradientImage.pngData() {
+        if let previewData = sg.gradientImage {
             try previewData.write(to: previewUrl)
         }
         

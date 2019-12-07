@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19A546d" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="SoraGradient" representedClassName="SoraGradient" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gradient" optional="YES" attributeType="String"/>
+        <attribute name="gradientImage" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="photoImage" optional="YES" attributeType="Binary"/>
+    </entity>
+    <elements>
+        <element name="SoraGradient" positionX="-63" positionY="-18" width="128" height="118"/>
+    </elements>
+</model>

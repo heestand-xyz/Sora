@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import SwiftUI
 import LiveValues
 import RenderKit
 import PixelKit
+import CoreData
 
 class Main: ObservableObject, NODEDelegate {
     
@@ -28,11 +30,7 @@ class Main: ObservableObject, NODEDelegate {
         }
     }
     
-    var sortMethod: SortMethod = .date {
-        didSet {
-            sort()
-        }
-    }
+    @Published var sortMethod: SortMethod = .date
     
     let sketch: Sketch
     
@@ -74,15 +72,25 @@ class Main: ObservableObject, NODEDelegate {
         }
     }
     
+    var context: NSManagedObjectContext {
+        (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    }
+    var soraGradients: [SoraGradient]? {
+        let request: NSFetchRequest<SoraGradient> = SoraGradient.fetchRequest()
+        guard let results: [SoraGradient] = try? context.fetch(request) else { return nil }
+        return results
+    }
+    
     @Published var direction: Direction = .vertical
     
-    @Published var photos: [Photo] = []
-    @Published var lastPhoto: Photo?
+//    @Published var photos: [Photo] = []
+//    @Published var lastPhoto: Photo?
+    @Published var lastSoraGradient: SoraGradient?
     
-    @Published var displayPhoto: Photo?
+    @Published var displaySoraGradient: SoraGradient?
     @Published var displayFrame: CGRect?
     @Published var displayFraction: CGFloat = 0.0
-    @Published var nextDisplayPhoto: Photo?
+    @Published var nextDisplaySoraGradient: SoraGradient?
     @Published var nextDisplayFraction: CGFloat?
     @Published var nextDisplayWay: Way?
     var gridFrames: [UUID: CGRect] = [:]
@@ -165,7 +173,7 @@ class Main: ObservableObject, NODEDelegate {
         let black = Color(red: 0.0, green: 0.0, blue: 0.0)
         liveGaradient = makeGradient(at: kSteps, from: black, to: black, in: direction)
         
-        addTemplates()
+//        addTemplates()
         
     }
     
@@ -187,9 +195,29 @@ class Main: ObservableObject, NODEDelegate {
         
         getImage(from: gradient, done: { image in
         
-            let photo = Photo(id: UUID(), photoImage: cameraImage, gradientImage: image, date: Date(), direction: self.direction, gradient: gradient)
-            self.photos.append(photo)
-            self.lastPhoto = photo
+//            let photo = Photo(id: UUID(), photoImage: cameraImage, gradientImage: image, date: Date(), gradient: gradient)
+//            self.photos.append(photo)
+//            self.lastPhoto = photo
+            
+            do {
+                
+                let gradientData: Data = try JSONEncoder().encode(gradient)
+                let gradientJson: String = String(data: gradientData, encoding: .utf8)!
+                
+                let soraGradient = SoraGradient(context: self.context)
+                soraGradient.id = UUID()
+                soraGradient.date = Date()
+                soraGradient.photoImage = cameraImage.jpegData(compressionQuality: 0.8)
+                soraGradient.gradientImage = image.pngData()
+                soraGradient.gradient = gradientJson
+
+                try? self.context.save()
+                
+                self.lastSoraGradient = soraGradient
+    
+            } catch {
+                self.captureFailed(with: error)
+            }
             
         }) {
             self.captureFailed()
@@ -235,7 +263,7 @@ class Main: ObservableObject, NODEDelegate {
     }
     #endif
     
-    func captureFailed() {}
+    func captureFailed(with error: Error? = nil) {}
     
     #if !targetEnvironment(simulator)
     func makeGradient(at count: Int, from pixels: PIX.PixelPack, in direction: Direction) -> Gradient {
@@ -270,40 +298,38 @@ class Main: ObservableObject, NODEDelegate {
         return Gradient(direction: direction, colorStops: colorStops)
     }
     
-    func addTemplates() {
-        
-        let photoImage = UIImage(named: "photo")!
-        let photo2Image = UIImage(named: "photo2")!
-        let gradientImage = UIImage(named: "gradient")!
-        
-        for i in 0..<33 {
-            let hue = CGFloat.random(in: 0.0...1.0)
-            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
-            let direction = Direction.allCases[.random(in: 0..<4)]
-            let photo = Photo(id: UUID(),
-                              photoImage: i % 2 == 0 ? photo2Image : photoImage,
-                              gradientImage: gradientImage,
-                              date: Date(),
-                              direction: .vertical,
-                              gradient: makeGradient(at: kSteps,
-                                                     from: Color(hue: hue),
-                                                     to: Color(hue: invHue),
-                                                     in: direction))
-            photos.insert(photo, at: 0)
-        }
-        
-        let photo = Photo(id: UUID(),
-                          photoImage: photoImage,
-                          gradientImage: gradientImage,
-                          date: Date(),
-                          direction: .vertical,
-                          gradient: makeGradient(at: 5,
-                                                 from: Color(red: 1.0, green: 0.5, blue: 0.0),
-                                                 to: Color(red: 0.0, green: 0.5, blue: 1.0),
-                                                 in: .vertical))
-        photos.append(photo)
-        
-    }
+//    func addTemplates() {
+//
+//        let photoImage = UIImage(named: "photo")!
+//        let photo2Image = UIImage(named: "photo2")!
+//        let gradientImage = UIImage(named: "gradient")!
+//
+//        for i in 0..<33 {
+//            let hue = CGFloat.random(in: 0.0...1.0)
+//            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
+//            let direction = Direction.allCases[.random(in: 0..<4)]
+//            let photo = Photo(id: UUID(),
+//                              photoImage: i % 2 == 0 ? photo2Image : photoImage,
+//                              gradientImage: gradientImage,
+//                              date: Date(),
+//                              gradient: makeGradient(at: kSteps,
+//                                                     from: Color(hue: hue),
+//                                                     to: Color(hue: invHue),
+//                                                     in: direction))
+//            photos.insert(photo, at: 0)
+//        }
+//
+//        let photo = Photo(id: UUID(),
+//                          photoImage: photoImage,
+//                          gradientImage: gradientImage,
+//                          date: Date(),
+//                          gradient: makeGradient(at: 5,
+//                                                 from: Color(red: 1.0, green: 0.5, blue: 0.0),
+//                                                 to: Color(red: 0.0, green: 0.5, blue: 1.0),
+//                                                 in: .vertical))
+//        photos.append(photo)
+//
+//    }
     
     enum SortMethod: String, CaseIterable {
         case date = "Date"
@@ -312,33 +338,57 @@ class Main: ObservableObject, NODEDelegate {
         case val = "Brightness"
     }
     
-    func sort() {
-        photos = photos.sorted(by: { photoA, photoB -> Bool in
-            let colorA = photoA.gradient.averageColor.liveColor
-            let colorB = photoB.gradient.averageColor.liveColor
-            switch self.sortMethod {
-            case .date:
-                return photoA.date < photoB.date
-            case .hue:
-                return colorA.hue.cg < colorB.hue.cg
-            case .sat:
-                return colorA.sat.cg < colorB.sat.cg
-            case .val:
-                return colorA.val.cg < colorB.val.cg
-            }
-        })
+    static func sort(a sgA: SoraGradient, b sgB: SoraGradient, with sortMethod: SortMethod) -> Bool {
+        let colorA = gradient(from: sgA)!.averageColor.liveColor
+        let colorB = gradient(from: sgB)!.averageColor.liveColor
+        switch sortMethod {
+        case .date:
+            return sgA.date! < sgB.date!
+        case .hue:
+            return colorA.hue.cg < colorB.hue.cg
+        case .sat:
+            return colorA.sat.cg < colorB.sat.cg
+        case .val:
+            return colorA.val.cg < colorB.val.cg
+        }
     }
     
-    static func name(for photo: Photo) -> String {
+    static func name(for sg: SoraGradient) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
-        return "sora \(dateFormatter.string(from: photo.date))"
+        return "sora \(dateFormatter.string(from: sg.date!))"
     }
     
-    func delete(photo: Photo) {
-        // FIXME: UI
-//        let index = photos.firstIndex(of: photo)
-//        photos.remove(at: index)
+    func delete(soraGradient: SoraGradient) {
+        context.delete(soraGradient)
+        try? context.save()
+    }
+    
+    static func gradient(from sg: SoraGradient) -> Main.Gradient? {
+        guard let json: String = sg.gradient else { return nil }
+        guard let data: Data = json.data(using: .utf8) else { return nil }
+        guard let gradient = try? JSONDecoder().decode(Main.Gradient.self, from: data) else { return nil }
+        return gradient
+    }
+    
+    static func templateGradient() -> Main.Gradient {
+        Main.Gradient(direction: .vertical, colorStops: [
+            Main.ColorStop(color: Main.Color(red: 1.0, green: 0.5, blue: 0.0), fraction: 0.0),
+            Main.ColorStop(color: Main.Color(red: 0.0, green: 0.5, blue: 1.0), fraction: 0.0)
+        ])
+    }
+    
+    static func templateSoraGradient() -> SoraGradient {
+        let sg = SoraGradient()
+        sg.id = UUID()
+        sg.date = Date()
+        let gradient: Main.Gradient = templateGradient()
+        let gradientData: Data = try! JSONEncoder().encode(gradient)
+        let gradientJson: String = String(data: gradientData, encoding: .utf8)!
+        sg.gradient = gradientJson
+        sg.gradientImage = UIImage(named: "gradient")!.pngData()!
+        sg.photoImage = UIImage(named: "photo")!.jpegData(compressionQuality: 0.8)!
+        return sg
     }
     
 }

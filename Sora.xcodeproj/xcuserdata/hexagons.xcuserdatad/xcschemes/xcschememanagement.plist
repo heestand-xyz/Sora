@@ -4,19 +4,24 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Sora iPhone.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-		<key>Sora.xcscheme_^#shared#^_</key>
+		<key>Sora Previews.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
+		<key>Sora.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>744A36F12378337600405CF6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>74ED8EB6236F3F3F004BD10E</key>
 		<dict>
 			<key>primary</key>

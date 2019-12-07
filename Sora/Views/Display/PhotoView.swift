@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct PhotoView: View {
-    let photo: Main.Photo
+    let soraGradient: SoraGradient
     var body: some View {
         
         GeometryReader { geo in
             GeometryReader { _ in
                 ZStack{
-                    Image(uiImage: self.photo.photoImage)
+                    Image(uiImage: UIImage(data: self.soraGradient.photoImage!)!)
                         .resizable()
                         .scaledToFill()
                     LinearGradient(gradient: Gradient(colors: [.black, .clear])
@@ -62,12 +62,12 @@ struct PhotoView: View {
     func date() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy"
-        return "\(dateFormatter.string(from: photo.date))"
+        return "\(dateFormatter.string(from: soraGradient.date!))"
     }
     func time() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        return "\(dateFormatter.string(from: photo.date))"
+        return "\(dateFormatter.string(from: soraGradient.date!))"
     }
     
     
@@ -76,6 +76,6 @@ struct PhotoView: View {
 
 struct PhotoView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoView(photo: Main().photos.first!)
+        PhotoView(soraGradient: Main.templateSoraGradient())
     }
 }

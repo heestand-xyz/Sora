@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
+//    @Environment(\.managedObjectContext) var context
     @ObservedObject var main: Main
     var body: some View {
         ZStack {

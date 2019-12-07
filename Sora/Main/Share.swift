@@ -23,9 +23,10 @@ extension Main {
     // MARK: - Sketch
     
     func shareSketch() {
-        guard let photo = displayPhoto else { return }
+        guard let sg = displaySoraGradient else { return }
+        guard let gradient = Main.gradient(from: sg) else { return }
         do {
-            let file = try sketch.generate(from: photo, with: photo.gradient)
+            let file = try sketch.generate(from: sg, with: gradient)
             share(file)
         } catch {
             shareSketchFailed()
@@ -37,14 +38,14 @@ extension Main {
     // MARK: - PDF
     
     func sharePDF() {
-        guard let photo = displayPhoto else { return }
-        guard let pdf = try? PDF.create(from: photo) else { return }
+        guard let sg = displaySoraGradient else { return }
+        guard let pdf = try? PDF.create(from: sg) else { return }
         share(pdf)
     }
     
     func quickLookPDF() {
-        guard let photo = displayPhoto else { return }
-        guard let pdf = try? PDF.create(from: photo) else { return }
+        guard let sg = displaySoraGradient else { return }
+        guard let pdf = try? PDF.create(from: sg) else { return }
         quickLook(pdf)
     }
     
@@ -59,20 +60,18 @@ extension Main {
     }
     
     func sharePhotoImage() {
-        guard let photo = displayPhoto else { return }
-        guard let data = photo.photoImage.jpegData(compressionQuality: 0.8) else { return }
-        shareImage(data: data, for: photo, as: "jpg")
+        guard let sg = displaySoraGradient else { return }
+        shareImage(data: sg.photoImage!, for: sg, as: "jpg")
     }
     
     func shareGradientImage() {
-        guard let photo = displayPhoto else { return }
-        guard let data = photo.gradientImage.pngData() else { return }
-        shareImage(data: data, for: photo, as: "png")
+        guard let sg = displaySoraGradient else { return }
+        shareImage(data: sg.gradientImage!, for: sg, as: "png")
     }
     
-    func shareImage(data: Data, for photo: Photo, as ext: String) {
+    func shareImage(data: Data, for sg: SoraGradient, as ext: String) {
         
-        let name = Main.name(for: photo)
+        let name = Main.name(for: sg)
         
         let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let url = docsUrl.appendingPathComponent("\(name).\(ext)")

@@ -11,7 +11,7 @@ import SwiftUI
 struct ShareView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var main: Main
-    let photo: Main.Photo
+    let soraGradient: SoraGradient
     var body: some View {
         VStack {
             
@@ -93,7 +93,7 @@ struct ShareView: View {
                  Spacer()
                  
                  Button(action: {
-                    self.main.delete(photo: self.photo)
+                    self.main.delete(soraGradient: self.soraGradient)
                  }) {
                     Text("Delete")
                         .font(.system(size: 18, weight: .bold))
@@ -198,6 +198,6 @@ struct ShareOption:View {
 struct ShareView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        return ShareView(main: main, photo: main.photos.last!)
+        return ShareView(main: main, soraGradient: Main.templateSoraGradient())
     }
 }

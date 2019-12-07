@@ -24,7 +24,7 @@ struct DisplayView: View {
     @State var showShareOptions: Bool = false
     var body: some View {
         ZStack(alignment: .bottom) {
-            if main.displayPhoto != nil {
+            if main.displaySoraGradient != nil {
                 Color.primary
                     .colorInvert()
                     .edgesIgnoringSafeArea(.all)
@@ -45,7 +45,7 @@ struct DisplayView: View {
                 VStack {
                     GeometryReader { geo in
                         ZStack {
-                            DisplayPhotoView(main: self.main, photo: self.main.displayPhoto!, fraction: self.main.displayFraction, frame: self.main.displayFrame!)
+                            DisplayPhotoView(main: self.main, soraGradient: self.main.displaySoraGradient!, fraction: self.main.displayFraction, frame: self.main.displayFrame!)
                                 .offset(x: self.offsetX(at: geo.size))
                                 .gesture(DragGesture()
                                     .onChanged({ value in
@@ -55,8 +55,8 @@ struct DisplayView: View {
                                         self.onDragEnded()
                                     })
                             )
-                            if self.main.nextDisplayPhoto != nil {
-                                DisplayPhotoView(main: self.main, photo: self.main.nextDisplayPhoto!, fraction: 1.0, frame: .zero)
+                            if self.main.nextDisplaySoraGradient != nil {
+                                DisplayPhotoView(main: self.main, soraGradient: self.main.nextDisplaySoraGradient!, fraction: 1.0, frame: .zero)
                                     .offset(x: self.nextOffsetX(at: geo.size))
                             }
                         }
@@ -64,9 +64,9 @@ struct DisplayView: View {
                     }
                     Spacer()
                 }
-                if self.photo() != nil {                
+                if self.soraGradient() != nil {                
                     GeometryReader { geo in
-                        PhotoView(photo: self.photo()!)
+                        PhotoView(soraGradient: self.soraGradient()!)
                             .offset(y: self.comboOffsetY(at: geo.size))
                             .opacity(self.comboAlpha())
                             .gesture(DragGesture()
@@ -84,12 +84,12 @@ struct DisplayView: View {
         }
             .edgesIgnoringSafeArea(.bottom)
             .sheet(isPresented: self.$showShareOptions) {
-                ShareView(main: self.main, photo: self.main.displayPhoto!)
+                ShareView(main: self.main, soraGradient: self.main.displaySoraGradient!)
             }
     }
     func onDragChange(with value: DragGesture.Value, at size: CGSize, swipe: Bool = true) {
         if dragging == .no {
-            main.reDragPhoto()
+            main.reDragSoraGradient()
             dragging = .yes
         } else {
             if dragging == .yes {
@@ -101,10 +101,10 @@ struct DisplayView: View {
                     dragging = abs(diffX) > abs(diffY) ? .yesX : .yesY
                     if dragging == .yesX && swipe {
                         let way: Main.Way = diffX < 0.0 ? .right : .left
-                        main.loadNextDisplayPhoto(in: way)
+                        main.loadNextDisplaySoraGradient(in: way)
                     }
                 }
-            } else if dragging == .yesX && swipe && main.nextDisplayPhoto != nil {
+            } else if dragging == .yesX && swipe && main.nextDisplaySoraGradient != nil {
                 let x = value.translation.width
                 var fraction = min(max(x / size.width, -1.0), 1.0)
                 if main.nextDisplayWay == .left {
@@ -133,7 +133,7 @@ struct DisplayView: View {
             velocity = CGPoint(x: toPos.x - fromPos.x,
                                y: toPos.y - fromPos.y)
         }
-        if dragging == .yesX && swipe && main.nextDisplayPhoto != nil {
+        if dragging == .yesX && swipe && main.nextDisplaySoraGradient != nil {
             if velocity != nil && abs(velocity!.y) > kVelocityLimit {
                 if main.nextDisplayWay == .left {
                     if velocity!.x > 0.0 {
@@ -158,15 +158,15 @@ struct DisplayView: View {
         } else if dragging == .yesY {
             if velocity != nil && abs(velocity!.y) > kVelocityLimit {
                 if velocity!.y < 0.0 {
-                    main.reDisplayPhoto()
+                    main.reDisplaySoraGradient()
                 } else {
-                    main.reHidePhoto()
+                    main.reHideSoraGradient()
                 }
             } else {
                 if main.displayFraction > 0.5 {
-                    main.reDisplayPhoto()
+                    main.reDisplaySoraGradient()
                 } else {
-                    main.reHidePhoto()
+                    main.reHideSoraGradient()
                 }
             }
         }
@@ -206,24 +206,23 @@ struct DisplayView: View {
             return -fraction * size.width
         }
     }
-    func photo() -> Main.Photo? {
+    func soraGradient() -> SoraGradient? {
         let fraction = main.nextDisplayFraction
         if fraction != nil && fraction! > 0.5 {
-            return main.nextDisplayPhoto
+            return main.nextDisplaySoraGradient
         }
-        return main.displayPhoto
+        return main.displaySoraGradient
     }
 }
 
 struct DisplayView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        let photo = main.photos.last!
+        let soraGradient = Main.templateSoraGradient()
         let frame = CGRect(x: 50, y: 50, width: 50, height: 50)
-        main.displayPhoto = photo
+        main.displaySoraGradient = soraGradient
         main.displayFrame = frame
         main.displayFraction = 1.0
-//        main.display(photo: photo, from: frame)
         return DisplayView(main: main)
     }
 }

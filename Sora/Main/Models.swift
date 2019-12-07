@@ -10,9 +10,15 @@ import SwiftUI
 import UIKit
 import LiveValues
 
+extension SoraGradient {
+    static func == (lhs: SoraGradient, rhs: SoraGradient) -> Bool {
+        lhs.id! == rhs.id!
+    }
+}
+
 extension Main {
 
-    enum Direction: CaseIterable {
+    enum Direction: String, CaseIterable, Codable {
         case horizontal
         case vertical
         case angle
@@ -26,26 +32,24 @@ extension Main {
         }
     }
 
-    struct Photo: Identifiable, Equatable {
-        
-        let id: UUID
-        
-        let photoImage: UIImage
-        let gradientImage: UIImage
-        
-        let date: Date
-        
-        let direction: Direction
-        
-        let gradient: Gradient
-        
-        static func == (lhs: Photo, rhs: Photo) -> Bool {
-            lhs.id == rhs.id
-        }
-        
-    }
+//    struct Photo: Identifiable, Equatable {
+//
+//        let id: UUID
+//
+//        let photoImage: UIImage
+//        let gradientImage: UIImage
+//
+//        let date: Date
+//
+//        let gradient: Gradient
+//
+//        static func == (lhs: Photo, rhs: Photo) -> Bool {
+//            lhs.id == rhs.id
+//        }
+//
+//    }
 
-    struct Gradient {
+    struct Gradient: Codable {
         
         let direction: Direction
         
@@ -67,7 +71,7 @@ extension Main {
         
     }
 
-    struct ColorStop {
+    struct ColorStop: Codable {
         
         let color: Color
         
@@ -75,7 +79,7 @@ extension Main {
         
     }
 
-    struct Color {
+    struct Color: Codable {
         
         let red: CGFloat
         let green: CGFloat

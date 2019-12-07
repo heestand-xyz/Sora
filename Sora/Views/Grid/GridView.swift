@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct GridView: View {
+    @FetchRequest(fetchRequest: SoraGradient.fetchRequest()) var soraGradients: FetchedResults<SoraGradient>
     let kColCount = 3
     @ObservedObject var main: Main
     var body: some View {
@@ -21,13 +22,13 @@ struct GridView: View {
                                 if self.index(row: i, col: j) != nil {
                                     GeometryReader { geo in
                                         Button(action: {
-                                            self.main.display(photo: self.photo(row: i, col: j)!, from: geo.frame(in: .global))
+                                            self.main.display(sg: self.soraGradient(row: i, col: j)!, from: geo.frame(in: .global))
                                         }) {
-                                            GradientView(gradient: self.photo(row: i, col: j)!.gradient)
+                                            GradientView(gradient: Main.gradient(from: self.soraGradient(row: i, col: j)!)!)
                                                 .mask(Circle())
-                                                .opacity(self.main.displayPhoto == self.photo(row: i, col: j)! ? 0.0 : 1.0)
+                                                .opacity(self.main.displaySoraGradient == self.soraGradient(row: i, col: j)! ? 0.0 : 1.0)
                                                 .onAppear {
-                                                    self.main.gridFrames[self.photo(row: i, col: j)!.id] = geo.frame(in: .global)
+                                                    self.main.gridFrames[self.soraGradient(row: i, col: j)!.id!] = geo.frame(in: .global)
                                                 }
                                         }
                                     }
@@ -66,16 +67,16 @@ struct GridView: View {
         }
     }
     func rowCount() -> Int {
-        Int(ceil(CGFloat(main.photos.count) / CGFloat(kColCount)))
+        Int(ceil(CGFloat(soraGradients.count) / CGFloat(kColCount)))
     }
     func index(row rowIndex: Int, col colIndex: Int) -> Int? {
         let index = rowIndex * kColCount + colIndex
-        guard index < main.photos.count else { return nil }
+        guard index < soraGradients.count else { return nil }
         return index
     }
-    func photo(row rowIndex: Int, col colIndex: Int) -> Main.Photo? {
+    func soraGradient(row rowIndex: Int, col colIndex: Int) -> SoraGradient? {
         guard let i = index(row: rowIndex, col: colIndex) else { return nil }
-        return main.photos[i]
+        return soraGradients[i]
     }
     func iPhoneScreen(min:CGFloat,max:CGFloat) -> CGFloat {
         let Min : CGFloat = 640
