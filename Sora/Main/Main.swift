@@ -336,7 +336,9 @@ class Main: ObservableObject, NODEDelegate {
     }
     
     func delete(photo: Photo) {
-        
+        // FIXME: UI
+//        let index = photos.firstIndex(of: photo)
+//        photos.remove(at: index)
     }
     
 }

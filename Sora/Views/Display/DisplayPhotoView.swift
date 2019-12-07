@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct DisplayPhotoView: View {
+    @ObservedObject var main: Main
     let photo: Main.Photo
     let fraction: CGFloat
     let frame: CGRect
+    @State var color: Main.Color?
+    @State var showColorAlert: Bool = false
     var body: some View {
         VStack(spacing: 25) {
             GeometryReader { geo in
@@ -40,8 +43,15 @@ struct DisplayPhotoView: View {
                                 .foregroundColor(self.photo.gradient.colorStops[i].color.color)
                                 .frame(width: 30, height: 30)
                             Text(self.photo.gradient.colorStops[i].color.hex)
+//                                .foregroundColor(.primary)
                                 .font(.system(size: 12, weight: .bold, design: .monospaced))
                         }
+//                        .onLongPressGesture {
+//                            let color = self.photo.gradient.colorStops[i].color
+//                            self.main.copyColor(color)
+//                            self.color = color
+//                            self.showColorAlert = true
+//                        }
                     }
                     Rectangle()
                         .opacity(0.0)
@@ -50,7 +60,6 @@ struct DisplayPhotoView: View {
             }
                 .frame(height: 50)
                 .opacity(Double(fraction))
-                .offset(y: (1.0 - fraction) * 200)
                 .mask(LinearGradient(gradient: Gradient(stops: [
                     Gradient.Stop(color: .clear, location: 0.0),
                     Gradient.Stop(color: .white, location: 0.15),
@@ -59,6 +68,9 @@ struct DisplayPhotoView: View {
                 ]), startPoint: .leading, endPoint: .trailing))
         }
             .padding(30)
+        .alert(isPresented: $showColorAlert) { () -> Alert in
+            Alert(title: Text("Color \(self.color?.hex ?? "#")"), message: Text("Copied to clipboard."), dismissButton: .default(Text("Ok")))
+        }
     }
     func lerp(from fromValue: CGFloat, to toValue: CGFloat) -> CGFloat {
         fromValue * (1.0 - fraction) + toValue * fraction
@@ -67,6 +79,7 @@ struct DisplayPhotoView: View {
 
 struct DisplayPhotoView_Previews: PreviewProvider {
     static var previews: some View {
-        DisplayPhotoView(photo: Main().photos.first!, fraction: 1.0, frame: .zero)
+        let main = Main()
+        return DisplayPhotoView(main: main, photo: main.photos.first!, fraction: 1.0, frame: .zero)
     }
 }

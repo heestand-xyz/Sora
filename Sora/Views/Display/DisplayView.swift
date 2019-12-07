@@ -45,7 +45,7 @@ struct DisplayView: View {
                 VStack {
                     GeometryReader { geo in
                         ZStack {
-                            DisplayPhotoView(photo: self.main.displayPhoto!, fraction: self.main.displayFraction, frame: self.main.displayFrame!)
+                            DisplayPhotoView(main: self.main, photo: self.main.displayPhoto!, fraction: self.main.displayFraction, frame: self.main.displayFrame!)
                                 .offset(x: self.offsetX(at: geo.size))
                                 .gesture(DragGesture()
                                     .onChanged({ value in
@@ -56,7 +56,7 @@ struct DisplayView: View {
                                     })
                             )
                             if self.main.nextDisplayPhoto != nil {
-                                DisplayPhotoView(photo: self.main.nextDisplayPhoto!, fraction: 1.0, frame: .zero)
+                                DisplayPhotoView(main: self.main, photo: self.main.nextDisplayPhoto!, fraction: 1.0, frame: .zero)
                                     .offset(x: self.nextOffsetX(at: geo.size))
                             }
                         }

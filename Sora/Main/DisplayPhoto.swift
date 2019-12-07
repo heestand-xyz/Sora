@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreGraphics
 
 extension Main {
@@ -143,5 +143,9 @@ extension Main {
         })
         RunLoop.current.add(animationTimer!, forMode: .common)
     }
+    
+//    func copyColor(_ color: Color) {
+//        UIPasteboard.general.string = color.hex
+//    }
     
 }
