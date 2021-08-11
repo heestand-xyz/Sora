@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -68,19 +68,18 @@
 		74ED8EC7236F3F42004BD10E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */; };
 		74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Main.swift */; };
 		74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECF236F3FAD004BD10E /* LiveView.swift */; };
-		9FA9C6BF41523B7E0F89AD1E /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EA680014C25602BFF0E3079 /* Pods_Sora.framework */; };
+		E5727A7126C43B4E00D4F329 /* PixelKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7026C43B4E00D4F329 /* PixelKit */; };
+		E5727A7426C43C1F00D4F329 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7326C43C1F00D4F329 /* Zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0EA680014C25602BFF0E3079 /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CC8442237851AC000A0237 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
-		7242DC28BE259736ACA522EB /* Pods-Sora iPhone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora iPhone.debug.xcconfig"; path = "Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone.debug.xcconfig"; sourceTree = "<group>"; };
 		7418C5E92371F87500261816 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		7418C60B23772EF100261816 /* DisplayPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhoto.swift; sourceTree = "<group>"; };
 		7418C60D2377304E00261816 /* DisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhotoView.swift; sourceTree = "<group>"; };
 		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		744A37162378337600405CF6 /* sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		744A37172378337600405CF6 /* Sora copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Sora copy-Info.plist"; path = "/Users/hexagons/Documents/Code/Apps/Development/Sora/Sora copy-Info.plist"; sourceTree = "<absolute>"; };
 		744A37182378732E00405CF6 /* QuickLookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookView.swift; sourceTree = "<group>"; };
 		745125C623782D96002616C4 /* PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		745125C823782E66002616C4 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
@@ -110,10 +109,7 @@
 		74ED8EC8236F3F42004BD10E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74ED8ECE236F3FAC004BD10E /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		74ED8ECF236F3FAD004BD10E /* LiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
-		756A33BEF8243153395FFA24 /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
-		9C1FE69020C43CDCDDB8F433 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
 		C0B0F76550A08F63EB4C099E /* Pods_Sora_iPhone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora_iPhone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD9040EF42C56A4580A8EEF2 /* Pods-Sora iPhone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora iPhone.release.xcconfig"; path = "Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +125,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FA9C6BF41523B7E0F89AD1E /* Pods_Sora.framework in Frameworks */,
+				E5727A7426C43C1F00D4F329 /* Zip in Frameworks */,
+				E5727A7126C43B4E00D4F329 /* PixelKit in Frameworks */,
 				74926D84239BB6AC005955CF /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,8 +226,6 @@
 			children = (
 				74ED8EB9236F3F3F004BD10E /* Sora */,
 				74ED8EB8236F3F3F004BD10E /* Products */,
-				ED4070C8AB2D4CAA2961D39B /* Pods */,
-				744A37172378337600405CF6 /* Sora copy-Info.plist */,
 				16CA10F8CA60139AEA4600C2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -270,17 +265,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		ED4070C8AB2D4CAA2961D39B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				756A33BEF8243153395FFA24 /* Pods-Sora.debug.xcconfig */,
-				9C1FE69020C43CDCDDB8F433 /* Pods-Sora.release.xcconfig */,
-				7242DC28BE259736ACA522EB /* Pods-Sora iPhone.debug.xcconfig */,
-				CD9040EF42C56A4580A8EEF2 /* Pods-Sora iPhone.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -307,17 +291,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74ED8ECB236F3F42004BD10E /* Build configuration list for PBXNativeTarget "Sora" */;
 			buildPhases = (
-				1DA69649E56126EBAB087F05 /* [CP] Check Pods Manifest.lock */,
 				74ED8EB3236F3F3F004BD10E /* Sources */,
 				74ED8EB4236F3F3F004BD10E /* Frameworks */,
 				74ED8EB5236F3F3F004BD10E /* Resources */,
-				5B6D91D6BEFA6021349883EF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Sora;
+			packageProductDependencies = (
+				E5727A7026C43B4E00D4F329 /* PixelKit */,
+				E5727A7326C43C1F00D4F329 /* Zip */,
+			);
 			productName = Sora;
 			productReference = 74ED8EB7236F3F3F004BD10E /* sora.app */;
 			productType = "com.apple.product-type.application";
@@ -346,6 +332,10 @@
 				Base,
 			);
 			mainGroup = 74ED8EAE236F3F3F004BD10E;
+			packageReferences = (
+				E5727A6F26C43B4E00D4F329 /* XCRemoteSwiftPackageReference "PixelKit" */,
+				E5727A7226C43C1F00D4F329 /* XCRemoteSwiftPackageReference "Zip" */,
+			);
 			productRefGroup = 74ED8EB8236F3F3F004BD10E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -388,45 +378,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1DA69649E56126EBAB087F05 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sora-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5B6D91D6BEFA6021349883EF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora/Pods-Sora-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7080572478BAAB5B36B25375 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -544,7 +495,6 @@
 /* Begin XCBuildConfiguration section */
 		744A37142378337600405CF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7242DC28BE259736ACA522EB /* Pods-Sora iPhone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -567,7 +517,6 @@
 		};
 		744A37152378337600405CF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD9040EF42C56A4580A8EEF2 /* Pods-Sora iPhone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -704,7 +653,6 @@
 		};
 		74ED8ECC236F3F42004BD10E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 756A33BEF8243153395FFA24 /* Pods-Sora.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sora/sora.entitlements;
@@ -728,7 +676,6 @@
 		};
 		74ED8ECD236F3F42004BD10E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C1FE69020C43CDCDDB8F433 /* Pods-Sora.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sora/sora.entitlements;
@@ -781,6 +728,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E5727A6F26C43B4E00D4F329 /* XCRemoteSwiftPackageReference "PixelKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/heestand-xyz/PixelKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		E5727A7226C43C1F00D4F329 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E5727A7026C43B4E00D4F329 /* PixelKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5727A6F26C43B4E00D4F329 /* XCRemoteSwiftPackageReference "PixelKit" */;
+			productName = PixelKit;
+		};
+		E5727A7326C43C1F00D4F329 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5727A7226C43C1F00D4F329 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		74926D7F239BB3BF005955CF /* Sora.xcdatamodeld */ = {

@@ -8,8 +8,8 @@
 
 import SwiftUI
 import UIKit
-import LiveValues
 import CoreData
+import PixelColor
 
 extension SoraGradient {
     static func sortedFetchRequest() -> NSFetchRequest<SoraGradient> {
@@ -59,6 +59,14 @@ extension Main {
     struct Gradient: Codable {
         
         let direction: Direction
+    
+        struct ColorStop: Codable {
+            
+            let color: Color
+            
+            let fraction: CGFloat
+            
+        }
         
         let colorStops: [ColorStop]
         
@@ -78,14 +86,6 @@ extension Main {
         
     }
 
-    struct ColorStop: Codable {
-        
-        let color: Color
-        
-        let fraction: CGFloat
-        
-    }
-
     struct Color: Codable {
         
         let red: CGFloat
@@ -100,12 +100,12 @@ extension Main {
             UIColor(red: red, green: green, blue: blue, alpha: 1.0)
         }
         
-        var liveColor: LiveColor {
-            LiveColor(r: LiveFloat(red), g: LiveFloat(green), b: LiveFloat(blue))
+        var pixelColor: PixelColor {
+            PixelColor(red: red, green: green, blue: blue)
         }
         
         var hex: String {
-            LiveColor(uiColor).hex.uppercased()
+            PixelColor(uiColor).hex.uppercased()
         }
         
         init(red: CGFloat, green: CGFloat, blue: CGFloat) {
@@ -115,16 +115,16 @@ extension Main {
         }
         
         init(hue: CGFloat) {
-            let liveColor = LiveColor(h: LiveFloat(hue))
-            red = liveColor.r.cg
-            green = liveColor.g.cg
-            blue = liveColor.b.cg
+            let pixelColor = PixelColor(hue: hue, saturation: 1.0, brightness: 1.0)
+            red = pixelColor.red
+            green = pixelColor.green
+            blue = pixelColor.blue
         }
         
-        init(_ liveColor: LiveColor) {
-            red = liveColor.r.cg
-            green = liveColor.g.cg
-            blue = liveColor.b.cg
+        init(_ pixelColor: PixelColor) {
+            red = pixelColor.red
+            green = pixelColor.green
+            blue = pixelColor.blue
         }
         
     }

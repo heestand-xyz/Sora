@@ -8,14 +8,15 @@
 
 import UIKit
 import SwiftUI
-import LiveValues
 import RenderKit
 import PixelKit
+import Resolution
 import CoreData
+import PixelColor
 
 class Main: ObservableObject, NODEDelegate {
     
-    let kRes: Int = 255
+    let kRes: Int = 256
     let kSteps: Int = 10
     let kImgRes: Resolution = ._1024
     let kAnimationSeconds: CGFloat = 0.25
@@ -42,7 +43,7 @@ class Main: ObservableObject, NODEDelegate {
     let resolutionPix: ResolutionPIX
     let feedbackPix: FeedbackPIX
     let crossPix: CrossPIX
-    let hueSaturation: HueSaturationPIX
+    let colorShift: ColorShiftPIX
     let cropVerticalPix: CropPIX
     let cropHorizontalPix: CropPIX
     let resolutionVerticalPix: ResolutionPIX
@@ -60,7 +61,7 @@ class Main: ObservableObject, NODEDelegate {
             resolutionPix.bypass = bypass
             feedbackPix.bypass = bypass
             crossPix.bypass = bypass
-            hueSaturation.bypass = bypass
+            colorShift.bypass = bypass
             cropVerticalPix.bypass = bypass
             cropHorizontalPix.bypass = bypass
             resolutionVerticalPix.bypass = bypass
@@ -110,7 +111,7 @@ class Main: ObservableObject, NODEDelegate {
         #if !targetEnvironment(simulator)
         
         cameraPix = CameraPIX()
-        cameraPix.view.placement = .aspectFill
+        cameraPix.view.placement = .fill
         cameraPix.view.checker = false
         
         // FIXME: Take away once bug is fixed.
@@ -120,7 +121,7 @@ class Main: ObservableObject, NODEDelegate {
         
         resolutionPix = ResolutionPIX(at: .square(kRes))
         resolutionPix.input = cameraPix
-        resolutionPix.placement = .aspectFill
+        resolutionPix.placement = .fill
         
         feedbackPix = FeedbackPIX()
         feedbackPix.input = resolutionPix
@@ -130,27 +131,27 @@ class Main: ObservableObject, NODEDelegate {
         crossPix.inputA = resolutionPix
         crossPix.inputB = feedbackPix
         
-        feedbackPix.feedPix = crossPix
+        feedbackPix.feedbackInput = crossPix
         
-        hueSaturation = HueSaturationPIX()
-        hueSaturation.input = crossPix
-        hueSaturation.saturation = 1.25
+        colorShift = ColorShiftPIX()
+        colorShift.input = crossPix
+        colorShift.saturation = 1.25
 
         cropVerticalPix = CropPIX()
-        cropVerticalPix.input = hueSaturation
+        cropVerticalPix.input = colorShift
         cropVerticalPix.cropFrame = CGRect(x: 0.5 - 0.5 / CGFloat(kRes), y: 0.0, width: 1.0 / CGFloat(kRes), height: 1.0)
         
         cropHorizontalPix = CropPIX()
-        cropHorizontalPix.input = hueSaturation
+        cropHorizontalPix.input = colorShift
         cropHorizontalPix.cropFrame = CGRect(x: 0, y: 0.5 - 0.5 / CGFloat(kRes), width: 1.0, height: 1.0 / CGFloat(kRes))
 
         resolutionVerticalPix = ResolutionPIX(at: .custom(w: 3, h: kSteps * 3))
-        resolutionVerticalPix.placement = .fill
+        resolutionVerticalPix.placement = .stretch
         resolutionVerticalPix.extend = .hold
         resolutionVerticalPix.input = cropVerticalPix
         
         resolutionHorizontalPix = ResolutionPIX(at: .custom(w: kSteps * 3, h: 3))
-        resolutionHorizontalPix.placement = .fill
+        resolutionHorizontalPix.placement = .stretch
         resolutionHorizontalPix.extend = .hold
         resolutionHorizontalPix.input = cropHorizontalPix
         
@@ -158,7 +159,7 @@ class Main: ObservableObject, NODEDelegate {
         
         postCirclePix = CirclePIX(at: kImgRes)
         postCirclePix.radius = 0.5
-        postCirclePix.bgColor = .clear
+        postCirclePix.backgroundColor = .clear
         
         postBlendPix = BlendPIX()
         postBlendPix.blendMode = .multiply
@@ -240,22 +241,22 @@ class Main: ObservableObject, NODEDelegate {
         case .horizontal:
             postGradientPix.direction = .horizontal
             postGradientPix.offset = 0.0
-            postGradientPix.extendRamp = .hold
+            postGradientPix.extend = .hold
         case .vertical:
             postGradientPix.direction = .vertical
-            postGradientPix.extendRamp = .mirror
+            postGradientPix.extend = .mirror
             postGradientPix.offset = 1.0
         case .angle:
             postGradientPix.direction = .angle
             postGradientPix.offset = 0.75
-            postGradientPix.extendRamp = .loop
+            postGradientPix.extend = .loop
         case .radial:
             postGradientPix.direction = .radial
             postGradientPix.offset = 1.0
-            postGradientPix.extendRamp = .mirror
+            postGradientPix.extend = .mirror
         }
-        postGradientPix.colorSteps = gradient.colorStops.map({ colorStop -> ColorStep in
-            ColorStep(LiveFloat(colorStop.fraction), colorStop.color.liveColor)
+        postGradientPix.colorSteps = gradient.colorStops.map({ colorStop -> ColorStop in
+            ColorStop(colorStop.fraction, PixelColor(colorStop.color.uiColor))
         })
         var index = 0
         RunLoop.current.add(Timer(timeInterval: 0.1, repeats: true, block: { timer in
@@ -289,18 +290,19 @@ class Main: ObservableObject, NODEDelegate {
     
     #if !targetEnvironment(simulator)
     func makeGradient(at count: Int, from pixels: PIX.PixelPack, in direction: Direction) -> Gradient {
-        var colorStops: [ColorStop] = []
+        var colorStops: [Gradient.ColorStop] = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
             let relFraction = (CGFloat(i) + 0.5) / CGFloat(count)
-            let color: Color
+            let pixelColor: PixelColor
             switch direction.axis {
             case .x:
-                color = Color(pixels.pixel(uv: CGVector(dx: relFraction, dy: 0.5)).color)
+                pixelColor = pixels.pixel(uv: CGVector(dx: relFraction, dy: 0.5)).color
             case .y:
-                color = Color(pixels.pixel(uv: CGVector(dx: 0.5, dy: 1.0 - relFraction)).color)
+                pixelColor = pixels.pixel(uv: CGVector(dx: 0.5, dy: 1.0 - relFraction)).color
             }
-            let colorStop = ColorStop(color: color, fraction: fraction)
+            let color = Color(red: pixelColor.blue, green: pixelColor.green, blue: pixelColor.red)
+            let colorStop = Gradient.ColorStop(color: color, fraction: fraction)
             colorStops.append(colorStop)
         }
         return Gradient(direction: direction, colorStops: colorStops)
@@ -308,13 +310,13 @@ class Main: ObservableObject, NODEDelegate {
     #endif
     
     func makeGradient(at count: Int, from fromColor: Color, to toColor: Color, in direction: Direction) -> Gradient {
-        var colorStops: [ColorStop] = []
+        var colorStops: [Gradient.ColorStop] = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
             let color = Color(red: fromColor.red * (1.0 - fraction) + toColor.red * fraction,
                                   green: fromColor.green * (1.0 - fraction) + toColor.green * fraction,
                                   blue: fromColor.blue * (1.0 - fraction) + toColor.blue * fraction)
-            let colorStop = ColorStop(color: color, fraction: fraction)
+            let colorStop = Gradient.ColorStop(color: color, fraction: fraction)
             colorStops.append(colorStop)
         }
         return Gradient(direction: direction, colorStops: colorStops)
@@ -361,17 +363,17 @@ class Main: ObservableObject, NODEDelegate {
     }
     
     static func sort(a sgA: SoraGradient, b sgB: SoraGradient, with sortMethod: SortMethod) -> Bool {
-        let colorA = gradient(from: sgA)!.averageColor.liveColor
-        let colorB = gradient(from: sgB)!.averageColor.liveColor
+        let colorA = gradient(from: sgA)!.averageColor.pixelColor
+        let colorB = gradient(from: sgB)!.averageColor.pixelColor
         switch sortMethod {
         case .date:
             return sgA.date! < sgB.date!
         case .hue:
-            return colorA.hue.cg < colorB.hue.cg
+            return colorA.hue < colorB.hue
         case .sat:
-            return colorA.sat.cg < colorB.sat.cg
+            return colorA.saturation < colorB.saturation
         case .val:
-            return colorA.val.cg < colorB.val.cg
+            return colorA.brightness < colorB.brightness
         }
     }
     
@@ -395,8 +397,8 @@ class Main: ObservableObject, NODEDelegate {
     
     static func templateGradient() -> Main.Gradient {
         Main.Gradient(direction: .vertical, colorStops: [
-            Main.ColorStop(color: Main.Color(red: 1.0, green: 0.5, blue: 0.0), fraction: 0.0),
-            Main.ColorStop(color: Main.Color(red: 0.0, green: 0.5, blue: 1.0), fraction: 0.0)
+            Main.Gradient.ColorStop(color: Main.Color(red: 1.0, green: 0.5, blue: 0.0), fraction: 0.0),
+            Main.Gradient.ColorStop(color: Main.Color(red: 0.0, green: 0.5, blue: 1.0), fraction: 0.0)
         ])
     }
     

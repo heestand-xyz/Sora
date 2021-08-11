@@ -33,11 +33,13 @@ struct LiveView: View {
                         Circle()
                     })
                     .offset(y: geo.size.width / 4)
-                Group {
+                ZStack {
+                    Circle()
+                        .foregroundColor(.gray)
                     #if targetEnvironment(simulator)
                     CameraTemplateView()
                     #else
-                    RawNODEUI(node: self.main.cameraPix)
+                    PixelView(pix: self.main.cameraPix)
                     #endif
                 }
                     .mask(Circle())
