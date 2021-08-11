@@ -39,7 +39,6 @@ class Main: ObservableObject, NODEDelegate {
     
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
-    let flipFlopPix: FlipFlopPIX
     let resolutionPix: ResolutionPIX
     let feedbackPix: FeedbackPIX
     let crossPix: CrossPIX
@@ -57,7 +56,6 @@ class Main: ObservableObject, NODEDelegate {
         didSet {
             #if !targetEnvironment(simulator)
             cameraPix.bypass = bypass
-            flipFlopPix.bypass = bypass
             resolutionPix.bypass = bypass
             feedbackPix.bypass = bypass
             crossPix.bypass = bypass
@@ -113,11 +111,6 @@ class Main: ObservableObject, NODEDelegate {
         cameraPix = CameraPIX()
         cameraPix.view.placement = .fill
         cameraPix.view.checker = false
-        
-        // FIXME: Take away once bug is fixed.
-        flipFlopPix = FlipFlopPIX()
-        flipFlopPix.input = cameraPix
-        flipFlopPix.flip = .y
         
         resolutionPix = ResolutionPIX(at: .square(kRes))
         resolutionPix.input = cameraPix
@@ -193,7 +186,7 @@ class Main: ObservableObject, NODEDelegate {
         
         #if !targetEnvironment(simulator)
         
-        guard let cameraImage = flipFlopPix.renderedImage else { captureFailed(); return }
+        guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
         guard let pixels = getPixels() else { captureFailed(); return }
         
         let gradient: Gradient = makeGradient(at: kSteps, from: pixels, in: direction)
