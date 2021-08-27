@@ -167,7 +167,9 @@ class Main: ObservableObject, NODEDelegate {
         let black = Color(red: 0.0, green: 0.0, blue: 0.0)
         liveGaradient = makeGradient(at: kSteps, from: black, to: black, in: direction)
         
+//        #if DEBUG
 //        addTemplates()
+//        #endif
 
 //        #if DEBUG
 //        deleteAllData()
@@ -184,13 +186,14 @@ class Main: ObservableObject, NODEDelegate {
     
     func capture() {
         
-        #if !targetEnvironment(simulator)
+        print("Sora - Main - Capture")
         
+        #if !targetEnvironment(simulator)
         guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
         guard let pixels = getPixels() else { captureFailed(); return }
         
         let gradient: Gradient = makeGradient(at: kSteps, from: pixels, in: direction)
-        
+
         getImage(from: gradient, done: { image in
         
 //            let photo = Photo(id: UUID(), photoImage: cameraImage, gradientImage: image, date: Date(), gradient: gradient)
@@ -222,6 +225,10 @@ class Main: ObservableObject, NODEDelegate {
         }
         
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
+        #else
+        
+        self.lastSoraGradient = Self.templateSoraGradient()
         
         #endif
         
@@ -315,6 +322,14 @@ class Main: ObservableObject, NODEDelegate {
         return Gradient(direction: direction, colorStops: colorStops)
     }
     
+    func makeTemplateGradient() -> Gradient {
+        makeGradient(at: kSteps,
+                     from: Main.Color(red: 1.0, green: 0.5, blue: 0.0),
+                     to: Main.Color(red: 0.0, green: 0.5, blue: 1.0),
+                     in: direction)
+    }
+    
+//    #if DEBUG
 //    func addTemplates() {
 //
 //        let photoImage = UIImage(named: "photo")!
@@ -347,6 +362,7 @@ class Main: ObservableObject, NODEDelegate {
 //        photos.append(photo)
 //
 //    }
+//    #endif
     
     enum SortMethod: String, CaseIterable {
         case date = "Date"

@@ -26,13 +26,13 @@ struct LiveView: View {
                     GradientView(gradient: self.main.liveGaradient)
                     #endif
                 }
-                    .mask(ZStack {
-                        Rectangle()
-                            .frame(height: geo.size.width / 2)
-                            .offset(y: -geo.size.width / 4)
-                        Circle()
-                    })
-                    .offset(y: geo.size.width / 4)
+                .mask(ZStack {
+                    Rectangle()
+                        .frame(height: geo.size.width / 2)
+                        .offset(y: -geo.size.width / 4)
+                    Circle()
+                })
+                .offset(y: geo.size.width / 4)
                 ZStack {
                     Circle()
                         .foregroundColor(.gray)
@@ -42,11 +42,11 @@ struct LiveView: View {
                     PixelView(pix: self.main.cameraPix)
                     #endif
                 }
-                    .mask(Circle())
-                    .offset(y: -geo.size.width / 4)
+                .mask(Circle())
+                .offset(y: -geo.size.width / 4)
             }
         }
-            .aspectRatio(1.0 / 1.5, contentMode: .fit)
+        .aspectRatio(1.0 / 1.5, contentMode: .fit)
     }
 }
 

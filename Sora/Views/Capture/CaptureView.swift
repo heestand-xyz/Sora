@@ -101,6 +101,7 @@ struct CaptureView: View {
                         self.main.state = active ? .grid : .capture
                     })) {
                         Image(systemName: "folder.fill")
+                            .imageScale(.large)
                             .foregroundColor(.primary)
                     }
                 }

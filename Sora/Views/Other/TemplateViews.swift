@@ -20,17 +20,14 @@ struct PhotoTemplateView: View {
         Image("photo")
             .renderingMode(.original)
             .resizable()
-            .aspectRatio(contentMode: .fill)
+            .aspectRatio(contentMode: .fit)
     }
 }
 
 struct GradientTemplateView: View {
     @ObservedObject var main: Main
     var body: some View {
-        let gradient = main.makeGradient(at: main.kSteps,
-                                         from: Main.Color(red: 1.0, green: 0.5, blue: 0.0),
-                                         to: Main.Color(red: 0.0, green: 0.5, blue: 1.0),
-                                         in: main.direction)
+        let gradient = main.makeTemplateGradient()
         return GradientView(gradient: gradient)
     }
 }
