@@ -9,14 +9,19 @@
 import SwiftUI
 
 struct DisplayPhotoView: View {
+    
     @ObservedObject var main: Main
+    
     let soraGradient: SoraGradient
     let fraction: CGFloat
     let frame: CGRect
-    @State var color: Main.Color?
-    @State var showColorAlert: Bool = false
+    
+    @State private var color: Main.Color?
+    
     var body: some View {
+        
         VStack(spacing: 25) {
+            
             GeometryReader { geo in
                 ZStack(alignment: .topLeading) {
                     Rectangle()
@@ -31,7 +36,8 @@ struct DisplayPhotoView: View {
                                                  to: geo.size.height))
                 }
             }
-                .aspectRatio(1.0, contentMode: .fit)
+            .aspectRatio(1.0, contentMode: .fit)
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     Rectangle()
@@ -42,35 +48,41 @@ struct DisplayPhotoView: View {
                             Circle()
                                 .foregroundColor(self.gradient().colorStops[i].color.color)
                                 .frame(width: 30, height: 30)
-                            Text(self.gradient().colorStops[i].color.hex)
-//                                .foregroundColor(.primary)
+                            Text("#\(self.gradient().colorStops[i].color.hex)")
                                 .font(.system(size: 12, weight: .bold, design: .monospaced))
                         }
-//                        .onLongPressGesture {
-//                            let color = self.gradient().colorStops[i].color
-//                            self.main.copyColor(color)
-//                            self.color = color
-//                            self.showColorAlert = true
-//                        }
+                        .contextMenu {
+                            Button {
+                                let color = self.gradient().colorStops[i].color
+                                self.main.copyHex(color: color)
+                                self.color = color
+                            } label: {
+                                Text("Copy Color (Hex)")
+                            }
+                            Button {
+                                let color = self.gradient().colorStops[i].color
+                                self.main.copyRGB(color: color)
+                                self.color = color
+                            } label: {
+                                Text("Copy Color (255)")
+                            }
+                        }
                     }
                     Rectangle()
                         .opacity(0.0)
                         .frame(width: 20)
                 }
             }
-                .frame(height: 50)
-                .opacity(Double(fraction))
-                .mask(LinearGradient(gradient: Gradient(stops: [
-                    Gradient.Stop(color: .clear, location: 0.0),
-                    Gradient.Stop(color: .white, location: 0.15),
-                    Gradient.Stop(color: .white, location: 0.85),
-                    Gradient.Stop(color: .clear, location: 1.0)
-                ]), startPoint: .leading, endPoint: .trailing))
+            .frame(height: 50)
+            .opacity(Double(fraction))
+            .mask(LinearGradient(gradient: Gradient(stops: [
+                Gradient.Stop(color: .clear, location: 0.0),
+                Gradient.Stop(color: .white, location: 0.15),
+                Gradient.Stop(color: .white, location: 0.85),
+                Gradient.Stop(color: .clear, location: 1.0)
+            ]), startPoint: .leading, endPoint: .trailing))
         }
-            .padding(30)
-        .alert(isPresented: $showColorAlert) { () -> Alert in
-            Alert(title: Text("Color \(self.color?.hex ?? "#")"), message: Text("Copied to clipboard."), dismissButton: .default(Text("Ok")))
-        }
+        .padding(30)
     }
     func gradient() -> Main.Gradient {
         let gradient = Main.gradient(from: soraGradient)

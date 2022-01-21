@@ -145,8 +145,15 @@ extension Main {
         RunLoop.current.add(animationTimer!, forMode: .common)
     }
     
-//    func copyColor(_ color: Color) {
-//        UIPasteboard.general.string = color.hex
-//    }
+    func copyHex(color: Color) {
+        UIPasteboard.general.string = "#\(color.hex)"
+    }
+    
+    func copyRGB(color: Color) {
+        let red = Int(round(color.red * 255))
+        let green = Int(round(color.green * 255))
+        let blue = Int(round(color.blue * 255))
+        UIPasteboard.general.string = "\(red) \(green) \(blue)"
+    }
     
 }
