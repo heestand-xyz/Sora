@@ -11,18 +11,6 @@ import UIKit
 import CoreData
 import PixelColor
 
-extension SoraGradient {
-    static func sortedFetchRequest() -> NSFetchRequest<SoraGradient> {
-        let request: NSFetchRequest<SoraGradient> = SoraGradient.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        return request
-    }
-    static func == (lhs: SoraGradient, rhs: SoraGradient) -> Bool {
-        lhs.id! == rhs.id!
-    }
-}
-
 extension Main {
 
     enum Direction: String, CaseIterable, Codable {

@@ -40,6 +40,7 @@
 		D39DD86A279B21D9007AFF71 /* Main+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD869279B21D9007AFF71 /* Main+CoreData.swift */; };
 		D39DD86C279B22DA007AFF71 /* Main+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD86B279B22DA007AFF71 /* Main+App.swift */; };
 		D39DD86E279B2B79007AFF71 /* Main+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD86D279B2B79007AFF71 /* Main+Gradient.swift */; };
+		D39DD870279B3477007AFF71 /* SoraGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD86F279B3477007AFF71 /* SoraGradient.swift */; };
 		E5727A7126C43B4E00D4F329 /* PixelKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7026C43B4E00D4F329 /* PixelKit */; };
 		E5727A7426C43C1F00D4F329 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7326C43C1F00D4F329 /* Zip */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		D39DD869279B21D9007AFF71 /* Main+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+CoreData.swift"; sourceTree = "<group>"; };
 		D39DD86B279B22DA007AFF71 /* Main+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+App.swift"; sourceTree = "<group>"; };
 		D39DD86D279B2B79007AFF71 /* Main+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+Gradient.swift"; sourceTree = "<group>"; };
+		D39DD86F279B3477007AFF71 /* SoraGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoraGradient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				7418C60B23772EF100261816 /* Main+DisplayPhoto.swift */,
 				74C8A35723701448000F4314 /* Main+Models.swift */,
 				745125C823782E66002616C4 /* Main+Share.swift */,
+				D39DD86F279B3477007AFF71 /* SoraGradient.swift */,
 				7429783223703B570094A16B /* Constants.swift */,
 				74DD43132371D7310010F122 /* Sketch.swift */,
 				745125C623782D96002616C4 /* PDF.swift */,
@@ -330,6 +333,7 @@
 				74C8A3552370112D000F4314 /* TemplateViews.swift in Sources */,
 				745125C923782E66002616C4 /* Main+Share.swift in Sources */,
 				74C8A35323701055000F4314 /* PhotoView.swift in Sources */,
+				D39DD870279B3477007AFF71 /* SoraGradient.swift in Sources */,
 				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
 				74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */,
 				D39DD86C279B22DA007AFF71 /* Main+App.swift in Sources */,

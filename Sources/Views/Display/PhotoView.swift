@@ -23,7 +23,21 @@ struct PhotoView: View {
                         .opacity(0.75)
                     VStack {
                         HStack{
-                            Image("gradient_vertical")
+                            Image({
+                                if let direction = soraGradient.direction {
+                                    switch direction {
+                                    case .horizontal:
+                                        return "gradient_horizontal"
+                                    case .vertical:
+                                        return "gradient_vertical"
+                                    case .angle:
+                                        return "gradient_angle"
+                                    case .radial:
+                                        return "gradient_radial"
+                                    }
+                                }
+                                return ""
+                            }())
                                 .renderingMode(.template)
                                 .foregroundColor(.white)
                                 .padding(.trailing, 10.0)
