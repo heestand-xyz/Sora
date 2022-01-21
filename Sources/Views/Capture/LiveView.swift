@@ -23,7 +23,7 @@ struct LiveView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     #else
 //                    RawNODEUI(node: self.main.finalPix)
-                    GradientView(gradient: self.main.liveGaradient)
+                    GradientView(gradient: self.main.liveGradient)
                     #endif
                 }
                 .mask(ZStack {

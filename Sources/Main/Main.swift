@@ -40,7 +40,11 @@ class Main: ObservableObject, NODEDelegate {
     
     let sketch: Sketch
     
-    @Published var liveGaradient: Gradient!
+    #if !targetEnvironment(simulator)
+    @Published var liveGradient: Gradient!
+    #else
+    @Published var liveTemplateGradient: Gradient!
+    #endif
     
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
@@ -82,7 +86,13 @@ class Main: ObservableObject, NODEDelegate {
         return results
     }
     
-    @Published var direction: Direction = .vertical
+    @Published var direction: Direction = .vertical {
+        didSet {
+            #if targetEnvironment(simulator)
+            liveTemplateGradient = makeTemplateGradient()
+            #endif
+        }
+    }
     
 //    @Published var photos: [Photo] = []
 //    @Published var lastPhoto: Photo?
@@ -166,8 +176,11 @@ class Main: ObservableObject, NODEDelegate {
         
         #endif
         
-        let black = Color(red: 0.0, green: 0.0, blue: 0.0)
-        liveGaradient = makeGradient(at: kSteps, from: black, to: black, in: direction)
+        #if !targetEnvironment(simulator)
+        liveGradient = makeGradient(at: kSteps, from: .black, to: .black, in: direction)
+        #else
+        liveTemplateGradient = makeTemplateGradient()
+        #endif
         
 //        #if DEBUG
 //        addTemplates()
@@ -185,7 +198,7 @@ class Main: ObservableObject, NODEDelegate {
     func nodeDidRender(_ node: NODE) {
         #if !targetEnvironment(simulator)
         guard let pixels = getPixels() else { return }
-        liveGaradient = makeGradient(at: kSteps, from: pixels, in: direction)
+        liveGradient = makeGradient(at: kSteps, from: pixels, in: direction)
         #endif
     }
     
@@ -409,8 +422,8 @@ class Main: ObservableObject, NODEDelegate {
         return gradient
     }
     
-    func templateGradient() -> Main.Gradient {
-        Main.Gradient(direction: .vertical, colorStops: [
+    func templateGradient(in direction: Direction) -> Main.Gradient {
+        Main.Gradient(direction: direction, colorStops: [
             Main.Gradient.ColorStop(color: Main.Color(red: 1.0, green: 0.5, blue: 0.0), fraction: 0.0),
             Main.Gradient.ColorStop(color: Main.Color(red: 0.0, green: 0.5, blue: 1.0), fraction: 0.0)
         ])
@@ -423,7 +436,7 @@ class Main: ObservableObject, NODEDelegate {
         soraGradient.id = UUID()
         soraGradient.date = Date()
         
-        let gradient: Main.Gradient = templateGradient()
+        let gradient: Main.Gradient = liveTemplateGradient
         let gradientData: Data = try! JSONEncoder().encode(gradient)
         let gradientJson: String = String(data: gradientData, encoding: .utf8)!
         soraGradient.gradient = gradientJson

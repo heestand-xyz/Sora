@@ -27,7 +27,6 @@ struct PhotoTemplateView: View {
 struct GradientTemplateView: View {
     @ObservedObject var main: Main
     var body: some View {
-        let gradient = main.makeTemplateGradient()
-        return GradientView(gradient: gradient)
+        GradientView(gradient: main.liveTemplateGradient)
     }
 }

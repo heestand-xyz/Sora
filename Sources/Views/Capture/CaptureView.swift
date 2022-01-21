@@ -18,18 +18,22 @@ struct CaptureView: View {
     
     var body: some View {
         ZStack {
+            
             Group {
                 #if targetEnvironment(simulator)
                 GradientTemplateView(main: self.main)
                 #else
-                GradientView(gradient: self.main.liveGaradient)
+                GradientView(gradient: self.main.liveGradient)
                 #endif
             }
                 .opacity(0.25)
                 .edgesIgnoringSafeArea(.all)
+
             VStack(spacing: 10) {
+                
                 LiveView(main: self.main)
                     .offset(y: -80)
+                
                 HStack {
                     Button(action: {
                         self.main.direction = .horizontal
@@ -61,8 +65,11 @@ struct CaptureView: View {
                     }
 
                 }
+                
                 Spacer()
+                
                 HStack(spacing: 50) {
+                    
                     if self.main.lastSoraGradient != nil {
                         GeometryReader { geo in
                             Button(action: {
@@ -79,6 +86,7 @@ struct CaptureView: View {
                             .opacity(0.0)
                             .frame(width: 40, height: 40)
                     }
+                    
                     Button(action: {
                         self.main.capture()
                     }) {
@@ -86,13 +94,14 @@ struct CaptureView: View {
                             #if targetEnvironment(simulator)
                             GradientTemplateView(main: self.main)
                             #else
-                            GradientView(gradient: self.main.liveGaradient)
+                            GradientView(gradient: self.main.liveGradient)
                             #endif
                         }
                         .mask(Circle())
                             .frame(width: 60, height: 60)
                             .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.primary))
                     }
+                    
                     NavigationLink(destination: GeometryReader { geo in
                             GridView(main: self.main)
                                 .frame(height: geo.size.height + 50)
@@ -102,7 +111,7 @@ struct CaptureView: View {
                     }, set: { active in
                         self.main.state = active ? .grid : .capture
                     })) {
-                        Image(systemName: "folder.fill")
+                        Image(systemName: "folder")
                             .imageScale(.large)
                             .foregroundColor(.primary)
                     }

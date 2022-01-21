@@ -11,28 +11,28 @@ import SwiftUI
 struct GradientView: View {
     let gradient: Main.Gradient
     var body: some View {
-        let dir: Main.Direction = gradient.direction
+        let direction: Main.Direction = gradient.direction
         let ramp = Gradient(colors: gradient.colorStops.map({ $0.color.color }))
         return Group {
-            if dir == .horizontal {
+            switch direction {
+            case .horizontal:
                 LinearGradient(gradient: ramp,
                                startPoint: .leading,
                                endPoint: .trailing)
-            } else if dir == .vertical {
+            case .vertical:
                 LinearGradient(gradient: ramp,
                                startPoint: .bottom,
                                endPoint: .top)
-            } else if dir == .angle {
+            case .angle:
                 AngularGradient(gradient: ramp,
                                 center: .center,
                                 angle: Angle(radians: -.pi / 2))
-            } else if dir == .radial {
+            case .radial:
                 GeometryReader { geo in
                     RadialGradient(gradient: ramp,
                                    center: .center,
                                    startRadius: 0.0,
                                    endRadius: geo.size.width / 2)
-                        .aspectRatio(1.0, contentMode: .fill)
                 }
             }
         }
@@ -41,7 +41,7 @@ struct GradientView: View {
 
 struct GradientView_Previews: PreviewProvider {
     static var previews: some View {
-        GradientView(gradient: Main().templateGradient())
+        GradientView(gradient: Main().templateGradient(in: .vertical))
     }
 }
 
