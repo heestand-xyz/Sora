@@ -27,25 +27,36 @@ struct DisplayView: View {
     @State private var showShareOptions: Bool = false
     
     var body: some View {
+        
         ZStack(alignment: .bottom) {
+            
             if main.displaySoraGradient != nil {
+                
                 Color.primary
                     .colorInvert()
                     .edgesIgnoringSafeArea(.all)
                     .opacity(Double(self.main.displayFraction))
+                
                 VStack {
                     HStack {
-                        Spacer()
                         Button(action: {
                             self.showShareOptions = true
                         }) {
                             Image(systemName: "square.and.arrow.up")
                                 .font(.system(size: 20))
                         }
+                        Spacer()
+                        Button {
+                            main.reHideSoraGradient()
+                        } label: {
+                            Text("Done")
+                        }
                     }
                         .padding()
                     Spacer()
                 }
+                .opacity(Double(self.main.displayFraction))
+                
                 VStack {
                     GeometryReader { geo in
                         ZStack {
@@ -68,6 +79,7 @@ struct DisplayView: View {
                     }
                     Spacer()
                 }
+                
                 if self.soraGradient() != nil {                
                     GeometryReader { geo in
                         PhotoView(soraGradient: self.soraGradient()!)
@@ -86,10 +98,10 @@ struct DisplayView: View {
                 }
             }
         }
-            .edgesIgnoringSafeArea(.bottom)
-            .sheet(isPresented: self.$showShareOptions) {
-                ShareView(main: self.main, soraGradient: self.main.displaySoraGradient!)
-            }
+        .edgesIgnoringSafeArea(.bottom)
+        .sheet(isPresented: self.$showShareOptions) {
+            ShareView(main: self.main, soraGradient: self.main.displaySoraGradient!)
+        }
     }
     
     func onDragChange(with value: DragGesture.Value, at size: CGSize, swipe: Bool = true) {

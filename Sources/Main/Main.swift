@@ -214,26 +214,10 @@ class Main: ObservableObject, NODEDelegate {
 
         getImage(from: gradient, done: { image in
         
-//            let photo = Photo(id: UUID(), photoImage: cameraImage, gradientImage: image, date: Date(), gradient: gradient)
-//            self.photos.append(photo)
-//            self.lastPhoto = photo
-            
             do {
                 
-                let gradientData: Data = try JSONEncoder().encode(gradient)
-                let gradientJson: String = String(data: gradientData, encoding: .utf8)!
+                try self.save(gradient: gradient, cameraImage: cameraImage, gradientImage: image)
                 
-                let soraGradient = SoraGradient(context: self.context)
-                soraGradient.id = UUID()
-                soraGradient.date = Date()
-                soraGradient.photoImage = cameraImage.jpegData(compressionQuality: 0.8)
-                soraGradient.gradientImage = image.pngData()
-                soraGradient.gradient = gradientJson
-
-                try? self.context.save()
-                
-                self.lastSoraGradient = soraGradient
-    
             } catch {
                 self.captureFailed(with: error)
             }
@@ -248,7 +232,27 @@ class Main: ObservableObject, NODEDelegate {
         
         self.lastSoraGradient = templateSoraGradient()
         
+        try! self.save(gradient: liveTemplateGradient, cameraImage: UIImage(named: "photo")!, gradientImage: UIImage(named: "gradient")!)
+        
         #endif
+        
+    }
+    
+    func save(gradient: Gradient, cameraImage: UIImage, gradientImage: UIImage) throws {
+        
+        let gradientData: Data = try JSONEncoder().encode(gradient)
+        let gradientJson: String = String(data: gradientData, encoding: .utf8)!
+        
+        let soraGradient = SoraGradient(context: self.context)
+        soraGradient.id = UUID()
+        soraGradient.date = Date()
+        soraGradient.photoImage = cameraImage.jpegData(compressionQuality: 0.8)
+        soraGradient.gradientImage = gradientImage.pngData()
+        soraGradient.gradient = gradientJson
+        
+        try self.context.save()
+        
+        self.lastSoraGradient = soraGradient
         
     }
     
@@ -306,82 +310,6 @@ class Main: ObservableObject, NODEDelegate {
     
     func captureFailed(with error: Error? = nil) {}
     
-    #if !targetEnvironment(simulator)
-    func makeGradient(at count: Int, from pixels: PIX.PixelPack, in direction: Direction) -> Gradient {
-        var colorStops: [Gradient.ColorStop] = []
-        for i in 0..<count {
-            let fraction = CGFloat(i) / CGFloat(count - 1)
-            let relFraction = (CGFloat(i) + 0.5) / CGFloat(count)
-            let pixelColor: PixelColor
-            switch direction.axis {
-            case .x:
-                pixelColor = pixels.pixel(uv: CGVector(dx: relFraction, dy: 0.5)).color
-            case .y:
-                pixelColor = pixels.pixel(uv: CGVector(dx: 0.5, dy: 1.0 - relFraction)).color
-            }
-            let color = Color(red: pixelColor.blue, green: pixelColor.green, blue: pixelColor.red)
-            let colorStop = Gradient.ColorStop(color: color, fraction: fraction)
-            colorStops.append(colorStop)
-        }
-        return Gradient(direction: direction, colorStops: colorStops)
-    }
-    #endif
-    
-    func makeGradient(at count: Int, from fromColor: Color, to toColor: Color, in direction: Direction) -> Gradient {
-        var colorStops: [Gradient.ColorStop] = []
-        for i in 0..<count {
-            let fraction = CGFloat(i) / CGFloat(count - 1)
-            let color = Color(red: fromColor.red * (1.0 - fraction) + toColor.red * fraction,
-                                  green: fromColor.green * (1.0 - fraction) + toColor.green * fraction,
-                                  blue: fromColor.blue * (1.0 - fraction) + toColor.blue * fraction)
-            let colorStop = Gradient.ColorStop(color: color, fraction: fraction)
-            colorStops.append(colorStop)
-        }
-        return Gradient(direction: direction, colorStops: colorStops)
-    }
-    
-    func makeTemplateGradient() -> Gradient {
-        makeGradient(at: kSteps,
-                     from: Main.Color(red: 1.0, green: 0.5, blue: 0.0),
-                     to: Main.Color(red: 0.0, green: 0.5, blue: 1.0),
-                     in: direction)
-    }
-    
-//    #if DEBUG
-//    func addTemplates() {
-//
-//        let photoImage = UIImage(named: "photo")!
-//        let photo2Image = UIImage(named: "photo2")!
-//        let gradientImage = UIImage(named: "gradient")!
-//
-//        for i in 0..<33 {
-//            let hue = CGFloat.random(in: 0.0...1.0)
-//            let invHue = (hue + (1 / 3)).truncatingRemainder(dividingBy: 1.0)
-//            let direction = Direction.allCases[.random(in: 0..<4)]
-//            let photo = Photo(id: UUID(),
-//                              photoImage: i % 2 == 0 ? photo2Image : photoImage,
-//                              gradientImage: gradientImage,
-//                              date: Date(),
-//                              gradient: makeGradient(at: kSteps,
-//                                                     from: Color(hue: hue),
-//                                                     to: Color(hue: invHue),
-//                                                     in: direction))
-//            photos.insert(photo, at: 0)
-//        }
-//
-//        let photo = Photo(id: UUID(),
-//                          photoImage: photoImage,
-//                          gradientImage: gradientImage,
-//                          date: Date(),
-//                          gradient: makeGradient(at: 5,
-//                                                 from: Color(red: 1.0, green: 0.5, blue: 0.0),
-//                                                 to: Color(red: 0.0, green: 0.5, blue: 1.0),
-//                                                 in: .vertical))
-//        photos.append(photo)
-//
-//    }
-//    #endif
-    
     enum SortMethod: String, CaseIterable {
         case date = "Date"
         case hue = "Hue"
@@ -409,56 +337,5 @@ class Main: ObservableObject, NODEDelegate {
         dateFormatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
         return "sora \(dateFormatter.string(from: sg.date!))"
     }
-    
-    func delete(soraGradient: SoraGradient) {
-        context.delete(soraGradient)
-        try? context.save()
-    }
-    
-    static func gradient(from sg: SoraGradient) -> Main.Gradient? {
-        guard let json: String = sg.gradient else { return nil }
-        guard let data: Data = json.data(using: .utf8) else { return nil }
-        guard let gradient = try? JSONDecoder().decode(Main.Gradient.self, from: data) else { return nil }
-        return gradient
-    }
-    
-    func templateGradient(in direction: Direction) -> Main.Gradient {
-        Main.Gradient(direction: direction, colorStops: [
-            Main.Gradient.ColorStop(color: Main.Color(red: 1.0, green: 0.5, blue: 0.0), fraction: 0.0),
-            Main.Gradient.ColorStop(color: Main.Color(red: 0.0, green: 0.5, blue: 1.0), fraction: 0.0)
-        ])
-    }
-    
-    func templateSoraGradient() -> SoraGradient {
-        
-        let soraGradient = SoraGradient(context: context)
-        
-        soraGradient.id = UUID()
-        soraGradient.date = Date()
-        
-        let gradient: Main.Gradient = liveTemplateGradient
-        let gradientData: Data = try! JSONEncoder().encode(gradient)
-        let gradientJson: String = String(data: gradientData, encoding: .utf8)!
-        soraGradient.gradient = gradientJson
-        
-        soraGradient.gradientImage = UIImage(named: "gradient")!.pngData()!
-        soraGradient.photoImage = UIImage(named: "photo")!.jpegData(compressionQuality: 0.8)!
-
-        return soraGradient
-    }
-    
-    #if DEBUG
-    func deleteAllData() {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "SoraGradient")
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-        do {
-            try context.execute(batchDeleteRequest)
-            try context.save()
-            print("ALL DATA DELETED")
-        } catch {
-            print("Detele all data error :", error)
-        }
-    }
-    #endif
     
 }

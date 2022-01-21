@@ -46,4 +46,25 @@ extension Main {
             }
         }
     }
+    
+    // MARK: - Delete
+    
+    func delete(soraGradient: SoraGradient) {
+        context.delete(soraGradient)
+        try? context.save()
+    }
+    
+    #if DEBUG
+    func deleteAllData() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "SoraGradient")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try context.execute(batchDeleteRequest)
+            try context.save()
+            print("ALL DATA DELETED")
+        } catch {
+            print("Delete all data error :", error)
+        }
+    }
+    #endif
 }
