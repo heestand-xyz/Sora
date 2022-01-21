@@ -13,7 +13,9 @@ import PixelKit
 #endif
 
 struct CaptureView: View {
+    
     @ObservedObject var main: Main
+    
     var body: some View {
         ZStack {
             Group {

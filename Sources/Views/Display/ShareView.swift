@@ -198,6 +198,6 @@ struct ShareOption:View {
 struct ShareView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        return ShareView(main: main, soraGradient: Main.templateSoraGradient())
+        return ShareView(main: main, soraGradient: main.templateSoraGradient())
     }
 }

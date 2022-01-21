@@ -9,19 +9,23 @@
 import SwiftUI
 
 struct DisplayView: View {
+    
     let kCacheCount: Int = 10
     let kTranslationHeight: CGFloat = 300
     let kVelocityLimit: CGFloat = 5.0
+    
     @ObservedObject var main: Main
-    enum Dragging {
+    
+    private enum Dragging {
         case no
         case yes
         case yesX
         case yesY
     }
-    @State var dragging: Dragging = .no
-    @State var translationCache: [CGPoint] = []
-    @State var showShareOptions: Bool = false
+    @State private var dragging: Dragging = .no
+    @State private var translationCache: [CGPoint] = []
+    @State private var showShareOptions: Bool = false
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             if main.displaySoraGradient != nil {
@@ -87,6 +91,7 @@ struct DisplayView: View {
                 ShareView(main: self.main, soraGradient: self.main.displaySoraGradient!)
             }
     }
+    
     func onDragChange(with value: DragGesture.Value, at size: CGSize, swipe: Bool = true) {
         if dragging == .no {
             main.reDragSoraGradient()
@@ -125,6 +130,7 @@ struct DisplayView: View {
         translationCache.append(CGPoint(x: value.translation.width,
                                              y: value.translation.height))
     }
+    
     func onDragEnded(swipe: Bool = true) {
         var velocity: CGPoint?
         if translationCache.count >= kCacheCount {
@@ -173,6 +179,7 @@ struct DisplayView: View {
         dragging = .no
         translationCache = []
     }
+    
     func comboAlpha() -> Double {
         if let fraction = main.nextDisplayFraction {
             let waveFraction = cos(Double(fraction) * .pi * 2 + .pi) / 2 + 0.5
@@ -180,6 +187,7 @@ struct DisplayView: View {
         }
         return 1.0
     }
+    
     func comboOffsetY(at size: CGSize) -> CGFloat {
         if let fraction = main.nextDisplayFraction {
             let waveFraction = cos(fraction * .pi * 2 + .pi) / 2 + 0.5
@@ -187,6 +195,7 @@ struct DisplayView: View {
         }
         return size.height * (1.0 - self.main.displayFraction)
     }
+    
     func offsetX(at size: CGSize) -> CGFloat {
         guard let way = main.nextDisplayWay else { return 0.0 }
         guard let fraction = main.nextDisplayFraction else { return 0.0 }
@@ -196,6 +205,7 @@ struct DisplayView: View {
             return -fraction * size.width
         }
     }
+    
     func nextOffsetX(at size: CGSize) -> CGFloat {
         guard let way = main.nextDisplayWay else { return 0.0 }
         guard var fraction = main.nextDisplayFraction else { return 0.0 }
@@ -206,6 +216,7 @@ struct DisplayView: View {
             return -fraction * size.width
         }
     }
+    
     func soraGradient() -> SoraGradient? {
         let fraction = main.nextDisplayFraction
         if fraction != nil && fraction! > 0.5 {
@@ -218,7 +229,7 @@ struct DisplayView: View {
 struct DisplayView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        let soraGradient = Main.templateSoraGradient()
+        let soraGradient = main.templateSoraGradient()
         let frame = CGRect(x: 50, y: 50, width: 50, height: 50)
         main.displaySoraGradient = soraGradient
         main.displayFrame = frame

@@ -76,6 +76,6 @@ struct PhotoView: View {
 
 struct PhotoView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoView(soraGradient: Main.templateSoraGradient())
+        PhotoView(soraGradient: Main().templateSoraGradient())
     }
 }

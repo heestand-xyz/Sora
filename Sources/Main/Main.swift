@@ -16,6 +16,11 @@ import PixelColor
 
 class Main: ObservableObject, NODEDelegate {
     
+    var persistentContainer: NSPersistentCloudKitContainer!
+    var context: NSManagedObjectContext {
+        persistentContainer.viewContext
+    }
+    
     let kRes: Int = 256
     let kSteps: Int = 10
     let kImgRes: Resolution = ._1024
@@ -71,9 +76,6 @@ class Main: ObservableObject, NODEDelegate {
         }
     }
     
-    var context: NSManagedObjectContext {
-        (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    }
     var soraGradients: [SoraGradient]? {
         let request: NSFetchRequest<SoraGradient> = SoraGradient.sortedFetchRequest()
         guard let results: [SoraGradient] = try? context.fetch(request) else { return nil }
@@ -175,6 +177,9 @@ class Main: ObservableObject, NODEDelegate {
 //        deleteAllData()
 //        #endif
         
+        setupCoreData()
+        listenToApp()
+        
     }
     
     func nodeDidRender(_ node: NODE) {
@@ -228,7 +233,7 @@ class Main: ObservableObject, NODEDelegate {
         
         #else
         
-        self.lastSoraGradient = Self.templateSoraGradient()
+        self.lastSoraGradient = templateSoraGradient()
         
         #endif
         
@@ -404,24 +409,29 @@ class Main: ObservableObject, NODEDelegate {
         return gradient
     }
     
-    static func templateGradient() -> Main.Gradient {
+    func templateGradient() -> Main.Gradient {
         Main.Gradient(direction: .vertical, colorStops: [
             Main.Gradient.ColorStop(color: Main.Color(red: 1.0, green: 0.5, blue: 0.0), fraction: 0.0),
             Main.Gradient.ColorStop(color: Main.Color(red: 0.0, green: 0.5, blue: 1.0), fraction: 0.0)
         ])
     }
     
-    static func templateSoraGradient() -> SoraGradient {
-        let sg = SoraGradient()
-        sg.id = UUID()
-        sg.date = Date()
+    func templateSoraGradient() -> SoraGradient {
+        
+        let soraGradient = SoraGradient(context: context)
+        
+        soraGradient.id = UUID()
+        soraGradient.date = Date()
+        
         let gradient: Main.Gradient = templateGradient()
         let gradientData: Data = try! JSONEncoder().encode(gradient)
         let gradientJson: String = String(data: gradientData, encoding: .utf8)!
-        sg.gradient = gradientJson
-        sg.gradientImage = UIImage(named: "gradient")!.pngData()!
-        sg.photoImage = UIImage(named: "photo")!.jpegData(compressionQuality: 0.8)!
-        return sg
+        soraGradient.gradient = gradientJson
+        
+        soraGradient.gradientImage = UIImage(named: "gradient")!.pngData()!
+        soraGradient.photoImage = UIImage(named: "photo")!.jpegData(compressionQuality: 0.8)!
+
+        return soraGradient
     }
     
     #if DEBUG

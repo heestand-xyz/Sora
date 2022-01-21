@@ -8,41 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		60CC8443237851AC000A0237 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CC8442237851AC000A0237 /* ShareView.swift */; };
-		60CC8444237851AC000A0237 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CC8442237851AC000A0237 /* ShareView.swift */; };
-		6E967D2F9862CF8B80C700E1 /* Pods_Sora_iPhone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B0F76550A08F63EB4C099E /* Pods_Sora_iPhone.framework */; };
 		7413BD82237825440059E297 /* DisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60D2377304E00261816 /* DisplayPhotoView.swift */; };
 		7418C5EA2371F87500261816 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareSheetView.swift */; };
 		7418C60C23772EF100261816 /* DisplayPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60B23772EF100261816 /* DisplayPhoto.swift */; };
 		7429783323703B570094A16B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429783223703B570094A16B /* Constants.swift */; };
-		744A36F42378337600405CF6 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C623782D96002616C4 /* PDF.swift */; };
-		744A36F52378337600405CF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */; };
-		744A36F62378337600405CF6 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35023700C76000F4314 /* PageView.swift */; };
-		744A36F72378337600405CF6 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A34B236F6ED2000F4314 /* CaptureView.swift */; };
-		744A36F82378337600405CF6 /* TemplateViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A3542370112C000F4314 /* TemplateViews.swift */; };
-		744A36F92378337600405CF6 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C823782E66002616C4 /* Share.swift */; };
-		744A36FA2378337600405CF6 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35223701055000F4314 /* PhotoView.swift */; };
-		744A36FB2378337600405CF6 /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECF236F3FAD004BD10E /* LiveView.swift */; };
-		744A36FC2378337600405CF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */; };
-		744A36FD2378337600405CF6 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Main.swift */; };
-		744A36FE2378337600405CF6 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C5E92371F87500261816 /* ShareSheetView.swift */; };
-		744A36FF2378337600405CF6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A35723701448000F4314 /* Models.swift */; };
-		744A37002378337600405CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBE236F3F3F004BD10E /* ContentView.swift */; };
-		744A37012378337600405CF6 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2C1A823707A8B00D976DE /* GridView.swift */; };
-		744A37022378337600405CF6 /* DisplayPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60B23772EF100261816 /* DisplayPhoto.swift */; };
-		744A37032378337600405CF6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D0B7D4237045240026CDE9 /* GradientView.swift */; };
-		744A37042378337600405CF6 /* Sketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DD43132371D7310010F122 /* Sketch.swift */; };
-		744A37052378337600405CF6 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8A349236F6E2A000F4314 /* DisplayView.swift */; };
-		744A37062378337600405CF6 /* DisplayPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418C60D2377304E00261816 /* DisplayPhotoView.swift */; };
-		744A37072378337600405CF6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429783223703B570094A16B /* Constants.swift */; };
-		744A370B2378337600405CF6 /* document.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430B2371D69D0010F122 /* document.json */; };
-		744A370C2378337600405CF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */; };
-		744A370D2378337600405CF6 /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430E2371D69D0010F122 /* meta.json */; };
-		744A370E2378337600405CF6 /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430D2371D69D0010F122 /* page.json */; };
-		744A370F2378337600405CF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */; };
-		744A37102378337600405CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC0236F3F42004BD10E /* Assets.xcassets */; };
-		744A37112378337600405CF6 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430C2371D69D0010F122 /* user.json */; };
 		744A37192378732E00405CF6 /* QuickLookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A37182378732E00405CF6 /* QuickLookView.swift */; };
-		744A371A2378740700405CF6 /* QuickLookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A37182378732E00405CF6 /* QuickLookView.swift */; };
 		745125C723782D96002616C4 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C623782D96002616C4 /* PDF.swift */; };
 		745125C923782E66002616C4 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745125C823782E66002616C4 /* Share.swift */; };
 		74926D81239BB3BF005955CF /* Sora.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74926D7F239BB3BF005955CF /* Sora.xcdatamodeld */; };
@@ -60,14 +30,15 @@
 		74DD43112371D69D0010F122 /* page.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430D2371D69D0010F122 /* page.json */; };
 		74DD43122371D69D0010F122 /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = 74DD430E2371D69D0010F122 /* meta.json */; };
 		74DD43142371D7310010F122 /* Sketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DD43132371D7310010F122 /* Sketch.swift */; };
-		74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */; };
-		74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */; };
 		74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8EBE236F3F3F004BD10E /* ContentView.swift */; };
 		74ED8EC1236F3F42004BD10E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC0236F3F42004BD10E /* Assets.xcassets */; };
 		74ED8EC4236F3F42004BD10E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */; };
 		74ED8EC7236F3F42004BD10E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */; };
 		74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECE236F3FAC004BD10E /* Main.swift */; };
 		74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ED8ECF236F3FAD004BD10E /* LiveView.swift */; };
+		D39DD868279B2147007AFF71 /* SoraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD867279B2147007AFF71 /* SoraApp.swift */; };
+		D39DD86A279B21D9007AFF71 /* Main+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD869279B21D9007AFF71 /* Main+CoreData.swift */; };
+		D39DD86C279B22DA007AFF71 /* Main+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD86B279B22DA007AFF71 /* Main+App.swift */; };
 		E5727A7126C43B4E00D4F329 /* PixelKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7026C43B4E00D4F329 /* PixelKit */; };
 		E5727A7426C43C1F00D4F329 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7326C43C1F00D4F329 /* Zip */; };
 /* End PBXBuildFile section */
@@ -79,7 +50,6 @@
 		7418C60B23772EF100261816 /* DisplayPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhoto.swift; sourceTree = "<group>"; };
 		7418C60D2377304E00261816 /* DisplayPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPhotoView.swift; sourceTree = "<group>"; };
 		7429783223703B570094A16B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		744A37162378337600405CF6 /* sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		744A37182378732E00405CF6 /* QuickLookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookView.swift; sourceTree = "<group>"; };
 		745125C623782D96002616C4 /* PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		745125C823782E66002616C4 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
@@ -100,8 +70,6 @@
 		74DD430E2371D69D0010F122 /* meta.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = meta.json; sourceTree = "<group>"; };
 		74DD43132371D7310010F122 /* Sketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sketch.swift; sourceTree = "<group>"; };
 		74ED8EB7236F3F3F004BD10E /* sora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sora.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		74ED8EBE236F3F3F004BD10E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		74ED8EC0236F3F42004BD10E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74ED8EC3236F3F42004BD10E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -110,17 +78,12 @@
 		74ED8ECE236F3FAC004BD10E /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		74ED8ECF236F3FAD004BD10E /* LiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
 		C0B0F76550A08F63EB4C099E /* Pods_Sora_iPhone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora_iPhone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D39DD867279B2147007AFF71 /* SoraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoraApp.swift; sourceTree = "<group>"; };
+		D39DD869279B21D9007AFF71 /* Main+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+CoreData.swift"; sourceTree = "<group>"; };
+		D39DD86B279B22DA007AFF71 /* Main+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+App.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		744A37082378337600405CF6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6E967D2F9862CF8B80C700E1 /* Pods_Sora_iPhone.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		74ED8EB4236F3F3F004BD10E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -159,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				74ED8ECE236F3FAC004BD10E /* Main.swift */,
+				D39DD86B279B22DA007AFF71 /* Main+App.swift */,
+				D39DD869279B21D9007AFF71 /* Main+CoreData.swift */,
 				7429783223703B570094A16B /* Constants.swift */,
 				7418C60B23772EF100261816 /* DisplayPhoto.swift */,
 				74C8A35723701448000F4314 /* Models.swift */,
@@ -224,7 +189,8 @@
 		74ED8EAE236F3F3F004BD10E = {
 			isa = PBXGroup;
 			children = (
-				74ED8EB9236F3F3F004BD10E /* Sora */,
+				D39DD866279B209C007AFF71 /* Resources */,
+				74ED8EB9236F3F3F004BD10E /* Sources */,
 				74ED8EB8236F3F3F004BD10E /* Products */,
 				16CA10F8CA60139AEA4600C2 /* Frameworks */,
 			);
@@ -234,27 +200,18 @@
 			isa = PBXGroup;
 			children = (
 				74ED8EB7236F3F3F004BD10E /* sora.app */,
-				744A37162378337600405CF6 /* sora.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		74ED8EB9236F3F3F004BD10E /* Sora */ = {
+		74ED8EB9236F3F3F004BD10E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				74926D82239BB6A4005955CF /* sora.entitlements */,
-				74ED8EBA236F3F3F004BD10E /* AppDelegate.swift */,
-				74ED8EBC236F3F3F004BD10E /* SceneDelegate.swift */,
-				74C8A34D236F7017000F4314 /* Views */,
+				D39DD867279B2147007AFF71 /* SoraApp.swift */,
 				745125CB23782E7F002616C4 /* Main */,
-				74ED8EC0236F3F42004BD10E /* Assets.xcassets */,
-				74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */,
-				74ED8EC8236F3F42004BD10E /* Info.plist */,
-				74DD430A2371D69D0010F122 /* Sketch */,
-				74ED8EC2236F3F42004BD10E /* Preview Content */,
-				74926D7F239BB3BF005955CF /* Sora.xcdatamodeld */,
+				74C8A34D236F7017000F4314 /* Views */,
 			);
-			path = Sora;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		74ED8EC2236F3F42004BD10E /* Preview Content */ = {
@@ -265,28 +222,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D39DD866279B209C007AFF71 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				74DD430A2371D69D0010F122 /* Sketch */,
+				74926D82239BB6A4005955CF /* sora.entitlements */,
+				74ED8EC0236F3F42004BD10E /* Assets.xcassets */,
+				74ED8EC5236F3F42004BD10E /* LaunchScreen.storyboard */,
+				74ED8EC8236F3F42004BD10E /* Info.plist */,
+				74ED8EC2236F3F42004BD10E /* Preview Content */,
+				74926D7F239BB3BF005955CF /* Sora.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		744A36F12378337600405CF6 /* Sora Previews */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 744A37132378337600405CF6 /* Build configuration list for PBXNativeTarget "Sora Previews" */;
-			buildPhases = (
-				9BE55D3E54B0FB1DEC6C33B5 /* [CP] Check Pods Manifest.lock */,
-				744A36F32378337600405CF6 /* Sources */,
-				744A37082378337600405CF6 /* Frameworks */,
-				744A370A2378337600405CF6 /* Resources */,
-				7080572478BAAB5B36B25375 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Sora Previews";
-			productName = Sora;
-			productReference = 744A37162378337600405CF6 /* sora.app */;
-			productType = "com.apple.product-type.application";
-		};
 		74ED8EB6236F3F3F004BD10E /* Sora */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74ED8ECB236F3F42004BD10E /* Build configuration list for PBXNativeTarget "Sora" */;
@@ -341,26 +293,11 @@
 			projectRoot = "";
 			targets = (
 				74ED8EB6236F3F3F004BD10E /* Sora */,
-				744A36F12378337600405CF6 /* Sora Previews */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		744A370A2378337600405CF6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				744A370B2378337600405CF6 /* document.json in Resources */,
-				744A370C2378337600405CF6 /* LaunchScreen.storyboard in Resources */,
-				744A370D2378337600405CF6 /* meta.json in Resources */,
-				744A370E2378337600405CF6 /* page.json in Resources */,
-				744A370F2378337600405CF6 /* Preview Assets.xcassets in Resources */,
-				744A37102378337600405CF6 /* Assets.xcassets in Resources */,
-				744A37112378337600405CF6 /* user.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		74ED8EB5236F3F3F004BD10E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,84 +314,13 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		7080572478BAAB5B36B25375 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sora iPhone/Pods-Sora iPhone-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9BE55D3E54B0FB1DEC6C33B5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sora iPhone-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		744A36F32378337600405CF6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				744A36F42378337600405CF6 /* PDF.swift in Sources */,
-				744A36F52378337600405CF6 /* AppDelegate.swift in Sources */,
-				744A36F62378337600405CF6 /* PageView.swift in Sources */,
-				60CC8444237851AC000A0237 /* ShareView.swift in Sources */,
-				744A36F72378337600405CF6 /* CaptureView.swift in Sources */,
-				744A36F82378337600405CF6 /* TemplateViews.swift in Sources */,
-				744A36F92378337600405CF6 /* Share.swift in Sources */,
-				744A36FA2378337600405CF6 /* PhotoView.swift in Sources */,
-				744A36FB2378337600405CF6 /* LiveView.swift in Sources */,
-				744A36FC2378337600405CF6 /* SceneDelegate.swift in Sources */,
-				744A36FD2378337600405CF6 /* Main.swift in Sources */,
-				744A36FE2378337600405CF6 /* ShareSheetView.swift in Sources */,
-				744A371A2378740700405CF6 /* QuickLookView.swift in Sources */,
-				744A36FF2378337600405CF6 /* Models.swift in Sources */,
-				744A37002378337600405CF6 /* ContentView.swift in Sources */,
-				744A37012378337600405CF6 /* GridView.swift in Sources */,
-				744A37022378337600405CF6 /* DisplayPhoto.swift in Sources */,
-				744A37032378337600405CF6 /* GradientView.swift in Sources */,
-				744A37042378337600405CF6 /* Sketch.swift in Sources */,
-				744A37052378337600405CF6 /* DisplayView.swift in Sources */,
-				744A37062378337600405CF6 /* DisplayPhotoView.swift in Sources */,
-				744A37072378337600405CF6 /* Constants.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		74ED8EB3236F3F3F004BD10E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				745125C723782D96002616C4 /* PDF.swift in Sources */,
-				74ED8EBB236F3F3F004BD10E /* AppDelegate.swift in Sources */,
+				D39DD86A279B21D9007AFF71 /* Main+CoreData.swift in Sources */,
 				74C8A35123700C76000F4314 /* PageView.swift in Sources */,
 				60CC8443237851AC000A0237 /* ShareView.swift in Sources */,
 				74C8A34C236F6ED2000F4314 /* CaptureView.swift in Sources */,
@@ -462,11 +328,12 @@
 				745125C923782E66002616C4 /* Share.swift in Sources */,
 				74C8A35323701055000F4314 /* PhotoView.swift in Sources */,
 				74ED8ED1236F3FAD004BD10E /* LiveView.swift in Sources */,
-				74ED8EBD236F3F3F004BD10E /* SceneDelegate.swift in Sources */,
 				74ED8ED0236F3FAD004BD10E /* Main.swift in Sources */,
+				D39DD86C279B22DA007AFF71 /* Main+App.swift in Sources */,
 				7418C5EA2371F87500261816 /* ShareSheetView.swift in Sources */,
 				744A37192378732E00405CF6 /* QuickLookView.swift in Sources */,
 				74C8A35823701448000F4314 /* Models.swift in Sources */,
+				D39DD868279B2147007AFF71 /* SoraApp.swift in Sources */,
 				74ED8EBF236F3F3F004BD10E /* ContentView.swift in Sources */,
 				74926D81239BB3BF005955CF /* Sora.xcdatamodeld in Sources */,
 				74C2C1A923707A8B00D976DE /* GridView.swift in Sources */,
@@ -493,50 +360,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		744A37142378337600405CF6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
-				DEVELOPMENT_TEAM = 2QHTY6FMW2;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Sora copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
-				PRODUCT_NAME = sora;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		744A37152378337600405CF6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
-				DEVELOPMENT_TEAM = SQ973MN6C3;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Sora copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.sora;
-				PRODUCT_NAME = sora;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 		74ED8EC9236F3F42004BD10E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -655,14 +478,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Sora/sora.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/sora.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Sora/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -680,14 +503,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Sora/sora.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/sora.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Sora/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Sora/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -704,15 +527,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		744A37132378337600405CF6 /* Build configuration list for PBXNativeTarget "Sora Previews" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				744A37142378337600405CF6 /* Debug */,
-				744A37152378337600405CF6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		74ED8EB2236F3F3F004BD10E /* Build configuration list for PBXProject "Sora" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -739,7 +553,7 @@
 			repositoryURL = "https://github.com/heestand-xyz/PixelKit";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 		E5727A7226C43C1F00D4F329 /* XCRemoteSwiftPackageReference "Zip" */ = {

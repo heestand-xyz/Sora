@@ -87,6 +87,6 @@ struct DisplayPhotoView: View {
 struct DisplayPhotoView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        return DisplayPhotoView(main: main, soraGradient: Main.templateSoraGradient(), fraction: 1.0, frame: .zero)
+        return DisplayPhotoView(main: main, soraGradient: main.templateSoraGradient(), fraction: 1.0, frame: .zero)
     }
 }
