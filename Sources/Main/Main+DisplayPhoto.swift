@@ -149,10 +149,17 @@ extension Main {
         UIPasteboard.general.string = "#\(color.hex)"
     }
     
-    func copyRGB(color: Color) {
+    func copy255(color: Color) {
         let red = Int(round(color.red * 255))
         let green = Int(round(color.green * 255))
         let blue = Int(round(color.blue * 255))
+        UIPasteboard.general.string = "\(red) \(green) \(blue)"
+    }
+    
+    func copyUnit(color: Color) {
+        let red = String(format: "%.3f", color.red)
+        let green = String(format: "%.3f", color.green)
+        let blue = String(format: "%.3f", color.blue)
         UIPasteboard.general.string = "\(red) \(green) \(blue)"
     }
     

@@ -15,9 +15,7 @@ struct DisplayPhotoView: View {
     let soraGradient: SoraGradient
     let fraction: CGFloat
     let frame: CGRect
-    
-    @State private var color: Main.Color?
-    
+        
     var body: some View {
         
         VStack(spacing: 25) {
@@ -40,40 +38,40 @@ struct DisplayPhotoView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    Rectangle()
-                        .opacity(0.0)
+                    Spacer()
                         .frame(width: 20)
                     ForEach(0..<self.gradient().colorStops.count) { i in
+                        let color = self.gradient().colorStops[i].color
                         VStack {
                             Circle()
-                                .foregroundColor(self.gradient().colorStops[i].color.color)
+                                .foregroundColor(color.color)
                                 .frame(width: 30, height: 30)
-                            Text("#\(self.gradient().colorStops[i].color.hex)")
+                            Text("#\(color.hex)")
                                 .font(.system(size: 12, weight: .bold, design: .monospaced))
                         }
                         .contextMenu {
                             Button {
-                                let color = self.gradient().colorStops[i].color
                                 self.main.copyHex(color: color)
-                                self.color = color
                             } label: {
-                                Text("Copy Color (Hex)")
+                                Text("Copy Color (Hexadecimal)")
                             }
                             Button {
-                                let color = self.gradient().colorStops[i].color
-                                self.main.copyRGB(color: color)
-                                self.color = color
+                                self.main.copy255(color: color)
                             } label: {
-                                Text("Copy Color (255)")
+                                Text("Copy Color (0 to 255)")
+                            }
+                            Button {
+                                self.main.copyUnit(color: color)
+                            } label: {
+                                Text("Copy Color (0.0 to 1.0)")
                             }
                         }
                     }
-                    Rectangle()
-                        .opacity(0.0)
+                    Spacer()
                         .frame(width: 20)
                 }
             }
-            .frame(height: 50)
+            .frame(height: 55)
             .opacity(Double(fraction))
             .mask(LinearGradient(gradient: Gradient(stops: [
                 Gradient.Stop(color: .clear, location: 0.0),
