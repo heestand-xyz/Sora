@@ -42,9 +42,8 @@ class Main: ObservableObject, NODEDelegate {
     
     #if !targetEnvironment(simulator)
     @Published var liveGradient: Gradient!
-    #else
-    @Published var liveTemplateGradient: Gradient!
     #endif
+    @Published var liveTemplateGradient: Gradient!
     
     #if !targetEnvironment(simulator)
     let cameraPix: CameraPIX
@@ -88,9 +87,7 @@ class Main: ObservableObject, NODEDelegate {
     
     @Published var direction: Direction = .vertical {
         didSet {
-            #if targetEnvironment(simulator)
             liveTemplateGradient = makeTemplateGradient()
-            #endif
         }
     }
     
@@ -178,9 +175,8 @@ class Main: ObservableObject, NODEDelegate {
         
         #if !targetEnvironment(simulator)
         liveGradient = makeGradient(at: kSteps, from: .black, to: .black, in: direction)
-        #else
-        liveTemplateGradient = makeTemplateGradient()
         #endif
+        liveTemplateGradient = makeTemplateGradient()
         
 //        #if DEBUG
 //        addTemplates()

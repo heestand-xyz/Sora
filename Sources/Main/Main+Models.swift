@@ -80,6 +80,9 @@ extension Main {
         let green: CGFloat
         let blue: CGFloat
         
+        static let black = Color(red: 0.0, green: 0.0, blue: 0.0)
+        static let white = Color(red: 1.0, green: 1.0, blue: 1.0)
+        
         var color: SwiftUI.Color {
             SwiftUI.Color(.sRGB, red: Double(red), green: Double(green), blue: Double(blue), opacity: 1.0)
         }
