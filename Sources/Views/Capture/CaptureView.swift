@@ -26,8 +26,12 @@ struct CaptureView: View {
                 GradientView(gradient: self.main.liveGradient)
                 #endif
             }
-                .opacity(0.25)
-                .edgesIgnoringSafeArea(.all)
+            .opacity(0.25)
+            .edgesIgnoringSafeArea(.all)
+            
+//            Color.white
+//                .opacity(main.capturing ? 0.5 : 0.0)
+//                .edgesIgnoringSafeArea(.all)
 
             VStack(spacing: 10) {
                 
@@ -38,16 +42,16 @@ struct CaptureView: View {
                     Button(action: {
                         self.main.direction = .horizontal
                     }) {
-                       Image("gradient_horizontal")
-                        .foregroundColor(.primary)
-                        .opacity(self.main.direction == .horizontal ? 1.0 : 0.2)
+                        Image("gradient_horizontal")
+                            .foregroundColor(.primary)
+                            .opacity(self.main.direction == .horizontal ? 1.0 : 0.2)
                     }
                     Button(action: {
                         self.main.direction = .vertical
                     }) {
-                       Image("gradient_vertical")
-                        .foregroundColor(.primary)
-                        .opacity(self.main.direction == .vertical ? 1.0 : 0.2)
+                        Image("gradient_vertical")
+                            .foregroundColor(.primary)
+                            .opacity(self.main.direction == .vertical ? 1.0 : 0.2)
                     }
                     Button(action: {
                         self.main.direction = .angle
@@ -62,8 +66,7 @@ struct CaptureView: View {
                         Image("gradient_radial")
                             .foregroundColor(.primary)
                             .opacity(self.main.direction == .radial ? 1.0 : 0.2)
-                    }
-
+                    }   
                 }
                 
                 Spacer()
@@ -87,9 +90,9 @@ struct CaptureView: View {
                             .frame(width: 40, height: 40)
                     }
                     
-                    Button(action: {
+                    Button {
                         self.main.capture()
-                    }) {
+                    } label: {
                         Group {
                             #if targetEnvironment(simulator)
                             GradientTemplateView(main: self.main)

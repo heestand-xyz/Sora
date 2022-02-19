@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension Main {
     
@@ -52,11 +53,17 @@ extension Main {
     // MARK: - Image
     
     func savePhotoImage() {
-        
+        guard let sg = displaySoraGradient else { return }
+        guard let data = sg.photoImage else { return }
+        guard let image = UIImage(data: data) else { return }
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
     
     func saveGradientImage() {
-        
+        guard let sg = displaySoraGradient else { return }
+        guard let data = sg.gradientImage else { return }
+        guard let image = UIImage(data: data) else { return }
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
     
     func sharePhotoImage() {

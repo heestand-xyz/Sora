@@ -13,16 +13,17 @@ import PixelKit
 #endif
 
 struct LiveView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var main: Main
     var body: some View {
         GeometryReader { geo in
             ZStack {
+                
                 Group {
                     #if targetEnvironment(simulator)
                     GradientTemplateView(main: self.main)
                         .aspectRatio(1.0, contentMode: .fit)
                     #else
-//                    RawNODEUI(node: self.main.finalPix)
                     GradientView(gradient: self.main.liveGradient)
                     #endif
                 }
@@ -33,6 +34,7 @@ struct LiveView: View {
                     Circle()
                 })
                 .offset(y: geo.size.width / 4)
+                
                 ZStack {
                     Circle()
                         .foregroundColor(.gray)
@@ -43,7 +45,28 @@ struct LiveView: View {
                     #endif
                 }
                 .mask(Circle())
+                .overlay(ZStack {
+                    Circle()
+                        .fill(.thinMaterial)
+                        .mask(
+                            ZStack {
+                                Circle()
+                                    .foregroundColor(.white)
+                                let fraction = main.capturing ? 0.0 : 1.0
+                                Circle()
+                                    .foregroundColor(.black)
+                                    .frame(width: geo.size.width * fraction,
+                                           height: geo.size.height * fraction)
+                            }
+                            .compositingGroup()
+                            .luminanceToAlpha()
+                        )
+                })
                 .offset(y: -geo.size.width / 4)
+                
+//                RoundedRectangle(cornerRadius: geo.size.width / 2)
+//                    .foregroundColor(.white)
+//                    .opacity(main.capturing ? 0.5 : 0.0)
             }
         }
         .aspectRatio(1.0 / 1.5, contentMode: .fit)

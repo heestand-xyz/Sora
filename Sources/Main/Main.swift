@@ -36,6 +36,8 @@ class Main: ObservableObject, NODEDelegate {
         }
     }
     
+    @Published var capturing: Bool = false
+    
     @Published var sortMethod: SortMethod = .date
     
     let sketch: Sketch
@@ -231,6 +233,18 @@ class Main: ObservableObject, NODEDelegate {
         try! self.save(gradient: liveTemplateGradient, cameraImage: UIImage(named: "photo")!, gradientImage: UIImage(named: "gradient")!)
         
         #endif
+        
+        let duration = 0.2
+        
+        withAnimation(.easeOut(duration: duration)) {
+            capturing = true
+        }
+        
+        Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { _ in
+            withAnimation(.easeIn(duration: duration)) {
+                self.capturing = false
+            }
+        }
         
     }
     
