@@ -12,6 +12,7 @@ struct ShareView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var main: Main
     let soraGradient: SoraGradient
+    let close: () -> ()
     var body: some View {
         VStack {
             
@@ -107,7 +108,11 @@ struct ShareView: View {
                 Spacer()
                 
                 Button(action: {
-                    self.main.delete(soraGradient: self.soraGradient)
+                    presentationMode.wrappedValue.dismiss()
+                    close()
+                    Timer.scheduledTimer(withTimeInterval: main.kAnimationSeconds + 0.01, repeats: false) { _ in
+                        self.main.delete(soraGradient: self.soraGradient)
+                    }
                 }) {
                     Text("Delete")
                         .font(.system(size: 18, weight: .bold))
@@ -213,6 +218,6 @@ struct ShareOption:View {
 struct ShareView_Previews: PreviewProvider {
     static var previews: some View {
         let main = Main()
-        return ShareView(main: main, soraGradient: main.templateSoraGradient())
+        return ShareView(main: main, soraGradient: main.templateSoraGradient(), close: {})
     }
 }

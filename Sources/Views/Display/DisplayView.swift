@@ -10,6 +10,8 @@ import SwiftUI
 
 struct DisplayView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+
     let kCacheCount: Int = 10
     let kTranslationHeight: CGFloat = 300
     let kVelocityLimit: CGFloat = 5.0
@@ -32,10 +34,15 @@ struct DisplayView: View {
             
             if main.displaySoraGradient != nil {
                 
-                Color.primary
-                    .colorInvert()
-                    .edgesIgnoringSafeArea(.all)
-                    .opacity(Double(self.main.displayFraction))
+                Group {
+                    if colorScheme == .dark {
+                        Color(white: 0.2)
+                    } else {
+                        Color.white
+                    }
+                }
+                .edgesIgnoringSafeArea(.all)
+                .opacity(Double(self.main.displayFraction))
                 
                 VStack {
                     HStack {
@@ -100,7 +107,9 @@ struct DisplayView: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .sheet(isPresented: self.$showShareOptions) {
-            ShareView(main: self.main, soraGradient: self.main.displaySoraGradient!)
+            ShareView(main: self.main, soraGradient: self.main.displaySoraGradient!, close: {
+                main.reHideSoraGradient()
+            })
         }
     }
     

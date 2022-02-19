@@ -50,6 +50,8 @@ extension Main {
     // MARK: - Delete
     
     func delete(soraGradient: SoraGradient) {
+        #warning("Find Last Sora Gradient")
+        lastSoraGradient = nil
         context.delete(soraGradient)
         try? context.save()
     }
