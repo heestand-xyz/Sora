@@ -33,95 +33,124 @@ struct CaptureView: View {
 //                .opacity(main.capturing ? 0.5 : 0.0)
 //                .edgesIgnoringSafeArea(.all)
 
+            LiveView(main: self.main)
+                .ignoresSafeArea()
+            
             VStack(spacing: 10) {
                 
-                LiveView(main: self.main)
-                    .offset(y: -80)
+                Spacer()
                 
                 HStack {
                     Button(action: {
                         self.main.direction = .horizontal
                     }) {
                         Image("gradient_horizontal")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white)
                             .opacity(self.main.direction == .horizontal ? 1.0 : 0.2)
                     }
                     Button(action: {
                         self.main.direction = .vertical
                     }) {
                         Image("gradient_vertical")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white)
                             .opacity(self.main.direction == .vertical ? 1.0 : 0.2)
                     }
                     Button(action: {
                         self.main.direction = .angle
                     }) {
                         Image("gradient_angle")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white)
                             .opacity(self.main.direction == .angle ? 1.0 : 0.2)
                     }
                     Button(action: {
                         self.main.direction = .radial
                     }) {
                         Image("gradient_radial")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white)
                             .opacity(self.main.direction == .radial ? 1.0 : 0.2)
                     }   
                 }
                 
                 Spacer()
+                    .frame(height: 20)
                 
-                HStack(spacing: 50) {
+                ZStack {
+                
+                    // TODO: iPhone size compatibility
                     
-                    if self.main.lastSoraGradient != nil {
-                        GeometryReader { geo in
-                            Button(action: {
-                                self.main.display(sg: self.main.lastSoraGradient!, from: geo.frame(in: .global))
-                            }) {
-                                GradientView(gradient: Main.gradient(from: self.main.lastSoraGradient!)!)
-                                    .mask(Circle())
-                                    .opacity(self.main.displaySoraGradient == nil ? 1.0 : 0.0)
+                    HStack {
+                        
+                        Spacer()
+                            .frame(width: 35)
+                        
+                        if self.main.lastSoraGradient != nil {
+                            GeometryReader { geo in
+                                Button(action: {
+                                    self.main.display(sg: self.main.lastSoraGradient!, from: geo.frame(in: .global))
+                                }) {
+                                    GradientView(gradient: Main.gradient(from: self.main.lastSoraGradient!)!)
+                                        .mask(Circle())
+                                        .opacity(self.main.displaySoraGradient == nil ? 1.0 : 0.0)
+                                        .overlay {
+                                            Circle()
+                                                .stroke(lineWidth: 2)
+                                                .fill(.white)
+                                        }
+                                }
                             }
+                            .frame(width: 40, height: 40)
+                        } else {
+                            Color.clear
+                                .frame(width: 40, height: 40)
                         }
-                            .frame(width: 40, height: 40)
-                    } else {
-                        Rectangle()
-                            .opacity(0.0)
-                            .frame(width: 40, height: 40)
+                        
+                        Spacer()
+                        
+                        NavigationLink(destination: GeometryReader { geo in
+                                GridView(main: self.main)
+                                    .frame(height: geo.size.height + 50)
+                                    .offset(y: -25)
+                            }, isActive: Binding<Bool>(get: {
+                            self.main.state == .grid
+                        }, set: { active in
+                            self.main.state = active ? .grid : .capture
+                        })) {
+                            Image(systemName: "folder")
+                                .imageScale(.large)
+                                .foregroundColor(.white)
+                        }
+                        
+                        Spacer()
+                            .frame(width: 25)
+                        
+                        ZStack {
+                            Rectangle()
+                                .fill(.black)
+                            #if targetEnvironment(simulator)
+                            CameraTemplateView()
+                            #else
+                            PixelView(pix: self.main.cameraPix)
+                            #endif
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .frame(width: 60, height: 60)
                     }
+                    .padding(.horizontal, 20)
+                    
                     
                     Button {
                         self.main.capture()
                     } label: {
-                        Group {
-                            #if targetEnvironment(simulator)
-                            GradientTemplateView(main: self.main)
-                            #else
-                            GradientView(gradient: self.main.liveGradient)
-                            #endif
-                        }
-                        .mask(Circle())
+                        Circle()
+                            .foregroundColor(.white)
                             .frame(width: 60, height: 60)
-                            .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.primary))
-                    }
-                    
-                    NavigationLink(destination: GeometryReader { geo in
-                            GridView(main: self.main)
-                                .frame(height: geo.size.height + 50)
-                                .offset(y: -25)
-                        }, isActive: Binding<Bool>(get: {
-                        self.main.state == .grid
-                    }, set: { active in
-                        self.main.state = active ? .grid : .capture
-                    })) {
-                        Image(systemName: "folder")
-                            .imageScale(.large)
-                            .foregroundColor(.primary)
+                            .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.white))
                     }
                 }
+                
                 Spacer()
+                    .frame(height: 20)
             }
-                .padding(10)
         }
     }
 }
