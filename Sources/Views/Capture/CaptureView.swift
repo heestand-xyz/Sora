@@ -73,85 +73,108 @@ struct CaptureView: View {
                 
                 Spacer()
                     .frame(height: 20)
-                
-                ZStack {
-                
-                    // TODO: iPhone size compatibility
+                                
+                HStack {
+            
+                    HStack {
+                        
+                        Spacer()
+                        
+                        recentView
+                        
+                        Spacer()
+                    }
+                    
+                    captureView
                     
                     HStack {
                         
                         Spacer()
-                            .frame(width: 35)
                         
-                        if self.main.lastSoraGradient != nil {
-                            GeometryReader { geo in
-                                Button(action: {
-                                    self.main.display(sg: self.main.lastSoraGradient!, from: geo.frame(in: .global))
-                                }) {
-                                    GradientView(gradient: Main.gradient(from: self.main.lastSoraGradient!)!)
-                                        .mask(Circle())
-                                        .opacity(self.main.displaySoraGradient == nil ? 1.0 : 0.0)
-                                        .overlay {
-                                            Circle()
-                                                .stroke(lineWidth: 2)
-                                                .fill(.white)
-                                        }
-                                }
-                            }
-                            .frame(width: 40, height: 40)
-                        } else {
-                            Color.clear
-                                .frame(width: 40, height: 40)
-                        }
-                        
-                        Spacer()
-                        
-                        NavigationLink(destination: GeometryReader { geo in
-                                GridView(main: self.main)
-                                    .frame(height: geo.size.height + 50)
-                                    .offset(y: -25)
-                            }, isActive: Binding<Bool>(get: {
-                            self.main.state == .grid
-                        }, set: { active in
-                            self.main.state = active ? .grid : .capture
-                        })) {
-                            Image(systemName: "folder")
-                                .imageScale(.large)
-                                .foregroundColor(.white)
-                        }
+                        folderView
                         
                         Spacer()
                             .frame(width: 25)
                         
-                        ZStack {
-                            Rectangle()
-                                .fill(.black)
-                            #if targetEnvironment(simulator)
-                            CameraTemplateView()
-                            #else
-                            PixelView(pix: self.main.cameraPix)
-                            #endif
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                        .frame(width: 60, height: 60)
-                    }
-                    .padding(.horizontal, 20)
-                    
-                    
-                    Button {
-                        self.main.capture()
-                    } label: {
-                        Circle()
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .overlay(Circle().stroke(lineWidth: 5).frame(width: 75, height: 75).foregroundColor(.white))
+                        cameraView
                     }
                 }
-                
+                .padding(.horizontal, 20)
+            
                 Spacer()
                     .frame(height: 20)
             }
         }
+    }
+    
+    var captureView: some View {
+        Button {
+            self.main.capture()
+        } label: {
+            Circle()
+                .fill(.white)
+                .frame(width: 60, height: 60)
+                .overlay {
+                    Circle()
+                        .stroke(lineWidth: 5)
+                        .fill(.white)
+                        .frame(width: 75, height: 75)
+                }
+        }
+    }
+    
+    @ViewBuilder
+    var recentView: some View {
+        if self.main.lastSoraGradient != nil {
+            GeometryReader { geo in
+                Button(action: {
+                    self.main.display(sg: self.main.lastSoraGradient!, from: geo.frame(in: .global))
+                }) {
+                    GradientView(gradient: Main.gradient(from: self.main.lastSoraGradient!)!)
+                        .mask(Circle())
+                        .opacity(self.main.displaySoraGradient == nil ? 1.0 : 0.0)
+                        .overlay {
+                            Circle()
+                                .stroke(lineWidth: 2)
+                                .fill(.white)
+                        }
+                }
+            }
+            .frame(width: 40, height: 40)
+        } else {
+            Color.clear
+                .frame(width: 40, height: 40)
+        }
+    }
+    
+    var folderView: some View {
+        NavigationLink(destination: GeometryReader { geo in
+            GridView(main: self.main)
+                .frame(height: geo.size.height + 50)
+                .offset(y: -25)
+        }, isActive: Binding<Bool>(get: {
+            self.main.state == .grid
+        }, set: { active in
+            self.main.state = active ? .grid : .capture
+        })) {
+            Image(systemName: "folder")
+                .imageScale(.large)
+                .foregroundColor(.white)
+        }
+    }
+    
+    var cameraView: some View {
+        ZStack {
+            Rectangle()
+                .fill(.black)
+            #if targetEnvironment(simulator)
+            CameraTemplateView()
+            #else
+            PixelView(pix: self.main.cameraPix)
+            #endif
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .frame(width: 60, height: 60)
     }
 }
 
