@@ -33,11 +33,12 @@ struct CaptureView: View {
 //                .opacity(main.capturing ? 0.5 : 0.0)
 //                .edgesIgnoringSafeArea(.all)
 
-            LiveView(main: self.main)
-                .ignoresSafeArea()
-            
             VStack(spacing: 10) {
+
+                Spacer()
                 
+                LiveView(main: self.main)
+                    
                 Spacer()
                 
                 HStack {

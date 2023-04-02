@@ -12,9 +12,7 @@ struct ContentView: View {
     @ObservedObject var main: Main
     var body: some View {
         ZStack {
-            NavigationView {
-                CaptureView(main: main)
-            }
+            CaptureView(main: main)
             DisplayView(main: main)
         }
     }
