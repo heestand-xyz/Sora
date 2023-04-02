@@ -7,7 +7,7 @@
 //
 
 import PDFKit
-import RenderKit
+import AsyncGraphics
 
 class PDF {
     
@@ -61,10 +61,7 @@ class PDF {
             ])
             infoText.draw(at: CGPoint(x: padding, y: 325))
             
-            let image = photoImage
-            let width = image.size.width
-            let croppedImage = Texture.resize(image, to: CGSize(width: width, height: width), placement: .fill)
-            croppedImage.draw(in: CGRect(x: padding, y: 400, width: 200, height: 200))
+            photoImage.draw(in: CGRect(x: padding, y: 400, width: 200, height: 200))
             
             let drawContext = context.cgContext
             for (i, colorStep) in gradient.colorStops.enumerated() {

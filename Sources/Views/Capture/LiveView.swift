@@ -7,10 +7,7 @@
 //
 
 import SwiftUI
-#if !targetEnvironment(simulator)
-import RenderKit
-import PixelKit
-#endif
+import AsyncGraphics
 
 struct LiveView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -21,9 +18,11 @@ struct LiveView: View {
                 
                 Group {
                     #if targetEnvironment(simulator)
-                    GradientTemplateView(main: self.main)
+                    GradientTemplateView(main: main)
                     #else
-                    GradientView(gradient: self.main.liveGradient)
+                    if let gradient = main.liveGradient {
+                        GradientView(gradient: gradient)
+                    }
                     #endif
                 }
                 .aspectRatio(1.0, contentMode: .fit)
@@ -41,7 +40,9 @@ struct LiveView: View {
                     #if targetEnvironment(simulator)
                     CameraTemplateView()
                     #else
-                    PixelView(pix: self.main.cameraPix)
+                    if let graphic = main.cameraGraphic {
+                        GraphicView(graphic: graphic)
+                    }
                     #endif
                 }
                 .mask(Circle())

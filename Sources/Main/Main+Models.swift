@@ -10,6 +10,7 @@ import SwiftUI
 import UIKit
 import CoreData
 import PixelColor
+import AsyncGraphics
 
 extension Main {
 
@@ -24,6 +25,18 @@ extension Main {
         }
         var axis: Axis {
             self == .horizontal ? .x : .y
+        }
+        var ag: Graphic.GradientDirection {
+            switch self {
+            case .vertical:
+                return .vertical
+            case .horizontal:
+                return .horizontal
+            case .angle:
+                return .angle
+            case .radial:
+                return .radial
+            }
         }
     }
 
@@ -54,6 +67,12 @@ extension Main {
             
             let fraction: CGFloat
             
+            var ag: Graphic.GradientStop {
+                .init(at: fraction,
+                      color: PixelColor(red: color.red,
+                                        green: color.green,
+                                        blue: color.blue))
+            }
         }
         
         let colorStops: [ColorStop]

@@ -8,13 +8,11 @@
 
 import UIKit
 import SwiftUI
-import RenderKit
-import PixelKit
-import Resolution
 import CoreData
 import PixelColor
+import AsyncGraphics
 
-class Main: ObservableObject, NODEDelegate {
+class Main: ObservableObject {
     
     var persistentContainer: NSPersistentCloudKitContainer!
     var context: NSManagedObjectContext {
@@ -23,7 +21,8 @@ class Main: ObservableObject, NODEDelegate {
     
     let kRes: Int = 256
     let kSteps: Int = 10
-    let kImgRes: Resolution = ._1024
+    let kImgRes: CGSize = CGSize(width: 720,
+                                 height: 720)
     let kAnimationSeconds: CGFloat = 0.25
     
     enum State {
@@ -43,41 +42,13 @@ class Main: ObservableObject, NODEDelegate {
     let sketch: Sketch
     
     #if !targetEnvironment(simulator)
-    @Published var liveGradient: Gradient!
+    @Published var liveGradient: Gradient?
     #endif
     @Published var liveTemplateGradient: Gradient!
     
-    #if !targetEnvironment(simulator)
-    let cameraPix: CameraPIX
-    let resolutionPix: ResolutionPIX
-    let feedbackPix: FeedbackPIX
-    let crossPix: CrossPIX
-    let colorShift: ColorShiftPIX
-    let cropVerticalPix: CropPIX
-    let cropHorizontalPix: CropPIX
-    let resolutionVerticalPix: ResolutionPIX
-    let resolutionHorizontalPix: ResolutionPIX
-    let postGradientPix: GradientPIX
-    let postCirclePix: CirclePIX
-    let postBlendPix: BlendPIX
-    #endif
-    
     var bypass: Bool = false {
         didSet {
-            #if !targetEnvironment(simulator)
-            cameraPix.bypass = bypass
-            resolutionPix.bypass = bypass
-            feedbackPix.bypass = bypass
-            crossPix.bypass = bypass
-            colorShift.bypass = bypass
-            cropVerticalPix.bypass = bypass
-            cropHorizontalPix.bypass = bypass
-            resolutionVerticalPix.bypass = bypass
-            resolutionHorizontalPix.bypass = bypass
-            postGradientPix.bypass = bypass
-            postCirclePix.bypass = bypass
-            postBlendPix.bypass = bypass
-            #endif
+            #warning("Bypass")
         }
     }
     
@@ -113,71 +84,12 @@ class Main: ObservableObject, NODEDelegate {
     
     var animationTimer: Timer?
     
+    @Published private(set) var cameraGraphic: Graphic?
+    
     init() {
         
         sketch = Sketch()
         
-        #if !targetEnvironment(simulator)
-        
-        cameraPix = CameraPIX()
-        cameraPix.view.placement = .fill
-        cameraPix.view.checker = false
-        
-        resolutionPix = ResolutionPIX(at: .square(kRes))
-        resolutionPix.input = cameraPix
-        resolutionPix.placement = .fill
-        
-        feedbackPix = FeedbackPIX()
-        feedbackPix.input = resolutionPix
-        
-        crossPix = CrossPIX()
-        crossPix.fraction = 0.95
-        crossPix.inputA = resolutionPix
-        crossPix.inputB = feedbackPix
-        
-        feedbackPix.feedbackInput = crossPix
-        
-        colorShift = ColorShiftPIX()
-        colorShift.input = crossPix
-        colorShift.saturation = 1.25
-
-        cropVerticalPix = CropPIX()
-        cropVerticalPix.input = colorShift
-        cropVerticalPix.cropFrame = CGRect(x: 0.5 - 0.5 / CGFloat(kRes), y: 0.0, width: 1.0 / CGFloat(kRes), height: 1.0)
-        
-        cropHorizontalPix = CropPIX()
-        cropHorizontalPix.input = colorShift
-        cropHorizontalPix.cropFrame = CGRect(x: 0, y: 0.5 - 0.5 / CGFloat(kRes), width: 1.0, height: 1.0 / CGFloat(kRes))
-
-        resolutionVerticalPix = ResolutionPIX(at: .custom(w: 3, h: kSteps * 3))
-        resolutionVerticalPix.placement = .stretch
-        resolutionVerticalPix.extend = .hold
-        resolutionVerticalPix.input = cropVerticalPix
-        
-        resolutionHorizontalPix = ResolutionPIX(at: .custom(w: kSteps * 3, h: 3))
-        resolutionHorizontalPix.placement = .stretch
-        resolutionHorizontalPix.extend = .hold
-        resolutionHorizontalPix.input = cropHorizontalPix
-        
-        postGradientPix = GradientPIX(at: kImgRes)
-        
-        postCirclePix = CirclePIX(at: kImgRes)
-        postCirclePix.radius = 0.5
-        postCirclePix.backgroundColor = .clear
-        
-        postBlendPix = BlendPIX()
-        postBlendPix.blendMode = .multiply
-        postBlendPix.inputA = postGradientPix
-        postBlendPix.inputB = postCirclePix
-        
-        resolutionVerticalPix.delegate = self
-        resolutionHorizontalPix.delegate = self
-        
-        #endif
-        
-        #if !targetEnvironment(simulator)
-        liveGradient = makeGradient(at: kSteps, from: .black, to: .black, in: direction)
-        #endif
         liveTemplateGradient = makeTemplateGradient()
         
 //        #if DEBUG
@@ -190,41 +102,56 @@ class Main: ObservableObject, NODEDelegate {
         
         setupCoreData()
         listenToApp()
-        
+        setupCamera()
     }
     
-    func nodeDidRender(_ node: NODE) {
-        #if !targetEnvironment(simulator)
-        guard let pixels = getPixels() else { return }
-        liveGradient = makeGradient(at: kSteps, from: pixels, in: direction)
-        #endif
+    private func setupCamera() {
+        Task {
+            do {
+                for await graphic in try Graphic.camera(.back, preset: .hd1280x720) {
+                    let squareGraphic: Graphic = try await graphic.resized(to: kImgRes, placement: .fill)
+                    await MainActor.run {
+                        cameraGraphic = squareGraphic
+                    }
+                    try await process(graphic: squareGraphic)
+                }
+            } catch {
+                print("Camera Failed:", error)
+            }
+        }
     }
     
-    func capture() {
+    private func process(graphic: Graphic) async throws {
+        let gradient = try await makeGradient(at: kSteps, from: graphic, in: direction)
+        await MainActor.run {
+            liveGradient = gradient
+        }
+    }
+    
+    enum CaptureError: Error {
+        case cameraGraphicNotFound
+        case liveGradientNotFound
+    }
+    
+    func capture() async throws {
         
         print("Sora - Main - Capture")
         
         #if !targetEnvironment(simulator)
-        guard let cameraImage = cameraPix.renderedImage else { captureFailed(); return }
-        guard let pixels = getPixels() else { captureFailed(); return }
-        
-        let gradient: Gradient = makeGradient(at: kSteps, from: pixels, in: direction)
-
-        getImage(from: gradient, done: { image in
-        
-            do {
-                
-                try self.save(gradient: gradient, cameraImage: cameraImage, gradientImage: image)
-                
-            } catch {
-                self.captureFailed(with: error)
-            }
-            
-        }) {
-            self.captureFailed()
+        guard let cameraGraphic else {
+            throw CaptureError.cameraGraphicNotFound
+        }
+        guard let liveGradient else {
+            throw CaptureError.liveGradientNotFound
         }
         
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        let cameraImage: UIImage = try await cameraGraphic.image
+        
+        let image: UIImage = try await gradientImage(from: liveGradient)
+        
+        try self.save(gradient: liveGradient, cameraImage: cameraImage, gradientImage: image)
+        
+        await UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         #else
         
@@ -267,58 +194,11 @@ class Main: ObservableObject, NODEDelegate {
     }
     
     #if !targetEnvironment(simulator)
-    func getImage(from gradient: Gradient, done: @escaping (UIImage) -> (), failed: @escaping () -> ()) {
-        postBlendPix.texture = nil
-        switch gradient.direction {
-        case .horizontal:
-            postGradientPix.direction = .horizontal
-            postGradientPix.offset = 0.0
-            postGradientPix.extend = .hold
-        case .vertical:
-            postGradientPix.direction = .vertical
-            postGradientPix.extend = .mirror
-            postGradientPix.offset = 1.0
-        case .angle:
-            postGradientPix.direction = .angle
-            postGradientPix.offset = 0.75
-            postGradientPix.extend = .loop
-        case .radial:
-            postGradientPix.direction = .radial
-            postGradientPix.offset = 1.0
-            postGradientPix.extend = .mirror
-        }
-        postGradientPix.colorSteps = gradient.colorStops.map({ colorStop -> ColorStop in
-            ColorStop(colorStop.fraction, PixelColor(colorStop.color.uiColor))
-        })
-        var index = 0
-        RunLoop.current.add(Timer(timeInterval: 0.1, repeats: true, block: { timer in
-            guard let image = self.postBlendPix.renderedImage else {
-                if index < 10 {
-                    index += 1
-                    return
-                }
-                failed()
-                timer.invalidate()
-                return
-            }
-            done(image)
-            timer.invalidate()
-        }), forMode: .common)
+    func gradientImage(from gradient: Gradient) async throws -> UIImage {
+        let graphic: Graphic = try await .gradient(direction: gradient.direction.ag, stops: gradient.colorStops.map(\.ag), resolution: kImgRes, options: .bit16)
+        return try await graphic.image
     }
     #endif
-    
-    #if !targetEnvironment(simulator)
-    func getPixels() -> PIX.PixelPack? {
-        switch direction.axis {
-        case .x:
-            return resolutionHorizontalPix.renderedPixels
-        case .y:
-            return resolutionVerticalPix.renderedPixels
-        }
-    }
-    #endif
-    
-    func captureFailed(with error: Error? = nil) {}
     
     enum SortMethod: String, CaseIterable {
         case date = "Date"

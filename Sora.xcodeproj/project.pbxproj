@@ -41,7 +41,7 @@
 		D39DD86C279B22DA007AFF71 /* Main+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD86B279B22DA007AFF71 /* Main+App.swift */; };
 		D39DD86E279B2B79007AFF71 /* Main+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD86D279B2B79007AFF71 /* Main+Gradient.swift */; };
 		D39DD870279B3477007AFF71 /* SoraGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DD86F279B3477007AFF71 /* SoraGradient.swift */; };
-		E5727A7126C43B4E00D4F329 /* PixelKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7026C43B4E00D4F329 /* PixelKit */; };
+		D3F81E9029D9447B00E88030 /* AsyncGraphics in Frameworks */ = {isa = PBXBuildFile; productRef = D3F81E8F29D9447B00E88030 /* AsyncGraphics */; };
 		E5727A7426C43C1F00D4F329 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = E5727A7326C43C1F00D4F329 /* Zip */; };
 /* End PBXBuildFile section */
 
@@ -92,8 +92,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3F81E9029D9447B00E88030 /* AsyncGraphics in Frameworks */,
 				E5727A7426C43C1F00D4F329 /* Zip in Frameworks */,
-				E5727A7126C43B4E00D4F329 /* PixelKit in Frameworks */,
 				74926D84239BB6AC005955CF /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,8 +259,8 @@
 			);
 			name = Sora;
 			packageProductDependencies = (
-				E5727A7026C43B4E00D4F329 /* PixelKit */,
 				E5727A7326C43C1F00D4F329 /* Zip */,
+				D3F81E8F29D9447B00E88030 /* AsyncGraphics */,
 			);
 			productName = Sora;
 			productReference = 74ED8EB7236F3F3F004BD10E /* sora.app */;
@@ -291,8 +291,8 @@
 			);
 			mainGroup = 74ED8EAE236F3F3F004BD10E;
 			packageReferences = (
-				E5727A6F26C43B4E00D4F329 /* XCRemoteSwiftPackageReference "PixelKit" */,
 				E5727A7226C43C1F00D4F329 /* XCRemoteSwiftPackageReference "Zip" */,
+				D3F81E8E29D9447B00E88030 /* XCRemoteSwiftPackageReference "AsyncGraphics" */,
 			);
 			productRefGroup = 74ED8EB8236F3F3F004BD10E /* Products */;
 			projectDirPath = "";
@@ -556,12 +556,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E5727A6F26C43B4E00D4F329 /* XCRemoteSwiftPackageReference "PixelKit" */ = {
+		D3F81E8E29D9447B00E88030 /* XCRemoteSwiftPackageReference "AsyncGraphics" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/heestand-xyz/PixelKit";
+			repositoryURL = "https://github.com/heestand-xyz/AsyncGraphics";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				minimumVersion = 1.0.0;
 			};
 		};
 		E5727A7226C43C1F00D4F329 /* XCRemoteSwiftPackageReference "Zip" */ = {
@@ -575,10 +575,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E5727A7026C43B4E00D4F329 /* PixelKit */ = {
+		D3F81E8F29D9447B00E88030 /* AsyncGraphics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E5727A6F26C43B4E00D4F329 /* XCRemoteSwiftPackageReference "PixelKit" */;
-			productName = PixelKit;
+			package = D3F81E8E29D9447B00E88030 /* XCRemoteSwiftPackageReference "AsyncGraphics" */;
+			productName = AsyncGraphics;
 		};
 		E5727A7326C43C1F00D4F329 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;

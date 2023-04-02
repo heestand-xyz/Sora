@@ -8,31 +8,31 @@
 
 import Foundation
 import UIKit
-import PixelKit
 import PixelColor
+import AsyncGraphics
 
 extension Main {
     
-    #if !targetEnvironment(simulator)
-    func makeGradient(at count: Int, from pixels: PIX.PixelPack, in direction: Direction) -> Gradient {
+    func makeGradient(at count: Int, from graphic: Graphic, in direction: Direction) async throws -> Gradient {
+        let isVertical = direction != .horizontal
+        let lineGraphic = try await graphic.reduce(by: .average, in: isVertical ? .x : .y)
+        let size = CGSize(width: isVertical ? 1 : count,
+                          height: !isVertical ? 1 : count)
+        let pixelsGraphic = try await lineGraphic.resized(to: size, placement: .stretch, method: .lanczos)
+        let pixels: [PixelColor] = try await pixelsGraphic.pixelColors.flatMap { $0 }
+        return makeGradient(from: pixels, in: direction)
+    }
+    
+    func makeGradient(from colors: [PixelColor], in direction: Direction) -> Gradient {
         var colorStops: [Gradient.ColorStop] = []
-        for i in 0..<count {
-            let fraction = CGFloat(i) / CGFloat(count - 1)
-            let relFraction = (CGFloat(i) + 0.5) / CGFloat(count)
-            let pixelColor: PixelColor
-            switch direction.axis {
-            case .x:
-                pixelColor = pixels.pixel(uv: CGVector(dx: relFraction, dy: 0.5)).color
-            case .y:
-                pixelColor = pixels.pixel(uv: CGVector(dx: 0.5, dy: 1.0 - relFraction)).color
-            }
-            let color = Color(red: pixelColor.blue, green: pixelColor.green, blue: pixelColor.red)
+        for (i, color) in colors.enumerated() {
+            let fraction = CGFloat(i) / CGFloat(colors.count - 1)
+            let color = Color(red: color.red, green: color.green, blue: color.blue)
             let colorStop = Gradient.ColorStop(color: color, fraction: fraction)
             colorStops.append(colorStop)
         }
         return Gradient(direction: direction, colorStops: colorStops)
     }
-    #endif
     
     func makeGradient(at count: Int, from fromColor: Color, to toColor: Color, in direction: Direction) -> Gradient {
         var colorStops: [Gradient.ColorStop] = []

@@ -7,23 +7,24 @@
 //
 
 import SwiftUI
-#if !targetEnvironment(simulator)
-import RenderKit
-import PixelKit
-#endif
+import AsyncGraphics
 
 struct CaptureView: View {
     
     @ObservedObject var main: Main
+    
+    @State private var capturing: Bool = false
     
     var body: some View {
         ZStack {
             
             Group {
                 #if targetEnvironment(simulator)
-                GradientTemplateView(main: self.main)
+                GradientTemplateView(main: main)
                 #else
-                GradientView(gradient: self.main.liveGradient)
+                if let gradient = main.liveGradient {
+                    GradientView(gradient: gradient)                    
+                }
                 #endif
             }
             .opacity(0.25)
@@ -110,7 +111,7 @@ struct CaptureView: View {
     
     var captureView: some View {
         Button {
-            self.main.capture()
+            capture()
         } label: {
             Circle()
                 .fill(.white)
@@ -122,6 +123,7 @@ struct CaptureView: View {
                         .frame(width: 75, height: 75)
                 }
         }
+        .disabled(capturing)
     }
     
     @ViewBuilder
@@ -171,11 +173,25 @@ struct CaptureView: View {
             #if targetEnvironment(simulator)
             CameraTemplateView()
             #else
-            PixelView(pix: self.main.cameraPix)
+            if let graphic = main.cameraGraphic {
+                GraphicView(graphic: graphic)
+            }
             #endif
         }
         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         .frame(width: 60, height: 60)
+    }
+    
+    private func capture() {
+        capturing = true
+        Task {
+            do {
+                try await main.capture()
+            } catch {
+                print("Capture Failed:", error)
+            }
+            capturing = false
+        }
     }
 }
 
