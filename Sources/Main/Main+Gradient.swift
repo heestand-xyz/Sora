@@ -15,7 +15,11 @@ extension Main {
     
     func makeGradient(at count: Int, from graphic: Graphic, in direction: Direction) async throws -> Gradient {
         let isVertical = direction != .horizontal
-        let lineGraphic = try await graphic.reduce(by: .average, in: isVertical ? .x : .y)
+        let lineGraphic = if isVertical {
+            try await graphic.reduceToColumn(by: .average)
+        } else {
+            try await graphic.reduceToRow(by: .average)
+        }
         let size = CGSize(width: isVertical ? 1 : count,
                           height: !isVertical ? 1 : count)
         let pixelsGraphic = try await lineGraphic.resized(to: size, placement: .stretch, method: .lanczos)

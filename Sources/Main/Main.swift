@@ -41,9 +41,7 @@ class Main: ObservableObject {
     
     let sketch: Sketch
     
-    #if !targetEnvironment(simulator)
     @Published var liveGradient: Gradient?
-    #endif
     @Published var liveTemplateGradient: Gradient!
     
     var bypass: Bool = false {
@@ -108,7 +106,11 @@ class Main: ObservableObject {
     private func setupCamera() {
         Task {
             do {
-                for await graphic in try Graphic.camera(.back, preset: .hd1280x720) {
+                for await graphic in try Graphic.camera(
+                    at: .back,
+                    lens: .builtInWideAngleCamera,
+                    quality: .hd1280x720
+                ) {
                     let squareGraphic: Graphic = try await graphic.resized(to: kImgRes, placement: .fill)
                     await MainActor.run {
                         cameraGraphic = squareGraphic
